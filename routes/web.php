@@ -1,5 +1,7 @@
 <?php
 
+use \App\Http\Controllers;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -10,6 +12,8 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::get('categorias', 'CategoriaController@index');
 
 Route::get('/', function () {
     return view('welcome');
