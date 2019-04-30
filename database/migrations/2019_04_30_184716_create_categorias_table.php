@@ -16,7 +16,7 @@ class CreateCategoriasTable extends Migration
         Schema::create('categorias', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('nome');
-            $table->boolean("secundaria");
+            $table->boolean("secundária");
             $table->timestamps();
         });
     }
