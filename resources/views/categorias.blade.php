@@ -1,11 +1,16 @@
 <html>
 <body>
+
+{{dd($categoria->nome)}}
+
 <?php
 
-foreach ($categorias as $cat) {
-    echo $cat->id;
-}
+/*foreach ($categoria as $cat) {
+    echo $cat->nome;
+}*/
 
 ?>
+
+
 </body>
 </html>

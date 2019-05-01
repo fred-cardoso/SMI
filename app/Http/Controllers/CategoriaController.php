@@ -38,6 +38,9 @@ class CategoriaController extends Controller
     public function store(Request $request)
     {
         //
+        $categoria = new Categoria();
+        $categoria->name = ""; //request
+        $categoria->save();
     }
 
     /**
@@ -46,9 +49,11 @@ class CategoriaController extends Controller
      * @param  \App\Categoria  $categoria
      * @return \Illuminate\Http\Response
      */
-    public function show(Categoria $categoria)
+    public function show($cid)
     {
-        //
+        $categoria = Categoria::where('id', $cid)->first();
+
+        return view('categorias', compact('categoria'));
     }
 
     /**

@@ -14,6 +14,8 @@ use \App\Http\Controllers;
 */
 
 Route::get('categorias', 'CategoriaController@index');
+Route::get('categorias/{cid}', 'CategoriaController@show');
+Route::post('categorias/new', 'CategoriaController@store');
 
 Route::get('/', function () {
     return view('welcome');
