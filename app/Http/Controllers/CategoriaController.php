@@ -16,7 +16,7 @@ class CategoriaController extends Controller
     {
         $categorias = Categoria::all();
 
-        dd($categorias);
+        return view('categorias', compact('categorias'));
     }
 
     /**
