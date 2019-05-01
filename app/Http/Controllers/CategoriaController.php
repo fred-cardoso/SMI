@@ -16,7 +16,7 @@ class CategoriaController extends Controller
     {
         $categorias = Categoria::all();
 
-        return view('categorias', compact('categorias'));
+        return view('categorias.index', compact('categorias'));
     }
 
     /**
@@ -26,7 +26,7 @@ class CategoriaController extends Controller
      */
     public function create()
     {
-        //
+        return view('categorias.create');
     }
 
     /**
@@ -37,10 +37,11 @@ class CategoriaController extends Controller
      */
     public function store(Request $request)
     {
-        //
         $categoria = new Categoria();
-        $categoria->name = ""; //request
+        $categoria->nome = $request->nomeCat; //request
+        $categoria->secundaria = true;
         $categoria->save();
+        return redirect()->route('indice');
     }
 
     /**
