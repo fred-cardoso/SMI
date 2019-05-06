@@ -21,3 +21,17 @@ Route::post('categorias/create', 'CategoriaController@store');
 Route::get('/', function () {
     return view('welcome');
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/testMail', function() {
+    $slot = [];
+    Mail::send('vendor.mail.html.panel2', $slot, function($message) use($slot) {
+        $message->to('fredecardoso@hotmail.com');
+        $message->subject('New email!!!');
+    });
+
+    return "OK";
+});
+
