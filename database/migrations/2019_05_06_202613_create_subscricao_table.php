@@ -15,8 +15,16 @@ class CreateUserCategoriaTable extends Migration
     {
         Schema::create('user_categoria', function (Blueprint $table) {
             $table->bigIncrements("id");
-            $table->bigIncrements("UserID");
+            $table->bigIncrements("userID");
             $table->bigIncrements("categoriaID");
+
+            //FOREIGN KEY CONSTRAINTS
+            $table->foreign('userID')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('categoriaID')->references('id')->on('categorias')->onDelete('cascade');
+
+
+            //SETTING THE PRIMARY KEYS
+            $table->primary(['userID,categoriaID']);
         });
     }
 

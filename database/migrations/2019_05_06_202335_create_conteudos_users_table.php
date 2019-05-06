@@ -20,6 +20,14 @@ class CreateConteudosUsersTable extends Migration
             $table->date('dataPub');
             $table->boolean("privado");
             $table->timestamps();
+
+            //FOREIGN KEY CONSTRAINTS
+            $table->foreign('userID')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('conteudoID')->references('id')->on('conteudos')->onDelete('cascade');
+
+
+            //SETTING THE PRIMARY KEYS
+            $table->primary(['userID,conteudoID']);
         });
     }
 

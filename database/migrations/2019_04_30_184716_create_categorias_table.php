@@ -18,6 +18,10 @@ class CreateCategoriasTable extends Migration
             $table->string('nome');
             $table->boolean("secundaria");
             $table->timestamps();
+
+
+            //SETTING THE PRIMARY KEYS
+            $table->primary(['id']);
         });
     }
 

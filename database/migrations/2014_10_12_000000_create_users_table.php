@@ -24,6 +24,9 @@ class CreateUsersTable extends Migration
             $table->date("ultimoLogin");
             $table->rememberToken();
             $table->timestamps();
+
+            //SETTING THE PRIMARY KEYS
+            $table->primary(['id']);
         });
     }
 
