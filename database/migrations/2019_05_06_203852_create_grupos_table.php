@@ -17,8 +17,6 @@ class CreateGruposTable extends Migration
             $table->bigIncrements('id');
             $table->string("nome");
 
-            //SETTING THE PRIMARY KEYS
-            $table->primary(['id']);
         });
     }
 

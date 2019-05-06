@@ -24,12 +24,10 @@ class CreateConteudosTable extends Migration
             $table->timestamps();
 
             //FOREIGN KEY CONSTRAINTS
-            $table->foreign('utilizador')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('categoria')->references('id')->on('categorias')->onDelete('cascade');
-            $table->foreign('tag')->references('id')->on('tags')->onDelete('cascade');
+            //$table->foreign('utilizador')->references('id')->on('users')->onDelete('cascade');
+            //$table->foreign('categoria')->references('id')->on('categorias')->onDelete('cascade');
+            //$table->foreign('tag')->references('id')->on('tags')->onDelete('cascade');
 
-            //SETTING THE PRIMARY KEYS
-            $table->primary(['id']);
         });
     }
 

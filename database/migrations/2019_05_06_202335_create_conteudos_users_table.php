@@ -14,20 +14,20 @@ class CreateConteudosUsersTable extends Migration
     public function up()
     {
         Schema::create('conteudos_users', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->bigIncrements('userID');
-            $table->bigIncrements('conteudoID');
+            $table->bigIncrements("id");
+            $table->integer('userID');
+            $table->integer('conteudoID');
             $table->date('dataPub');
             $table->boolean("privado");
             $table->timestamps();
 
             //FOREIGN KEY CONSTRAINTS
-            $table->foreign('userID')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('conteudoID')->references('id')->on('conteudos')->onDelete('cascade');
+           // $table->foreign('userID')->references('id')->on('users')->onDelete('cascade');
+            //$table->foreign('conteudoID')->references('id')->on('conteudos')->onDelete('cascade');
 
 
             //SETTING THE PRIMARY KEYS
-            $table->primary(['userID,conteudoID']);
+            //$table->primary(['userID,conteudoID']);
         });
     }
 
