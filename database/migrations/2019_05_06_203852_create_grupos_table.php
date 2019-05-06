@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUserCategoriaTable extends Migration
+class CreateGruposTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,9 @@ class CreateUserCategoriaTable extends Migration
      */
     public function up()
     {
-        Schema::create('user_categoria', function (Blueprint $table) {
-            $table->bigIncrements("id");
-            $table->bigIncrements("UserID");
-            $table->bigIncrements("categoriaID");
+        Schema::create('grupos', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->string("nome");
         });
     }
 
@@ -27,6 +26,6 @@ class CreateUserCategoriaTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_categoria');
+        Schema::dropIfExists('grupos');
     }
 }

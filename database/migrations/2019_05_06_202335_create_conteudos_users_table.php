@@ -15,6 +15,10 @@ class CreateConteudosUsersTable extends Migration
     {
         Schema::create('conteudos_users', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->bigIncrements('userID');
+            $table->bigIncrements('conteudoID');
+            $table->date('dataPub');
+            $table->boolean("privado");
             $table->timestamps();
         });
     }
