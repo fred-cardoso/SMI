@@ -1,6 +1,7 @@
 <?php
 
-use \App\Http\Controllers;
+//use \App\Http\Controllers;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,10 +16,32 @@ use \App\Http\Controllers;
 
 Auth::routes(['verify' => true]);
 
-Route::get('categorias', 'CategoriaController@index')->name('indice');
-Route::get('categorias/create','CategoriaController@create');
-Route::get('categorias/{cid}', 'CategoriaController@show');
-Route::post('categorias/create', 'CategoriaController@store');
+dd(auth()->user());
+
+Route::group(['middleware' => ['auth', 'verified']], function () {
+
+    Route::group(['middleware' => 'role:admin'], function () {
+        Route::get('users', 'UserController@index');
+        Route::get('users/{uid}', 'UserController@show');
+        Route::get('users/create', 'UserController@show');
+
+        Route::get('categorias', 'CategoriaController@index')->name('indice');
+        Route::get('categorias/create','CategoriaController@create');
+        Route::get('categorias/{cid}', 'CategoriaController@show');
+        Route::post('categorias/create', 'CategoriaController@store');
+    });
+
+   // dd($request);
+
+    Route::group(['middleware' => 'role:user'], function() {
+
+        dd(Auth::user());
+
+        Route::get('users/{uid}', 'UserController@show')->where('uid', Auth::user()->id);
+    });
+
+});
+
 
 Route::get('/', function () {
     return view('welcome');
