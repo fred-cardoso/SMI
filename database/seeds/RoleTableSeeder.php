@@ -22,33 +22,33 @@ class RoleTableSeeder extends Seeder
         $create_content_permission = Permission::where('slug', 'create-content')->first();
         $subscribe_permission = Permission::where('slug', 'subscribe')->first();
 
-        $dev_role = new Role();
-        $dev_role->slug = 'admin';
-        $dev_role->name = 'Administrador';
-        $dev_role->save();
-        $dev_role->permissions()->attach($settings_permission);
-        $dev_role->permissions()->attach($manage_categories_permission);
-        $dev_role->permissions()->attach($manage_users_permission);
-        $dev_role->permissions()->attach($create_categories_permission);
-        $dev_role->permissions()->attach($edit_content_meta_permission);
-        $dev_role->permissions()->attach($download_content_permission);
-        $dev_role->permissions()->attach($create_content_permission);
-        $dev_role->permissions()->attach($subscribe_permission);
+        $admin_role = new Role();
+        $admin_role->slug = 'admin';
+        $admin_role->name = 'Administrador';
+        $admin_role->save();
+        $admin_role->permissions()->attach($settings_permission);
+        $admin_role->permissions()->attach($manage_categories_permission);
+        $admin_role->permissions()->attach($manage_users_permission);
+        $admin_role->permissions()->attach($create_categories_permission);
+        $admin_role->permissions()->attach($edit_content_meta_permission);
+        $admin_role->permissions()->attach($download_content_permission);
+        $admin_role->permissions()->attach($create_content_permission);
+        $admin_role->permissions()->attach($subscribe_permission);
 
-        $manager_role = new Role();
-        $manager_role->slug = 'simpatizante';
-        $manager_role->name = 'Simpatizante';
-        $manager_role->save();
-        $dev_role->permissions()->attach($create_categories_permission);
-        $dev_role->permissions()->attach($edit_content_meta_permission);
-        $dev_role->permissions()->attach($download_content_permission);
-        $dev_role->permissions()->attach($create_content_permission);
-        $dev_role->permissions()->attach($subscribe_permission);
+        $simpatizante_role = new Role();
+        $simpatizante_role->slug = 'simpatizante';
+        $simpatizante_role->name = 'Simpatizante';
+        $simpatizante_role->save();
+        $simpatizante_role->permissions()->attach($create_categories_permission);
+        $simpatizante_role->permissions()->attach($edit_content_meta_permission);
+        $simpatizante_role->permissions()->attach($download_content_permission);
+        $simpatizante_role->permissions()->attach($create_content_permission);
+        $simpatizante_role->permissions()->attach($subscribe_permission);
 
-        $manager_role = new Role();
-        $manager_role->slug = 'user';
-        $manager_role->name = 'utilizador';
-        $manager_role->save();
-        $dev_role->permissions()->attach($subscribe_permission);
+        $user_role = new Role();
+        $user_role->slug = 'user';
+        $user_role->name = 'utilizador';
+        $user_role->save();
+        $user_role->permissions()->attach($subscribe_permission);
     }
 }
