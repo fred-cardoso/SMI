@@ -11,8 +11,15 @@ class RoleTableSeeder extends Seeder
      */
     public function run()
     {
-        $dev_permission = Permission::where('slug','create-tasks')->first();
-        $manager_permission = Permission::where('slug', 'edit-users')->first();
+        $settings_permission = Permission::where('slug','create-tasks')->first();
+        $manage_categories_permission = Permission::where('slug', 'edit-users')->first();
+        $manage_users_permission = Permission::where('slug', 'edit-users')->first();
+        $create_categories_permission = Permission::where('slug', 'edit-users')->first();
+        $edit_content_meta_permission = Permission::where('slug', 'edit-users')->first();
+        $download_content_permission = Permission::where('slug', 'edit-users')->first();
+        $create_content_permission = Permission::where('slug', 'edit-users')->first();
+        $manage_categories_permission = Permission::where('slug', 'edit-users')->first();
+        $subscribe_permission = Permission::where('slug', 'edit-users')->first();
 
         $dev_role = new Role();
         $dev_role->slug = 'admin';
