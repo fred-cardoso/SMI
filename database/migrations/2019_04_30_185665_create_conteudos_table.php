@@ -14,19 +14,19 @@ class CreateConteudosTable extends Migration
     public function up()
     {
         Schema::create('conteudos', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
             $table->string("titulo");
             $table->string("tipo");
             $table->string("nome");
-            $table->integer("utilizador");
-            $table->integer("categoria");
-            $table->integer("tag");
+            $table->integer("utilizador")->unsigned();
+            $table->integer("categoria")->unsigned();
+            $table->integer("tag")->unsigned();
             $table->timestamps();
 
             //FOREIGN KEY CONSTRAINTS
-            //$table->foreign('utilizador')->references('id')->on('users')->onDelete('cascade');
-            //$table->foreign('categoria')->references('id')->on('categorias')->onDelete('cascade');
-            //$table->foreign('tag')->references('id')->on('tags')->onDelete('cascade');
+            $table->foreign('utilizador')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('categoria')->references('id')->on('categorias')->onDelete('cascade');
+            $table->foreign('tag')->references('id')->on('tags')->onDelete('cascade');
 
         });
     }
