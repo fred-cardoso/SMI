@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+//use GruposSeeder,PermissionTableSeeder,RoleTableSeeder,UserTableSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -11,6 +12,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(UsersTableSeeder::class);
+        $this->call(GruposSeeder::class);
+        //$this->call(UserTableSeeder::class);
+        $this->call(PermissionTableSeeder::class);
+        $this->call(RoleTableSeeder::class);
+
+
     }
 }
