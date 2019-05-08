@@ -36,3 +36,12 @@ Route::get('/testMail', function() {
     return "OK";
 });
 
+/**
+ * Example
+ */
+
+Route::group(['middleware' => 'role:admin'], function() {
+    Route::get('/admin', function() {
+        return 'Welcome Admin';
+    });
+});
