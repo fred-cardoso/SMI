@@ -1,6 +1,9 @@
 @extends('layout.layout')
 @section('title', 'Criar Categoria')
 @section('content')
+    @if(session()->has('erro'))
+        <h3>{{session()->get('erro')}}</h3>
+        @endif
     <form action="" method="post">
         @csrf
         Nome da Categoria<br>

@@ -40,8 +40,13 @@ class CategoriaController extends Controller
         $categoria = new Categoria();
         $categoria->nome = $request->nomeCat; //request
         $categoria->secundaria = true;
-        $categoria->save();
-        return redirect()->route('indice');
+        $resultado = $categoria->save();
+
+        if($resultado) {
+            return redirect()->route('indice');
+        } else {
+            return redirect()->back()->with('erro', 'Ocorreu um erro!');
+        }
     }
 
     /**
