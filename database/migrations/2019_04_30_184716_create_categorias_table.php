@@ -20,8 +20,6 @@ class CreateCategoriasTable extends Migration
             $table->timestamps();
 
 
-            //SETTING THE PRIMARY KEYS
-            $table->primary(['id']);
         });
     }
 
