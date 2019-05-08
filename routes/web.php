@@ -13,6 +13,8 @@ use \App\Http\Controllers;
 |
 */
 
+Auth::routes(['verify' => true]);
+
 Route::get('categorias', 'CategoriaController@index')->name('indice');
 Route::get('categorias/create','CategoriaController@create');
 Route::get('categorias/{cid}', 'CategoriaController@show');
@@ -21,8 +23,6 @@ Route::post('categorias/create', 'CategoriaController@store');
 Route::get('/', function () {
     return view('welcome');
 });
-
-Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
@@ -40,8 +40,8 @@ Route::get('/testMail', function() {
  * Example
  */
 
-Route::group(['middleware' => 'role:admin'], function() {
+/*Route::group(['middleware' => 'role:admin'], function() {
     Route::get('/admin', function() {
         return 'Welcome Admin';
     });
-});
+})->middleware('verified');*/
