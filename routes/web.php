@@ -21,6 +21,8 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
         Route::get('users/create', 'UserController@create');
         Route::post('users/create', 'UserController@store');
         Route::get('users/{uid}/edit', 'UserController@edit')->where(['uid' => '[0-9]+']);
+        Route::post('users/{uid}/edit', 'UserController@update')->where(['uid' => '[0-9]+']);
+        Route::post('users/{uid}/delete', 'UserController@destroy')->where(['uid' => '[0-9]+']);
 
         Route::get('categorias', 'CategoriaController@index')->name('indice');
         Route::get('categorias/{cid}', 'CategoriaController@show');

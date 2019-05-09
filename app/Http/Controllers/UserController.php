@@ -65,7 +65,7 @@ class UserController extends Controller
 
         event(new Registered($user));
 
-        $user_role = Role::where('slug',$request->group)->first();
+        $user_role = Role::where('name',$request->group)->first();
         $user->roles()->attach($user_role);
 
         return redirect()->back()->withSuccess('Utilizador registado com sucesso!');
@@ -98,22 +98,57 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      *
+     * @param \Illuminate\Http\User ID $uid
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update($uid, Request $request)
     {
-        //
+        $groupsCollection = Role::all();
+
+        $groups = array();
+
+        foreach ($groupsCollection as $group) {
+            array_push($groups, $group->name);
+        }
+
+        $validatedData = $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255'],
+            'group' => [Rule::in($groups)],
+        ]);
+
+        $user = User::where('id', $uid)->first();
+        $user->load('roles');
+        $user->name = $validatedData['name'];
+        $user->email = $validatedData['email'];
+
+        $current_user_role = Role::where('slug', $user->roles->first()->slug)->first();
+        $user->roles()->detach($current_user_role);
+
+        $user_role = Role::where('name',$request->group)->first();
+        $user->roles()->attach($user_role);
+
+        if($user->save()) {
+            return redirect()->back()->withSuccess('Utilizador atualizado com sucesso!');
+        } else {
+            return redirect()->back()->withErrors('Ocorreu um erro!');
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param \App\Conteudo $conteudo
+     * @param \App\User ID $uid
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Conteudo $conteudo)
+    public function destroy($uid)
     {
-        //
+        $user = User::where('id', $uid)->first();
+        if($user->forceDelete()) {
+            return redirect()->back()->withSuccess('Utilizador eliminado com sucesso!');
+        } else {
+            return redirect()->back()->withErrors('Ocorreu um erro!');
+        }
     }
 }
