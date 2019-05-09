@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Role;
+use App\User;
+use Carbon\Carbon;
 
 class UserTableSeeder extends Seeder
 {
@@ -11,26 +14,24 @@ class UserTableSeeder extends Seeder
      */
     public function run()
     {
-        $dev_role = Role::where('slug','developer')->first();
-        $manager_role = Role::where('slug', 'manager')->first();
-        $dev_perm = Permission::where('slug','create-tasks')->first();
-        $manager_perm = Permission::where('slug','edit-users')->first();
+        $admin = Role::where('slug','admin')->first();
+        $user = Role::where('slug', 'user')->first();
 
-        $developer = new User();
-        $developer->name = 'Usama Muneer';
-        $developer->email = 'usama@thewebtier.com';
-        $developer->password = bcrypt('secret');
-        $developer->save();
-        $developer->roles()->attach($dev_role);
-        $developer->permissions()->attach($dev_perm);
+        $admin = new User();
+        $admin->name = 'Frederico Cardoso';
+        $admin->email = 'fredecardoso@fakemail.com';
+        $admin->password = bcrypt('secret');
+        $admin->email_verified_at = Carbon::now();
+        $admin->save();
+        $admin->roles()->attach($admin);
 
 
-        $manager = new User();
-        $manager->name = 'Asad Butt';
-        $manager->email = 'asad@thewebtier.com';
-        $manager->password = bcrypt('secret');
-        $manager->save();
-        $manager->roles()->attach($manager_role);
-        $manager->permissions()->attach($manager_perm);
+        $utilizador = new User();
+        $utilizador->name = 'Frederico Cardoso';
+        $utilizador->email = 'fredecardoso@wishmail.com';
+        $utilizador->password = bcrypt('secret');
+        $utilizador->email_verified_at = Carbon::now();
+        $utilizador->save();
+        $utilizador->roles()->attach($user);
     }
 }

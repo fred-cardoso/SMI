@@ -1,8 +1,5 @@
 <?php
 
-//use \App\Http\Controllers;
-use Illuminate\Http\Request;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,28 +13,26 @@ use Illuminate\Http\Request;
 
 Auth::routes(['verify' => true]);
 
-dd(auth()->user());
-
 Route::group(['middleware' => ['auth', 'verified']], function () {
 
     Route::group(['middleware' => 'role:admin'], function () {
         Route::get('users', 'UserController@index');
-        Route::get('users/{uid}', 'UserController@show');
-        Route::get('users/create', 'UserController@show');
+        Route::get('users/{uid}', 'UserController@show')->where(['uid' => '[0-9]+']);
+        Route::get('users/create', 'UserController@create');
+        Route::post('users/create', 'UserController@store');
+        Route::get('users/{uid}/edit', 'UserController@edit')->where(['uid' => '[0-9]+']);
 
         Route::get('categorias', 'CategoriaController@index')->name('indice');
-        Route::get('categorias/create','CategoriaController@create');
         Route::get('categorias/{cid}', 'CategoriaController@show');
+        Route::get('categorias/create','CategoriaController@create');
         Route::post('categorias/create', 'CategoriaController@store');
     });
 
-   // dd($request);
-
     Route::group(['middleware' => 'role:user'], function() {
-
-        dd(Auth::user());
-
-        Route::get('users/{uid}', 'UserController@show')->where('uid', Auth::user()->id);
+        Route::get('profile', function (\App\Http\Controllers\UserController $controller) {
+            $uid = Auth::user()->id;
+            return $controller->show($uid);
+        });
     });
 
 });

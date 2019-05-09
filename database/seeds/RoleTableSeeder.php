@@ -47,7 +47,7 @@ class RoleTableSeeder extends Seeder
 
         $user_role = new Role();
         $user_role->slug = 'user';
-        $user_role->name = 'utilizador';
+        $user_role->name = 'Utilizador';
         $user_role->save();
         $user_role->permissions()->attach($subscribe_permission);
     }

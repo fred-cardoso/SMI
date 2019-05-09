@@ -3,7 +3,8 @@
 @section('content')
     <?php
     foreach ($users as $user) {
-        echo '<a href="users/' . $user->id . '">' . $user->name . '</a>';
+        echo '<a href="users/' . $user->id . '/edit">' . $user->name . '</a>';
+        echo '</br>';
     }
     ?>
 @endsection
