@@ -39,7 +39,12 @@ class CategoriaController extends Controller
     {
         $categoria = new Categoria();
         $categoria->nome = $request->nomeCat; //request
-        $categoria->secundaria = true;
+        dd($request->secundaria);
+
+        if($request->secundaria == null){
+            $categoria->secundaria = false;
+        }
+
         $resultado = $categoria->save();
 
         if($resultado) {
@@ -70,7 +75,8 @@ class CategoriaController extends Controller
      */
     public function edit(Categoria $categoria)
     {
-        //
+        $categoriaNome = Categoria::where('nome',$categoria)->first();
+        return view('users.create', compact('user'));
     }
 
     /**
@@ -82,7 +88,13 @@ class CategoriaController extends Controller
      */
     public function update(Request $request, Categoria $categoria)
     {
-        //
+        $categoriaNome = User::where('nome', $categoria)->first();
+
+        if($categoriaNome->save()) {
+            return redirect()->back()->withSuccess('Categoria atualizada com sucesso!');
+        } else {
+            return redirect()->back()->withErrors('Ocorreu um erro!');
+        }
     }
 
     /**
@@ -93,6 +105,11 @@ class CategoriaController extends Controller
      */
     public function destroy(Categoria $categoria)
     {
-        //
+        $categoriaNome = Categoria::where('nome', $categoria)->first();
+        if($categoriaNome->forceDelete()) {
+            return redirect()->back()->withSuccess('Categoria eliminada com sucesso!');
+        } else {
+            return redirect()->back()->withErrors('Ocorreu um erro!');
+        }
     }
 }
