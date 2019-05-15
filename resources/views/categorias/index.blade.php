@@ -5,7 +5,7 @@
 <?php
 
 foreach ($categorias as $cat) {
-    echo $cat->nome;
+    echo $cat;
     echo "</br>";
 }
 

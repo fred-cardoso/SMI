@@ -25,9 +25,13 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
         Route::post('users/{uid}/delete', 'UserController@destroy')->where(['uid' => '[0-9]+']);
 
         Route::get('categorias', 'CategoriaController@index')->name('indice');
-        Route::get('categorias/{cid}', 'CategoriaController@show');
+
         Route::get('categorias/create','CategoriaController@create');
         Route::post('categorias/create', 'CategoriaController@store');
+        Route::get('categorias/{cid}', 'CategoriaController@show')->where(['uid' => '[0-9]+']);
+        Route::get('categorias/{cid}/edit', 'CategoriaController@edit')->where(['uid' => '[0-9]+']);;
+        Route::post('categorias/{cid}/edit', 'CategoriaController@update')->where(['uid' => '[0-9]+']);
+        Route::post('categorias/{cid}/delete', 'CategoriaController@destroy')->where(['uid' => '[0-9]+']);
     });
 
     Route::group(['middleware' => 'role:user'], function() {
