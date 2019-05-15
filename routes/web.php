@@ -29,14 +29,20 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
         Route::get('categorias/create','CategoriaController@create');
         Route::post('categorias/create', 'CategoriaController@store');
 <<<<<<< HEAD
+<<<<<<< HEAD
 
         Route::get('upload', 'ConteudoController@create');
         Route::post('upload', 'ConteudoController@store');
 =======
+=======
+>>>>>>> fb0cfe1ba8f0ee4fd85a0e5df28a3c3de528a1bf
         Route::get('categorias/{cid}', 'CategoriaController@show')->where(['uid' => '[0-9]+']);
         Route::get('categorias/{cid}/edit', 'CategoriaController@edit')->where(['uid' => '[0-9]+']);;
         Route::post('categorias/{cid}/edit', 'CategoriaController@update')->where(['uid' => '[0-9]+']);
         Route::post('categorias/{cid}/delete', 'CategoriaController@destroy')->where(['uid' => '[0-9]+']);
+<<<<<<< HEAD
+>>>>>>> fb0cfe1ba8f0ee4fd85a0e5df28a3c3de528a1bf
+=======
 >>>>>>> fb0cfe1ba8f0ee4fd85a0e5df28a3c3de528a1bf
     });
 
