@@ -25,12 +25,19 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
         Route::post('users/{uid}/delete', 'UserController@destroy')->where(['uid' => '[0-9]+']);
 
         Route::get('categorias', 'CategoriaController@index')->name('indice');
-        Route::get('categorias/{cid}', 'CategoriaController@show');
+
         Route::get('categorias/create','CategoriaController@create');
         Route::post('categorias/create', 'CategoriaController@store');
+<<<<<<< HEAD
 
         Route::get('upload', 'ConteudoController@create');
         Route::post('upload', 'ConteudoController@store');
+=======
+        Route::get('categorias/{cid}', 'CategoriaController@show')->where(['uid' => '[0-9]+']);
+        Route::get('categorias/{cid}/edit', 'CategoriaController@edit')->where(['uid' => '[0-9]+']);;
+        Route::post('categorias/{cid}/edit', 'CategoriaController@update')->where(['uid' => '[0-9]+']);
+        Route::post('categorias/{cid}/delete', 'CategoriaController@destroy')->where(['uid' => '[0-9]+']);
+>>>>>>> fb0cfe1ba8f0ee4fd85a0e5df28a3c3de528a1bf
     });
 
     Route::group(['middleware' => 'role:user'], function() {

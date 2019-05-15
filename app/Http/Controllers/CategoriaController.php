@@ -39,7 +39,7 @@ class CategoriaController extends Controller
     {
         $categoria = new Categoria();
         $categoria->nome = $request->nomeCat; //request
-        dd($request->secundaria);
+
 
         if($request->secundaria == null){
             $categoria->secundaria = false;
@@ -73,10 +73,10 @@ class CategoriaController extends Controller
      * @param  \App\Categoria  $categoria
      * @return \Illuminate\Http\Response
      */
-    public function edit(Categoria $categoria)
+    public function edit($cid)
     {
-        $categoriaNome = Categoria::where('nome',$categoria)->first();
-        return view('users.create', compact('user'));
+        $categoria = Categoria::where('id',$cid)->first();
+        return view('categorias.create', compact('categoria'));
     }
 
     /**
@@ -86,11 +86,19 @@ class CategoriaController extends Controller
      * @param  \App\Categoria  $categoria
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Categoria $categoria)
+    public function update(Request $request, $cid)
     {
-        $categoriaNome = User::where('nome', $categoria)->first();
+        $categoria = Categoria::where('id', $cid)->first();
 
-        if($categoriaNome->save()) {
+
+        $categoria->nome = $request->nomeCat;
+        if($request->secundaria == null){
+            $categoria->secundaria = false;
+        }else{
+            $categoria->secundaria = true;
+        }
+
+        if($categoria->save()) {
             return redirect()->back()->withSuccess('Categoria atualizada com sucesso!');
         } else {
             return redirect()->back()->withErrors('Ocorreu um erro!');
@@ -103,10 +111,11 @@ class CategoriaController extends Controller
      * @param  \App\Categoria  $categoria
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Categoria $categoria)
+    public function destroy($cid)
     {
-        $categoriaNome = Categoria::where('nome', $categoria)->first();
-        if($categoriaNome->forceDelete()) {
+
+        $categoria = Categoria::where('id', $cid)->first();
+        if($categoria->forceDelete()) {
             return redirect()->back()->withSuccess('Categoria eliminada com sucesso!');
         } else {
             return redirect()->back()->withErrors('Ocorreu um erro!');
