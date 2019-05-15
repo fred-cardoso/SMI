@@ -18,6 +18,7 @@ $roles = \App\Role::all();
             {{session()->get('success')}}
         </div>
     @endif
+    //TODO: <Password></Password>
     <form action="" method="post">
         @csrf
         Nome do Utilizador<br>

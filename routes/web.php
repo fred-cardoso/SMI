@@ -28,6 +28,9 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
         Route::get('categorias/{cid}', 'CategoriaController@show');
         Route::get('categorias/create','CategoriaController@create');
         Route::post('categorias/create', 'CategoriaController@store');
+
+        Route::get('upload', 'ConteudoController@create');
+        Route::post('upload', 'ConteudoController@store');
     });
 
     Route::group(['middleware' => 'role:user'], function() {

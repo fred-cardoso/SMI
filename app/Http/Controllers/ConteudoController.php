@@ -24,7 +24,7 @@ class ConteudoController extends Controller
      */
     public function create()
     {
-        //
+        return view('conteudos.create');
     }
 
     /**
@@ -35,7 +35,8 @@ class ConteudoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $path = $request->file('file')->store('files');
+        dd($path);
     }
 
     /**
