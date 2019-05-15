@@ -32,6 +32,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
         Route::get('categorias/{cid}/edit', 'CategoriaController@edit')->where(['uid' => '[0-9]+']);;
         Route::post('categorias/{cid}/edit', 'CategoriaController@update')->where(['uid' => '[0-9]+']);
         Route::post('categorias/{cid}/delete', 'CategoriaController@destroy')->where(['uid' => '[0-9]+']);
+        Route::get('configurations/edit', 'Configurations@edit');
     });
 
     Route::group(['middleware' => 'role:user'], function() {
