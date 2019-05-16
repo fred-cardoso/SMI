@@ -28,7 +28,10 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 
         Route::get('categorias/create','CategoriaController@create');
         Route::post('categorias/create', 'CategoriaController@store');
-<<<<<<< HEAD
+
+        Route::get('configurations/edit', 'Configurations@edit');
+        Route::post('configurations/edit', 'Configurations@update');
+/*<<<<<<< HEAD
 <<<<<<< HEAD
 
         Route::get('upload', 'ConteudoController@create');
@@ -47,7 +50,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 >>>>>>> fb0cfe1ba8f0ee4fd85a0e5df28a3c3de528a1bf
 =======
 >>>>>>> fb0cfe1ba8f0ee4fd85a0e5df28a3c3de528a1bf
->>>>>>> 6ba47f925e4a36b927eda0cba1c22bb30c6e95a2
+>>>>>>> 6ba47f925e4a36b927eda0cba1c22bb30c6e95a2*/
     });
 
     Route::group(['middleware' => 'role:user'], function() {

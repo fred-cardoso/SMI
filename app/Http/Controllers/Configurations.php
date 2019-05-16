@@ -6,6 +6,16 @@ use Illuminate\Http\Request;
 
 class Configurations extends Controller
 {
+    public function setEnv($name, $value)
+    {
+        $path = base_path('.env');
+        if (file_exists($path)) {
+            file_put_contents($path, str_replace(
+                $name . '=' . env($name), $name . '=' . $value, file_get_contents($path)
+            ));
+        }
+    }
+
     public function index()
     {
         //
@@ -44,10 +54,26 @@ class Configurations extends Controller
     {
         $config = array();
 
-        $config["x"] = getenv("MAIL_HOST");
-        dd($config);
+        $config['mail_driver'] = getenv('MAIL_DRIVER');
+        $config["mail_host"] = getenv("MAIL_HOST");
+        $config['mail_port']=getenv("MAIL_PORT");
+        $config['mail_username'] = getenv('MAIL_USERNAME');
+        $config['mail_password'] =getenv('MAIL_PASSWORD');
+        $config['mail_encryption'] = getenv('MAIL_ENCRYPTION');
+        $config['mail_from_address'] = getenv('MAIL_FROM_ADDRESS');
 
-        return view('configurations.edit');
+
+        $config['db_connection'] = getenv('DB_CONNECTION');
+        $config["db_host"] = getenv("DB_HOST");
+        $config['db_port']=getenv("DB_PORT");
+        $config['db_database'] = getenv('db_database');
+        $config['db_username'] =getenv('db_username');
+        $config['db_password'] = getenv('db_password');
+
+        //dd($config["x"]);
+        //dd($config);
+
+        return view('configurations.edit', compact('config'));
     }
 
     /**
@@ -59,8 +85,11 @@ class Configurations extends Controller
      */
     public function update(Request $request)
     {
-        //
+        setEnv('mail_driver','abc');
+        dd($request->mail_host);
     }
+
+
 
     /**
      * Remove the specified resource from storage.
