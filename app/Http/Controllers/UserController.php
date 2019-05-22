@@ -151,4 +151,7 @@ class UserController extends Controller
             return redirect()->back()->withErrors('Ocorreu um erro!');
         }
     }
+
+    fu
+
 }
