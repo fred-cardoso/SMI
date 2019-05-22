@@ -18,6 +18,7 @@ class CreateConteudosTable extends Migration
             $table->string("titulo");
             $table->string("tipo");
             $table->string("nome");
+            $table->boolean('publico');
             $table->integer("utilizador")->unsigned();
             $table->integer("categoria")->unsigned();
             $table->integer("tag")->unsigned();

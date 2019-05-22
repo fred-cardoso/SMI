@@ -31,26 +31,16 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 
         Route::get('configurations/edit', 'Configurations@edit');
         Route::post('configurations/edit', 'Configurations@update');
-/*<<<<<<< HEAD
-<<<<<<< HEAD
 
         Route::get('upload', 'ConteudoController@create');
         Route::post('upload', 'ConteudoController@store');
-=======
-=======
->>>>>>> fb0cfe1ba8f0ee4fd85a0e5df28a3c3de528a1bf
+
         Route::get('categorias/{cid}', 'CategoriaController@show')->where(['uid' => '[0-9]+']);
         Route::get('categorias/{cid}/edit', 'CategoriaController@edit')->where(['uid' => '[0-9]+']);;
         Route::post('categorias/{cid}/edit', 'CategoriaController@update')->where(['uid' => '[0-9]+']);
         Route::post('categorias/{cid}/delete', 'CategoriaController@destroy')->where(['uid' => '[0-9]+']);
-<<<<<<< HEAD
+
         Route::get('configurations/edit', 'Configurations@edit');
-=======
-<<<<<<< HEAD
->>>>>>> fb0cfe1ba8f0ee4fd85a0e5df28a3c3de528a1bf
-=======
->>>>>>> fb0cfe1ba8f0ee4fd85a0e5df28a3c3de528a1bf
->>>>>>> 6ba47f925e4a36b927eda0cba1c22bb30c6e95a2*/
     });
 
     Route::group(['middleware' => 'role:user'], function() {
