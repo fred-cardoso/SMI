@@ -14,4 +14,10 @@ class Categoria extends Model
     protected $fillable = [
         'nome', 'secundaria',
     ];
+    public function subscribeUser(){
+        return $this->belongsTo("\App\User");
+    }
+    public function content(){
+        return $this->hasMany("\App\Conteudo");
+    }
 }
