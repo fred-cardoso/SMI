@@ -14,16 +14,16 @@ class CreateConteudosTagsTable extends Migration
     public function up()
     {
         Schema::create('conteudos_tags', function (Blueprint $table) {
-            $table->integer("conteudoID")->unsigned();
-            $table->integer("tagID")->unsigned();
+            $table->integer("conteudo_id")->unsigned();
+            $table->integer("tag_id")->unsigned();
 
             //FOREIGN KEY CONSTRAINTS
-            $table->foreign('conteudoID')->references('id')->on('conteudos')->onDelete('cascade');
-            $table->foreign('tagID')->references('id')->on('tags')->onDelete('cascade');
+            $table->foreign('conteudo_id')->references('id')->on('conteudos')->onDelete('cascade');
+            $table->foreign('tag_id')->references('id')->on('tags')->onDelete('cascade');
 
 
             //SETTING THE PRIMARY KEYS
-            $table->primary(['conteudoID','tagID']);
+            $table->primary(['conteudo_id','tag_id']);
         });
     }
 

@@ -19,12 +19,12 @@ class CreateConteudosTable extends Migration
             $table->string("tipo");
             $table->string("nome");
             $table->string("descricao");
-            $table->boolean("privado");
-            $table->integer("userID")->unsigned();
+            $table->boolean("privado")->default("0");
+            $table->integer("user_ID")->unsigned();
             $table->timestamps();
 
             #FOREIGN KEYS
-            $table->foreign('userID')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 
 
         });
