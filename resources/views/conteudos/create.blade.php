@@ -1,3 +1,6 @@
+<?php
+$categories = \App\Categoria::all();
+?>
 @extends('layout.layout')
 @section('title', 'Upload')
 @section('content')
@@ -17,10 +20,21 @@
     @endif
     <form method="post" action="" enctype="multipart/form-data">
         @csrf
-        <input type="text" name="title">
-        <textarea name="description"></textarea>
-        <input type="checkbox" name="private">
-        <input type="file" name="file">
-        <input type="submit" value="Upload" name="submit">
+        Título:
+        <input type="text" name="title"></br>
+        Descrição:
+        <textarea name="description"></textarea></br>
+        Privado:
+        <input type="checkbox" name="private"></br>
+        Categoria:
+        <select name="category"></br>
+            @foreach($categories as $category)
+                <option value="{{$category->id}}">{{$category->nome}}</option>
+            @endforeach
+        </select></br>
+        Tags (separadas por vírgulas):
+        <input type="text" name="tags"></br>
+        <input type="file" name="file"></br>
+        <input type="submit" value="Upload" name="submit"></br>
     </form>
 @endsection

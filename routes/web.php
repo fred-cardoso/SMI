@@ -48,6 +48,9 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
             $uid = Auth::user()->id;
             return $controller->show($uid);
         });
+
+        Route::get('upload', 'ConteudoController@create');
+        Route::post('upload', 'ConteudoController@store');
     });
 
 });

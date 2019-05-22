@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Categoria;
 use App\Conteudo;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Auth;
 
 class ConteudoController extends Controller
 {
@@ -35,8 +38,35 @@ class ConteudoController extends Controller
      */
     public function store(Request $request)
     {
+        $tags = $request->tags;
+        $tags = str_replace(' ', '', $tags);
+        $tags = explode(',', $tags);
+
+        $categories = array();
+
+        foreach(Categoria::all() as $category) {
+            array_push($categories, $category->id);
+        }
+
+        $validatedData = $request->validate([
+            'title' => ['required', 'string'],
+            'description' => ['required', 'string'],
+            'private' => ['boolean'],
+            'category' => [Rule::in($categories)],
+            'file' => ['required', 'file'],
+        ]);
+
         $path = $request->file('file')->store('files');
-        dd($path);
+
+        $conteudo = new Conteudo();
+        $conteudo->titulo = $validatedData->title;
+        $conteudo->descricao = $validatedData->description;
+        $conteudo->nome = $path;
+        $conteudo->tipo = "teste";
+        $conteudo->user()->associate(Auth::user());
+        $conteudo->save();
+
+        return redirect()->back()->withSuccess("Conteúdo adicionado com sucesso!");
     }
 
     /**
