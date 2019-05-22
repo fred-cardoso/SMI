@@ -20,7 +20,7 @@ class CreateConteudosTable extends Migration
             $table->string("nome");
             $table->string("descricao");
             $table->boolean("privado")->default("0");
-            $table->integer("user_ID")->unsigned();
+            $table->integer("user_id")->unsigned();
             $table->timestamps();
 
             #FOREIGN KEYS
