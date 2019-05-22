@@ -102,7 +102,7 @@ class Configurations extends Controller
         $this ->set_env('db_username',$request->db_username);
         $this ->set_env('db_password',$request->db_password);
 
-        //\"mail.fredcardoso.pt\"
+        return redirect()->back()->withSucess("Configurações salvas com sucesso.");
     }
 
     public function putPermanentEnv($key, $value)
