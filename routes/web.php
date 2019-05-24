@@ -34,6 +34,8 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 
         Route::get('upload', 'ConteudoController@create');
         Route::post('upload', 'ConteudoController@store');
+        Route::get('uploads/{cid}/edit', 'ConteudoController@edit');
+        Route::post('uploads/{cid}/edit', 'ConteudoController@update');
 
         Route::get('categorias/{cid}', 'CategoriaController@show')->where(['uid' => '[0-9]+']);
         Route::get('categorias/{cid}/edit', 'CategoriaController@edit')->where(['uid' => '[0-9]+']);;
@@ -49,8 +51,8 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
             return $controller->show($uid);
         });
 
-        Route::get('upload', 'ConteudoController@create');
-        Route::post('upload', 'ConteudoController@store');
+        /*Route::get('upload', 'ConteudoController@create');
+        Route::post('upload', 'ConteudoController@store');*/
     });
 
 });

@@ -21,20 +21,29 @@ $categories = \App\Categoria::all();
     <form method="post" action="" enctype="multipart/form-data">
         @csrf
         Título:
-        <input type="text" name="title"></br>
+        <input type="text" name="title" value="{{$conteudo->titulo ?? ''}}"></br>
         Descrição:
-        <textarea name="description"></textarea></br>
+        <textarea name="description">{{$conteudo->descricao ?? ''}}</textarea></br>
         Privado:
         <input type="checkbox" name="private"></br>
         Categoria:
         <select name="category"></br>
             @foreach($categories as $category)
-                <option value="{{$category->id}}">{{$category->nome}}</option>
+
+                <?php if (isset($conteudo)) {
+                    $selected = $conteudo->hasCategory($category);
+                } else {
+                    $selected = false;
+                } ?>
+
+                <option value="{{$category->id}}" @if($selected) selected @endif> {{$category->nome}}</option>
             @endforeach
         </select></br>
         Tags (separadas por vírgulas):
         <input type="text" name="tags"></br>
-        <input type="file" name="file"></br>
-        <input type="submit" value="Upload" name="submit"></br>
+        @if(!isset($category))
+            <input type="file" name="file"></br>
+        @endif
+        <input type="submit" value="@isset($category)Editar Conteúdo @else Upload @endisset" name="submit"></br>
     </form>
 @endsection

@@ -52,19 +52,24 @@ class ConteudoController extends Controller
             'title' => ['required', 'string'],
             'description' => ['required', 'string'],
             'private' => ['boolean'],
-            'category' => [Rule::in($categories)],
+            'category' => ['required', Rule::in($categories)],
             'file' => ['required', 'file'],
         ]);
 
         $path = $request->file('file')->store('files');
 
+        $categoria = Categoria::where('id', $validatedData['category'])->first();
+
         $conteudo = new Conteudo();
-        $conteudo->titulo = $validatedData->title;
-        $conteudo->descricao = $validatedData->description;
+        $conteudo->titulo = $validatedData['title'];
+        $conteudo->descricao = $validatedData['description'];
         $conteudo->nome = $path;
+        //TODO
         $conteudo->tipo = "teste";
         $conteudo->user()->associate(Auth::user());
         $conteudo->save();
+
+        $conteudo->category()->attach($categoria);
 
         return redirect()->back()->withSuccess("Conteúdo adicionado com sucesso!");
     }
@@ -86,9 +91,10 @@ class ConteudoController extends Controller
      * @param  \App\Conteudo  $conteudo
      * @return \Illuminate\Http\Response
      */
-    public function edit(Conteudo $conteudo)
+    public function edit($cid)
     {
-        //
+        $conteudo = Conteudo::where('id', $cid)->first();
+        return view('conteudos.create', compact('conteudo'));
     }
 
     /**

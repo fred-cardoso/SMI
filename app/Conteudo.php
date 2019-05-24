@@ -13,7 +13,11 @@ class Conteudo extends Model
     public function user(){
         return $this->belongsTo("\App\User");
     }
-    public function Category(){
-        return $this->hasMany("\App\Categoria");
+    public function category(){
+        return $this->belongsToMany(Categoria::class, "conteudos_categorias");
+    }
+
+    public function hasCategory($category){
+        return $this->category()->where('id', $category->id)->exists();
     }
 }

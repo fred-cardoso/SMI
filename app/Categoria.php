@@ -18,6 +18,6 @@ class Categoria extends Model
         return $this->belongsTo("\App\User");
     }
     public function content(){
-        return $this->hasMany("\App\Conteudo");
+        return $this->belongsToMany(Conteudo::class, "conteudos_categorias");
     }
 }
