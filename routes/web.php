@@ -47,49 +47,46 @@ Route::group(['middleware' => ['auth', 'verified', 'role:user']], function () {
         return $controller->show($uid);
     });
 
+    Route::get('users', 'UserController@index')->name('users');
+    Route::get('users/{user}', 'UserController@show')->where(['uid' => '[0-9]+'])->name('user');
+    Route::post('users/{user}/subscribe', 'UserController@subscribeUser')->where(['user' => '[0-9]+'])->name('user_subscribe');
+
+    Route::get('categorias', 'CategoriaController@index')->name('indice');
+    Route::get('categorias/{categoria}', 'CategoriaController@show')->where(['categoria' => '[0-9]+']);
+    Route::post('categorias/{categoria}/subscribe', 'UserController@subscribeCategoria')->where(['user' => '[0-9]+']);
+
+    Route::get('uploads', 'ConteudoController@index');
+    Route::get('uploads/{conteudo}', 'ConteudoController@show')->where(['conteudo' => '[0-9]+']);
     /**
      * Routes for "Simpatizante"
      */
     Route::group(['middleware' => 'role:simpatizante'], function () {
+        Route::get('categorias/create', 'CategoriaController@create');
+        Route::post('categorias/create', 'CategoriaController@store');
+        Route::get('categorias/{categoria}/edit', 'CategoriaController@edit')->where(['categoria' => '[0-9]+'])->name('cat_edit');
+        Route::post('categorias/{categoria}/edit', 'CategoriaController@update')->where(['categoria' => '[0-9]+']);
 
-
+        Route::get('upload', 'ConteudoController@create');
+        Route::post('upload', 'ConteudoController@store');
+        Route::get('uploads/{conteudo}/edit', 'ConteudoController@edit')->where(['conteudo' => '[0-9]+']);
+        Route::post('uploads/{conteudo}/edit', 'ConteudoController@update')->where(['conteudo' => '[0-9]+']);
 
         /**
          * Routes for admin
          */
         Route::group(['middleware' => 'role:admin'], function () {
-            Route::get('users', 'UserController@index')->name('users');
-            Route::get('users/{user}', 'UserController@show')->where(['uid' => '[0-9]+'])->name('user');
             Route::get('users/create', 'UserController@create');
             Route::post('users/create', 'UserController@store');
             Route::get('users/{user}/edit', 'UserController@edit')->where(['uid' => '[0-9]+'])->name('user_edit');
             Route::post('users/{user}/edit', 'UserController@update')->where(['uid' => '[0-9]+']);
             Route::post('users/{user}/delete', 'UserController@destroy')->where(['uid' => '[0-9]+'])->name('user_delete');
-            Route::post('users/{user}/subscribe', 'UserController@subscribeUser')->where(['user' => '[0-9]+'])->name('user_subscribe');
-
-            Route::get('categorias', 'CategoriaController@index')->name('indice');
-
-            Route::get('categorias/create', 'CategoriaController@create');
-            Route::post('categorias/create', 'CategoriaController@store');
 
             Route::get('configurations/edit', 'Configurations@edit');
             Route::post('configurations/edit', 'Configurations@update');
 
-            Route::get('uploads', 'ConteudoController@index');
-            Route::get('upload', 'ConteudoController@create');
-            Route::post('upload', 'ConteudoController@store');
-            Route::get('uploads/{conteudo}', 'ConteudoController@show')->where(['conteudo' => '[0-9]+']);
-            Route::get('uploads/{conteudo}/edit', 'ConteudoController@edit')->where(['conteudo' => '[0-9]+']);
-            Route::post('uploads/{conteudo}/edit', 'ConteudoController@update')->where(['conteudo' => '[0-9]+']);
             Route::post('uploads/{conteudo}/delete', 'ConteudoController@destroy')->where(['conteudo' => '[0-9]+']);
 
-            Route::get('categorias/{categoria}', 'CategoriaController@show')->where(['categoria' => '[0-9]+']);
-            Route::get('categorias/{categoria}/edit', 'CategoriaController@edit')->where(['categoria' => '[0-9]+'])->name('cat_edit');
-            Route::post('categorias/{categoria}/edit', 'CategoriaController@update')->where(['categoria' => '[0-9]+']);
             Route::post('categorias/{categoria}/delete', 'CategoriaController@destroy')->where(['categoria' => '[0-9]+']);
-            Route::post('categorias/{categoria}/subscribe', 'UserController@subscribeCategoria')->where(['user' => '[0-9]+']);
-
-            Route::get('configurations/edit', 'Configurations@edit');
         });
     });
 });
