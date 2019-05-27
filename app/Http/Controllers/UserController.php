@@ -150,7 +150,8 @@ class UserController extends Controller
     }
     public function subscribe(Request $request){
         $user = Auth::user();
-        $subed_id = $request->user;
+        //dd(User::find($request->user));
+        $subed_id = User::find($request->user);
 
         $user->user()->attach($subed_id);
         //dd($sub_id);
