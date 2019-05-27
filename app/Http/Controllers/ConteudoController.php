@@ -51,10 +51,10 @@ class ConteudoController extends Controller
         }
 
         $validatedData = $request->validate([
-            'title' => ['required', 'string'],
-            'description' => ['required', 'string'],
+            'title' => 'required|string',
+            'description' => 'required|string',
             'category' => ['required', Rule::in($categories)],
-            'file' => ['required', 'file'],
+            'file' => 'required|mimetypes:image/gif,image/jpeg,image/bmp,image/png,video/mp4,video/mov,video/avi,video/flv,video/wmv',
         ]);
 
         $path = $request->file('file')->store('files');
@@ -65,8 +65,7 @@ class ConteudoController extends Controller
         $conteudo->titulo = $validatedData['title'];
         $conteudo->descricao = $validatedData['description'];
         $conteudo->nome = $path;
-        //TODO
-        $conteudo->tipo = "teste";
+        $conteudo->tipo = explode('/', $request->file()['file']->getMimeType())[0];
         $conteudo->user()->associate(Auth::user());
         $conteudo->save();
 
