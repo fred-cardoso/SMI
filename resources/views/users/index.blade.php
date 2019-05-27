@@ -1,6 +1,7 @@
 @extends('layout.layout')
 @section('title', 'Utilizadores')
 @section('content')
+
     <?php
 
     $role = Auth::user()->roles->first();
@@ -32,6 +33,7 @@
             <li class="active">Utilizadores</li>
         </ol>
     </section>
+
     <!-- Main content -->
     <section class="content">
         <div class="row">
@@ -52,16 +54,28 @@
                             </tr>
                             </thead>
                             <tbody>
+
                             @foreach($users as $user)
                                 <tr>
                                     <td>{{$user->id}}</td>
                                     <td><a href="{{route('user', $user->id)}}">{{$user->name}}</a></td>
                                     <td>{{$user->roles()->first()->name}}</td>
                                     <td>
-                                        //Ver se esta subbed
                                         <form action="{{route('user_subscribe', $user->id)}}" method="POST">
                                             @csrf
-                                            <input type="submit" value="Subscrever">
+                                            <?php $userAuth = Auth::User()->id;
+                                            $database = DB::table("user_user")->get();
+                                            $checkIfSubscribed = sizeof($database->where('subscribed_id', $userAuth && 'user_id', $user->id));
+
+                                            if ($checkIfSubscribed == 0) {
+                                                echo '<input type="submit" value="Subscribe">';
+
+
+                                            }else{
+                                                echo '<input type="submit" value="Unsubscribe">';
+                                            }
+
+                                            ?>
                                         </form>
                                         @if($role->slug == 'admin')
                                             <a href="{{route('user_edit', $user->id)}}" type="button"

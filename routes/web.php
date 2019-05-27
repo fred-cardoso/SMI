@@ -78,13 +78,13 @@ Route::group(['middleware' => ['auth', 'verified', 'role:user']], function () {
             Route::get('uploads', 'ConteudoController@index');
             Route::get('upload', 'ConteudoController@create');
             Route::post('upload', 'ConteudoController@store');
-            Route::get('uploads/{conteudo}', 'ConteudoController@show')->where(['conteudo' => '[0-9]+']);;
-            Route::get('uploads/{conteudo}/edit', 'ConteudoController@edit')->where(['conteudo' => '[0-9]+']);;
-            Route::post('uploads/{conteudo}/edit', 'ConteudoController@update')->where(['conteudo' => '[0-9]+']);;
-            Route::post('uploads/{conteudo}/delete', 'ConteudoController@destroy')->where(['conteudo' => '[0-9]+']);;
+            Route::get('uploads/{conteudo}', 'ConteudoController@show')->where(['conteudo' => '[0-9]+']);
+            Route::get('uploads/{conteudo}/edit', 'ConteudoController@edit')->where(['conteudo' => '[0-9]+']);
+            Route::post('uploads/{conteudo}/edit', 'ConteudoController@update')->where(['conteudo' => '[0-9]+']);
+            Route::post('uploads/{conteudo}/delete', 'ConteudoController@destroy')->where(['conteudo' => '[0-9]+']);
 
             Route::get('categorias/{categoria}', 'CategoriaController@show')->where(['categoria' => '[0-9]+']);
-            Route::get('categorias/{categoria}/edit', 'CategoriaController@edit')->where(['categoria' => '[0-9]+']);;
+            Route::get('categorias/{categoria}/edit', 'CategoriaController@edit')->where(['categoria' => '[0-9]+'])->name('cat_edit');
             Route::post('categorias/{categoria}/edit', 'CategoriaController@update')->where(['categoria' => '[0-9]+']);
             Route::post('categorias/{categoria}/delete', 'CategoriaController@destroy')->where(['categoria' => '[0-9]+']);
             Route::post('categorias/{categoria}/subscribe', 'UserController@subscribeCategoria')->where(['user' => '[0-9]+']);
