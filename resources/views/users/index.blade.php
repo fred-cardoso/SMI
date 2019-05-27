@@ -9,19 +9,22 @@
 
 
     echo '<a href="users/' . $user->id . '/edit">' . $user->name . '</a>&nbsp;';
-    echo '<form action="users/' . $user->id . '/delete" method="POST">';
-    ?>@csrf<?php
+
 
     if ($role->slug == 'admin'){
-    echo '<input type="submit" value="Eliminar"></form>';
+        echo '<form action="users/' . $user->id . '/delete" method="POST">';
+    ?>@csrf<?php
+        echo '<input type="submit" value="Eliminar"></form>';
+        echo '</br>';
+        echo '</form>';
+
+
     }
-    echo '</br>';
-    echo '</form>';
+
     echo '<form action="users/' . $user->id . '/subscribe" method="POST">';
-    echo '<input type="submit" value="Subscrever"></form>' ;
+    ?>@csrf<?php
+    echo '<input type="submit" value="Subscrever"></form>';
     echo '</form>';
-
-
     }
     ?>
 

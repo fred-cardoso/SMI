@@ -6,6 +6,7 @@ use App\Role;
 use App\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
 
@@ -146,6 +147,13 @@ class UserController extends Controller
         } else {
             return redirect()->back()->withErrors('Ocorreu um erro!');
         }
+    }
+    public function subscribe(Request $request){
+        $user = Auth::user();
+        $subed_id = $request->user;
+
+        $user->user()->attach($subed_id);
+        //dd($sub_id);
     }
 
 }
