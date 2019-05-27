@@ -10,7 +10,9 @@ use Illuminate\Support\Facades\Storage;
         {{$conteudo->descricao}}
         </br>
         @if($conteudo->tipo == "video")
-            Video
+            <video controls>
+                <source src="{{route('video', explode('/', $conteudo->nome)[1])}}" type="{{Storage::mimeType($conteudo->nome)}}">
+            </video>
         @else
             <img src="data:image/jpeg;base64,{{base64_encode(Storage::get($conteudo->nome))}}" />
         @endif

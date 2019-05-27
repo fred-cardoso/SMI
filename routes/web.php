@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Storage;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -47,6 +49,24 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
         Route::post('users/{user}/subscribe','UserController@subscribe')->where(['user' => '[0-9]+']);
 
         Route::get('configurations/edit', 'Configurations@edit');
+
+        Route::get('uploads/video/{path}', function ($path) {
+
+            $file = null;
+
+            try{
+                $file = Storage::get("files/" . $path);
+            } catch (Exception $exception) {
+                abort(404);
+            }
+
+            $filename = storage_path() . "files/" . $path;
+            $headers = array(
+                'Content-type'          => Storage::mimeType("files/" . $path),
+                'Content-Disposition'   => 'inline; filename="' . $filename . '"'
+            );
+            return Response::make($file, 200, $headers);
+        })->name('video');
     });
 
     Route::group(['middleware' => 'role:user'], function() {
