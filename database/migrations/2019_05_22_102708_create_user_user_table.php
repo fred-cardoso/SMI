@@ -14,15 +14,15 @@ class CreateUserUserTable extends Migration
     public function up()
     {
         Schema::create('user_user', function (Blueprint $table) {
-            $table->integer("subscriber_id")->unsigned();
-            $table->integer("subscribed_id")->unsigned();
+            $table->integer("user_id")->unsigned();
+            $table->integer("subscribed_id")->unsigned()->default(0);
 
             //FOREIGN KEY CONSTRAINTS
-            $table->foreign('subscriber_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('subscribed_id')->references('id')->on('users')->onDelete('cascade');
 
             //SETTING THE PRIMARY KEYS
-            $table->primary(['subscriber_id','subscribed_id']);
+            $table->primary(['user_id','subscribed_id']);
 
         });
     }
