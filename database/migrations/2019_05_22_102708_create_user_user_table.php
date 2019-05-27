@@ -15,7 +15,7 @@ class CreateUserUserTable extends Migration
     {
         Schema::create('user_user', function (Blueprint $table) {
             $table->integer("user_id")->unsigned();
-            $table->integer("subscribed_id")->unsigned();
+            $table->integer("subscribed_id")->unsigned()->default(0);
 
             //FOREIGN KEY CONSTRAINTS
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

@@ -147,12 +147,14 @@ class UserController extends Controller
             return redirect()->back()->withErrors('Ocorreu um erro!');
         }
     }
-    public function subscribe(Request $request){
+    public function subscribeUser(Request $request){
         $user = Auth::user();
         //dd(User::find($request->user));
-        $subed_id = User::find($request->user);
 
-        $user->user()->attach($subed_id);
+        $subed_user = User::find($request->user);
+        $subed_id = $subed_user->id;
+
+        $user->user()->attach([1 => ['subscribed_id' => $subed_id]]);
         //dd($sub_id);
     }
 
