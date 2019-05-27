@@ -14,8 +14,9 @@ class CreateSubscricaoTable extends Migration
     public function up()
     {
         Schema::create('user_categoria', function (Blueprint $table) {
-            $table->integer("user_id")->unsigned();
             $table->integer("categoria_id")->unsigned();
+            $table->integer("user_id")->unsigned();
+
 
             //FOREIGN KEY CONSTRAINTS
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
@@ -23,7 +24,7 @@ class CreateSubscricaoTable extends Migration
 
 
             //SETTING THE PRIMARY KEYS
-            $table->primary(['user_id','categoria_id']);
+            $table->primary(['categoria_id','user_id']);
         });
     }
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Categoria;
 use App\Role;
 use App\User;
 use Illuminate\Auth\Events\Registered;
@@ -66,7 +67,7 @@ class UserController extends Controller
 
         event(new Registered($user));
 
-        $user_role = Role::where('name',$request->group)->first();
+        $user_role = Role::where('name', $request->group)->first();
         $user->roles()->attach($user_role);
 
         return redirect()->back()->withSuccess('Utilizador registado com sucesso!');
@@ -123,10 +124,10 @@ class UserController extends Controller
 
         $user->roles()->detach();
 
-        $user_role = Role::where('name',$request->group)->first();
+        $user_role = Role::where('name', $request->group)->first();
         $user->roles()->attach($user_role);
 
-        if($user->save()) {
+        if ($user->save()) {
             return redirect()->back()->withSuccess('Utilizador atualizado com sucesso!');
         } else {
             return redirect()->back()->withErrors('Ocorreu um erro!');
@@ -141,21 +142,30 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        if($user->forceDelete()) {
+        if ($user->forceDelete()) {
             return redirect()->back()->withSuccess('Utilizador eliminado com sucesso!');
         } else {
             return redirect()->back()->withErrors('Ocorreu um erro!');
         }
     }
-    public function subscribeUser(Request $request){
+
+    public function subscribeUser(Request $request)
+    {
         $user = Auth::user();
-        //dd(User::find($request->user));
 
         $subed_user = User::find($request->user);
         $subed_id = $subed_user->id;
 
         $user->user()->attach([1 => ['subscribed_id' => $subed_id]]);
-        //dd($sub_id);
+    }
+
+    public function subscribeCategoria(Request $request)
+    {
+        $user = Auth::user();
+
+        $subed_cat = Categoria::find($request->categoria);
+        $cat_id = $subed_cat->id;
+        $user->categoria()->attach([1 =>['categoria_id'=> $cat_id]]);
     }
 
 }

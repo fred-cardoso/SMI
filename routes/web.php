@@ -83,7 +83,7 @@ Route::group(['middleware' => ['auth', 'verified', 'role:user']], function () {
             Route::post('categorias/{categoria}/edit', 'CategoriaController@update')->where(['categoria' => '[0-9]+']);
             Route::post('categorias/{categoria}/delete', 'CategoriaController@destroy')->where(['categoria' => '[0-9]+']);
             Route::post('users/{user}/subscribe', 'UserController@subscribeUser')->where(['user' => '[0-9]+']);
-            Route::post('users/{Categoria}/subscribe', 'UserController@subscribeCategoria')->where(['user' => '[0-9]+']);
+            Route::post('categorias/{categoria}/subscribe', 'UserController@subscribeCategoria')->where(['user' => '[0-9]+']);
 
             Route::get('configurations/edit', 'Configurations@edit');
         });
