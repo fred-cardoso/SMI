@@ -17,7 +17,7 @@ Auth::routes(['verify' => true]);
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('home');
 
 Route::group(['middleware' => ['auth', 'verified', 'role:user']], function () {
     /**
@@ -64,7 +64,8 @@ Route::group(['middleware' => ['auth', 'verified', 'role:user']], function () {
             Route::post('users/create', 'UserController@store');
             Route::get('users/{user}/edit', 'UserController@edit')->where(['uid' => '[0-9]+'])->name('user_edit');
             Route::post('users/{user}/edit', 'UserController@update')->where(['uid' => '[0-9]+']);
-            Route::post('users/{user}/delete', 'UserController@destroy')->where(['uid' => '[0-9]+']);
+            Route::post('users/{user}/delete', 'UserController@destroy')->where(['uid' => '[0-9]+'])->name('user_delete');
+            Route::post('users/{user}/subscribe', 'UserController@subscribeUser')->where(['user' => '[0-9]+'])->name('user_subscribe');
 
             Route::get('categorias', 'CategoriaController@index')->name('indice');
 
@@ -86,7 +87,6 @@ Route::group(['middleware' => ['auth', 'verified', 'role:user']], function () {
             Route::get('categorias/{categoria}/edit', 'CategoriaController@edit')->where(['categoria' => '[0-9]+']);;
             Route::post('categorias/{categoria}/edit', 'CategoriaController@update')->where(['categoria' => '[0-9]+']);
             Route::post('categorias/{categoria}/delete', 'CategoriaController@destroy')->where(['categoria' => '[0-9]+']);
-            Route::post('users/{user}/subscribe', 'UserController@subscribeUser')->where(['user' => '[0-9]+']);
             Route::post('categorias/{categoria}/subscribe', 'UserController@subscribeCategoria')->where(['user' => '[0-9]+']);
 
             Route::get('configurations/edit', 'Configurations@edit');
@@ -94,4 +94,4 @@ Route::group(['middleware' => ['auth', 'verified', 'role:user']], function () {
     });
 });
 
-Route::get('/home', 'HomeController@index')->name('home');
+//Route::get('/home', 'HomeController@index')->name('home');

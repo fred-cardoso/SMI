@@ -28,7 +28,7 @@
             <small>Lista de Utilizadores</small>
         </h1>
         <ol class="breadcrumb">
-            <li><a href="#"><i class="fa fa-dashboard"></i> Página Inicial</a></li>
+            <li><a href="{{route("home")}}"><i class="fa fa-dashboard"></i> Página Inicial</a></li>
             <li class="active">Utilizadores</li>
         </ol>
     </section>
@@ -55,12 +55,21 @@
                             @foreach($users as $user)
                                 <tr>
                                     <td>{{$user->id}}</td>
-                                    <td>{{$user->name}}</td>
+                                    <td><a href="{{route('user', $user->id)}}">{{$user->name}}</a></td>
                                     <td>{{$user->roles()->first()->name}}</td>
                                     <td>
+                                        //Ver se esta subbed
+                                        <form action="{{route('user_subscribe', $user->id)}}" method="POST">
+                                            @csrf
+                                            <input type="submit" value="Subscrever">
+                                        </form>
                                         @if($role->slug == 'admin')
                                             <a href="{{route('user_edit', $user->id)}}" type="button"
                                                class="btn btn-primary">Editar</a>
+                                            <button type="button" class="btn btn-danger" data-toggle="modal"
+                                                    data-target="#modal-delete-user-{{$user->id}}" wfd-id="264">
+                                                Eliminar
+                                            </button>
                                         @endif
                                     </td>
                                 </tr>
@@ -85,4 +94,31 @@
         <!-- /.row -->
     </section>
     <!-- /.content -->
+    @foreach($users as $user)
+        <div class="modal modal-danger fade" id="modal-delete-user-{{$user->id}}" wfd-id="130">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar" wfd-id="252">
+                            <span aria-hidden="true">×</span></button>
+                        <h4 class="modal-title">Alerta!</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>Pretende eliminar o utilizador <b>{{$user->name}}</b> permanentemente?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline pull-left" data-dismiss="modal" wfd-id="251">
+                            Fechar
+                        </button>
+                        <form action="{{route('user_delete', $user->id)}}" method="POST">
+                            @csrf
+                            <input type="submit" class="btn btn-outline" wfd-id="250" value="Eliminar Utilizador"/>
+                        </form>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+    @endforeach
 @endsection
