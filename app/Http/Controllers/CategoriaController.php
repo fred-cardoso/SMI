@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Categoria;
+use App\Conteudo;
 use Illuminate\Http\Request;
 
 class CategoriaController extends Controller
@@ -60,10 +61,8 @@ class CategoriaController extends Controller
      * @param  \App\Categoria  $categoria
      * @return \Illuminate\Http\Response
      */
-    public function show($cid)
+    public function show(Categoria $categoria)
     {
-        $categoria = Categoria::where('id', $cid)->first();
-
         return view('categorias', compact('categoria'));
     }
 
@@ -73,9 +72,8 @@ class CategoriaController extends Controller
      * @param  \App\Categoria  $categoria
      * @return \Illuminate\Http\Response
      */
-    public function edit($cid)
+    public function edit(Categoria $categoria)
     {
-        $categoria = Categoria::where('id',$cid)->first();
         return view('categorias.create', compact('categoria'));
     }
 
@@ -86,11 +84,8 @@ class CategoriaController extends Controller
      * @param  \App\Categoria  $categoria
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $cid)
+    public function update(Request $request, Categoria $categoria)
     {
-        $categoria = Categoria::where('id', $cid)->first();
-
-
         $categoria->nome = $request->nomeCat;
         if($request->secundaria == null){
             $categoria->secundaria = false;
@@ -111,10 +106,8 @@ class CategoriaController extends Controller
      * @param  \App\Categoria  $categoria
      * @return \Illuminate\Http\Response
      */
-    public function destroy($cid)
+    public function destroy(Categoria $categoria)
     {
-
-        $categoria = Categoria::where('id', $cid)->first();
         if($categoria->forceDelete()) {
             return redirect()->back()->withSuccess('Categoria eliminada com sucesso!');
         } else {

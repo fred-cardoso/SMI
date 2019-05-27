@@ -51,7 +51,6 @@ class ConteudoController extends Controller
         $validatedData = $request->validate([
             'title' => ['required', 'string'],
             'description' => ['required', 'string'],
-            'private' => ['boolean'],
             'category' => ['required', Rule::in($categories)],
             'file' => ['required', 'file'],
         ]);
@@ -91,9 +90,8 @@ class ConteudoController extends Controller
      * @param  \App\Conteudo  $conteudo
      * @return \Illuminate\Http\Response
      */
-    public function edit($cid)
+    public function edit(Conteudo $conteudo)
     {
-        $conteudo = Conteudo::where('id', $cid)->first();
         return view('conteudos.create', compact('conteudo'));
     }
 
@@ -106,7 +104,29 @@ class ConteudoController extends Controller
      */
     public function update(Request $request, Conteudo $conteudo)
     {
-        //
+        $categories = array();
+
+        foreach(Categoria::all() as $category) {
+            array_push($categories, $category->id);
+        }
+
+        $validatedData = $request->validate([
+            'title' => ['required', 'string'],
+            'description' => ['required', 'string'],
+            'category' => ['required', Rule::in($categories)],
+        ]);
+
+        $categoria = Categoria::where('id', $validatedData['category'])->first();
+
+        $conteudo->titulo = $validatedData['title'];
+        $conteudo->descricao = $validatedData['description'];
+        //TODO
+        $conteudo->tipo = "teste";
+        $conteudo->save();
+
+        $conteudo->category()->attach($categoria);
+
+        return redirect()->back()->withSuccess("Conteúdo editado com sucesso!");
     }
 
     /**
@@ -117,6 +137,10 @@ class ConteudoController extends Controller
      */
     public function destroy(Conteudo $conteudo)
     {
-        //
+        if($conteudo->forceDelete()) {
+            return redirect()->back()->withSuccess('Conteúdo eliminado com sucesso!');
+        } else {
+            return redirect()->back()->withErrors('Ocorreu um erro!');
+        }
     }
 }

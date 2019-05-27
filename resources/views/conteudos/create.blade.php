@@ -41,9 +41,9 @@ $categories = \App\Categoria::all();
         </select></br>
         Tags (separadas por vírgulas):
         <input type="text" name="tags"></br>
-        @if(!isset($category))
+        @if(!isset($conteudo))
             <input type="file" name="file"></br>
         @endif
-        <input type="submit" value="@isset($category)Editar Conteúdo @else Upload @endisset" name="submit"></br>
+        <input type="submit" value="@isset($conteudo)Editar Conteúdo @else Upload @endisset" name="submit"></br>
     </form>
 @endsection

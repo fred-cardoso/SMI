@@ -17,12 +17,12 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 
     Route::group(['middleware' => 'role:admin'], function () {
         Route::get('users', 'UserController@index');
-        Route::get('users/{uid}', 'UserController@show')->where(['uid' => '[0-9]+']);
+        Route::get('users/{user}', 'UserController@show')->where(['uid' => '[0-9]+']);
         Route::get('users/create', 'UserController@create');
         Route::post('users/create', 'UserController@store');
-        Route::get('users/{uid}/edit', 'UserController@edit')->where(['uid' => '[0-9]+']);
-        Route::post('users/{uid}/edit', 'UserController@update')->where(['uid' => '[0-9]+']);
-        Route::post('users/{uid}/delete', 'UserController@destroy')->where(['uid' => '[0-9]+']);
+        Route::get('users/{user}/edit', 'UserController@edit')->where(['uid' => '[0-9]+']);
+        Route::post('users/{user}/edit', 'UserController@update')->where(['uid' => '[0-9]+']);
+        Route::post('users/{user}/delete', 'UserController@destroy')->where(['uid' => '[0-9]+']);
 
         Route::get('categorias', 'CategoriaController@index')->name('indice');
 
@@ -34,14 +34,14 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 
         Route::get('upload', 'ConteudoController@create');
         Route::post('upload', 'ConteudoController@store');
-        Route::get('uploads/{cid}/edit', 'ConteudoController@edit');
-        Route::post('uploads/{cid}/edit', 'ConteudoController@update');
+        Route::get('uploads/{conteudo}/edit', 'ConteudoController@edit');
+        Route::post('uploads/{conteudo}/edit', 'ConteudoController@update');
 
-        Route::get('categorias/{cid}', 'CategoriaController@show')->where(['uid' => '[0-9]+']);
-        Route::get('categorias/{cid}/edit', 'CategoriaController@edit')->where(['uid' => '[0-9]+']);;
-        Route::post('categorias/{cid}/edit', 'CategoriaController@update')->where(['uid' => '[0-9]+']);
-        Route::post('categorias/{cid}/delete', 'CategoriaController@destroy')->where(['uid' => '[0-9]+']);
-        Route::get('users/{uid}/subscribe','UserController@subscribe')->where(['uid' => '[0-9]+']);
+        Route::get('categorias/{categoria}', 'CategoriaController@show')->where(['uid' => '[0-9]+']);
+        Route::get('categorias/{categoria}/edit', 'CategoriaController@edit')->where(['uid' => '[0-9]+']);;
+        Route::post('categorias/{categoria}/edit', 'CategoriaController@update')->where(['uid' => '[0-9]+']);
+        Route::post('categorias/{categoria}/delete', 'CategoriaController@destroy')->where(['uid' => '[0-9]+']);
+        Route::get('users/{user}/subscribe','UserController@subscribe')->where(['uid' => '[0-9]+']);
 
         Route::get('configurations/edit', 'Configurations@edit');
     });

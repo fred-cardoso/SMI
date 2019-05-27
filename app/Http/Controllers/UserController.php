@@ -77,9 +77,8 @@ class UserController extends Controller
      * @param \App\User  ID $uid
      * @return \Illuminate\Http\Response
      */
-    public function show($uid)
+    public function show(User $user)
     {
-        $user = User::where('id', $uid)->first();
         return view('users.show', compact('user'));
     }
 
@@ -89,9 +88,8 @@ class UserController extends Controller
      * @param \App\User ID $uid
      * @return \Illuminate\Http\Response
      */
-    public function edit($uid)
+    public function edit(User $user)
     {
-        $user = User::where('id', $uid)->first();
         return view('users.create', compact('user'));
     }
 
@@ -102,7 +100,7 @@ class UserController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function update($uid, Request $request)
+    public function update(User $user, Request $request)
     {
         $groupsCollection = Role::all();
 
@@ -118,7 +116,6 @@ class UserController extends Controller
             'group' => [Rule::in($groups)],
         ]);
 
-        $user = User::where('id', $uid)->first();
         $user->load('roles');
         $user->name = $validatedData['name'];
         $user->email = $validatedData['email'];
@@ -142,9 +139,8 @@ class UserController extends Controller
      * @param \App\User ID $uid
      * @return \Illuminate\Http\Response
      */
-    public function destroy($uid)
+    public function destroy(User $user)
     {
-        $user = User::where('id', $uid)->first();
         if($user->forceDelete()) {
             return redirect()->back()->withSuccess('Utilizador eliminado com sucesso!');
         } else {
