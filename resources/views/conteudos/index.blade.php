@@ -1,8 +1,6 @@
 @extends('layout.layout')
 @section('title', 'Utilizadores')
 @section('content')
-    //TODO: Sucesso ou erro ao eliminar users
-
     <?php
     $role = Auth::user()->roles->first();
     foreach ($conteudos as $conteudo) {
