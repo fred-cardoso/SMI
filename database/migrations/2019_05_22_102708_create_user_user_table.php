@@ -18,8 +18,8 @@ class CreateUserUserTable extends Migration
             $table->integer("subscribed_id")->unsigned();
 
             //FOREIGN KEY CONSTRAINTS
-            //$table->foreign('subscriberID')->references('id')->on('user')->onDelete('cascade');
-            //$table->foreign('subscribedID')->references('id')->on('user')->onDelete('cascade');
+            $table->foreign('subscriber_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('subscribed_id')->references('id')->on('users')->onDelete('cascade');
 
             //SETTING THE PRIMARY KEYS
             $table->primary(['subscriber_id','subscribed_id']);

@@ -35,16 +35,16 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
         Route::get('uploads', 'ConteudoController@index');
         Route::get('upload', 'ConteudoController@create');
         Route::post('upload', 'ConteudoController@store');
-        Route::get('uploads/{conteudo}', 'ConteudoController@show');
-        Route::get('uploads/{conteudo}/edit', 'ConteudoController@edit');
-        Route::post('uploads/{conteudo}/edit', 'ConteudoController@update');
-        Route::post('uploads/{conteudo}/delete', 'ConteudoController@destroy');
+        Route::get('uploads/{conteudo}', 'ConteudoController@show')->where(['conteudo' => '[0-9]+']);;
+        Route::get('uploads/{conteudo}/edit', 'ConteudoController@edit')->where(['conteudo' => '[0-9]+']);;
+        Route::post('uploads/{conteudo}/edit', 'ConteudoController@update')->where(['conteudo' => '[0-9]+']);;
+        Route::post('uploads/{conteudo}/delete', 'ConteudoController@destroy')->where(['conteudo' => '[0-9]+']);;
 
-        Route::get('categorias/{categoria}', 'CategoriaController@show')->where(['uid' => '[0-9]+']);
-        Route::get('categorias/{categoria}/edit', 'CategoriaController@edit')->where(['uid' => '[0-9]+']);;
-        Route::post('categorias/{categoria}/edit', 'CategoriaController@update')->where(['uid' => '[0-9]+']);
-        Route::post('categorias/{categoria}/delete', 'CategoriaController@destroy')->where(['uid' => '[0-9]+']);
-        Route::get('users/{user}/subscribe','UserController@subscribe')->where(['uid' => '[0-9]+']);
+        Route::get('categorias/{categoria}', 'CategoriaController@show')->where(['categoria' => '[0-9]+']);
+        Route::get('categorias/{categoria}/edit', 'CategoriaController@edit')->where(['categoria' => '[0-9]+']);;
+        Route::post('categorias/{categoria}/edit', 'CategoriaController@update')->where(['categoria' => '[0-9]+']);
+        Route::post('categorias/{categoria}/delete', 'CategoriaController@destroy')->where(['categoria' => '[0-9]+']);
+        Route::post('users/{user}/subscribe','UserController@subscribe')->where(['user' => '[0-9]+']);
 
         Route::get('configurations/edit', 'Configurations@edit');
     });
