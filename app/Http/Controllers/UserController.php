@@ -157,6 +157,8 @@ class UserController extends Controller
         $subed_id = $subed_user->id;
 
         $user->user()->attach([1 => ['subscribed_id' => $subed_id]]);
+
+        return redirect()->back()->withSuccess('Subscrito com sucesso!');
     }
 
     public function subscribeCategoria(Request $request)
@@ -166,6 +168,8 @@ class UserController extends Controller
         $subed_cat = Categoria::find($request->categoria);
         $cat_id = $subed_cat->id;
         $user->categoria()->attach([1 =>['categoria_id'=> $cat_id]]);
+
+        return redirect()->back()->withSuccess('Subscrito com sucesso!');
     }
 
 }
