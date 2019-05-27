@@ -7,6 +7,7 @@ use App\Conteudo;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class ConteudoController extends Controller
 {
@@ -17,7 +18,8 @@ class ConteudoController extends Controller
      */
     public function index()
     {
-        //
+        $conteudos = Conteudo::all();
+        return view('conteudos.index', compact('conteudos'));
     }
 
     /**
@@ -81,7 +83,7 @@ class ConteudoController extends Controller
      */
     public function show(Conteudo $conteudo)
     {
-        //
+        return view('conteudos.show', compact('conteudo'));
     }
 
     /**
@@ -124,6 +126,7 @@ class ConteudoController extends Controller
         $conteudo->tipo = "teste";
         $conteudo->save();
 
+        $conteudo->category()->detach();
         $conteudo->category()->attach($categoria);
 
         return redirect()->back()->withSuccess("Conteúdo editado com sucesso!");
@@ -137,6 +140,7 @@ class ConteudoController extends Controller
      */
     public function destroy(Conteudo $conteudo)
     {
+        Storage::delete($conteudo->nome);
         if($conteudo->forceDelete()) {
             return redirect()->back()->withSuccess('Conteúdo eliminado com sucesso!');
         } else {

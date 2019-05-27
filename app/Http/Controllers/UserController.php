@@ -121,8 +121,7 @@ class UserController extends Controller
         $user->name = $validatedData['name'];
         $user->email = $validatedData['email'];
 
-        $current_user_role = Role::where('slug', $user->roles->first()->slug)->first();
-        $user->roles()->detach($current_user_role);
+        $user->roles()->detach();
 
         $user_role = Role::where('name',$request->group)->first();
         $user->roles()->attach($user_role);
