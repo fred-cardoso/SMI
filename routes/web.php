@@ -32,10 +32,13 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
         Route::get('configurations/edit', 'Configurations@edit');
         Route::post('configurations/edit', 'Configurations@update');
 
+        Route::get('uploads', 'ConteudoController@index');
         Route::get('upload', 'ConteudoController@create');
         Route::post('upload', 'ConteudoController@store');
+        Route::get('uploads/{conteudo}', 'ConteudoController@show');
         Route::get('uploads/{conteudo}/edit', 'ConteudoController@edit');
         Route::post('uploads/{conteudo}/edit', 'ConteudoController@update');
+        Route::post('uploads/{conteudo}/delete', 'ConteudoController@destroy');
 
         Route::get('categorias/{categoria}', 'CategoriaController@show')->where(['uid' => '[0-9]+']);
         Route::get('categorias/{categoria}/edit', 'CategoriaController@edit')->where(['uid' => '[0-9]+']);;
