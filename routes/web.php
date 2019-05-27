@@ -15,6 +15,10 @@ use Illuminate\Support\Facades\Storage;
 
 Auth::routes(['verify' => true]);
 
+Route::get('/', function () {
+    return view('welcome');
+});
+
 Route::group(['middleware' => ['auth', 'verified', 'role:user']], function () {
     /**
      * User basic Routes
@@ -48,17 +52,17 @@ Route::group(['middleware' => ['auth', 'verified', 'role:user']], function () {
      */
     Route::group(['middleware' => 'role:simpatizante'], function () {
 
-        
+
 
         /**
          * Routes for admin
          */
         Route::group(['middleware' => 'role:admin'], function () {
-            Route::get('users', 'UserController@index');
-            Route::get('users/{user}', 'UserController@show')->where(['uid' => '[0-9]+']);
+            Route::get('users', 'UserController@index')->name('users');
+            Route::get('users/{user}', 'UserController@show')->where(['uid' => '[0-9]+'])->name('user');
             Route::get('users/create', 'UserController@create');
             Route::post('users/create', 'UserController@store');
-            Route::get('users/{user}/edit', 'UserController@edit')->where(['uid' => '[0-9]+']);
+            Route::get('users/{user}/edit', 'UserController@edit')->where(['uid' => '[0-9]+'])->name('user_edit');
             Route::post('users/{user}/edit', 'UserController@update')->where(['uid' => '[0-9]+']);
             Route::post('users/{user}/delete', 'UserController@destroy')->where(['uid' => '[0-9]+']);
 
@@ -87,11 +91,6 @@ Route::group(['middleware' => ['auth', 'verified', 'role:user']], function () {
             Route::get('configurations/edit', 'Configurations@edit');
         });
     });
-});
-
-
-Route::get('/', function () {
-    return view('welcome');
 });
 
 Route::get('/home', 'HomeController@index')->name('home');
