@@ -68,11 +68,11 @@
                                             $checkIfSubscribed = sizeof($database->where('subscribed_id', $userAuth && 'user_id', $user->id));
 
                                             if ($checkIfSubscribed == 0) {
-                                                echo '<input type="submit" value="Subscribe">';
+                                                echo '<input name="sub"type="submit" value="Subscribe">';
 
 
                                             }else{
-                                                echo '<input type="submit" value="Unsubscribe">';
+                                                echo '<input name="sub" type="submit" value="Unsubscribe">';
                                             }
 
                                             ?>

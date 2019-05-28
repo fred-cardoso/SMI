@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
+use mysql_xdevapi\Exception;
 
 class UserController extends Controller
 {
@@ -108,6 +109,8 @@ class UserController extends Controller
 
         $groups = array();
 
+
+
         foreach ($groupsCollection as $group) {
             array_push($groups, $group->name);
         }
@@ -151,25 +154,37 @@ class UserController extends Controller
 
     public function subscribeUser(Request $request)
     {
+
+
         $user = Auth::user();
 
         $subed_user = User::find($request->user);
-        $subed_id = $subed_user->id;
 
-        $user->user()->attach([1 => ['subscribed_id' => $subed_id]]);
+        $subed_id = $subed_user->id;
+        //dd($user->user()->syncWithoutDetaching([['subscribed_id' => $subed_id]]));
+        if($request->sub == "Unsubscribe"){
+            ;
+           // $user->user()->detach(['subed_id' =>[]]);
+        }else{
+            $user->user()->attach(['lmao' =>['subscribed_id' => $subed_id]]);
+        }
+
 
         return redirect()->back()->withSuccess('Subscrito com sucesso!');
     }
 
-    public function subscribeCategoria(Request $request)
+
+    public
+    function subscribeCategoria(Request $request)
     {
         $user = Auth::user();
 
         $subed_cat = Categoria::find($request->categoria);
+
         $cat_id = $subed_cat->id;
-        $user->categoria()->attach([1 =>['categoria_id'=> $cat_id]]);
+        $user->categoria()->toggle([['categoria_id' => $cat_id]]);
+
 
         return redirect()->back()->withSuccess('Subscrito com sucesso!');
     }
-
 }
