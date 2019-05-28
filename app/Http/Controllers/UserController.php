@@ -137,6 +137,44 @@ class UserController extends Controller
         }
     }
 
+    public function updateProfile(User $user, Request $request)
+    {
+
+        if (!Hash::check($request->current_password, $user->password)) {
+            return redirect()->back()->withErrors('Password atual não está correcta.');
+        }
+
+        $validatedData = null;
+
+        if (strlen($request->password) > 0) {
+            $validatedData = $request->validate([
+                'name' => ['required', 'string', 'max:255'],
+                'email' => ['required', 'string', 'email', 'max:255'],
+                'password' => ['string', 'min:8', 'confirmed'],
+            ]);
+
+            $user->password = Hash::make($validatedData['password']);
+        } else {
+            $validatedData = $request->validate([
+                'name' => ['required', 'string', 'max:255'],
+                'email' => ['required', 'string', 'email', 'max:255'],
+            ]);
+        }
+
+        if($user->email != $validatedData['email']) {
+            $user->email = $validatedData['email'];
+            $user->email_verified_at = null;
+
+            //Sends a event for email verification listeners
+            //TODO: Change email template
+            event(new Registered($user));
+        }
+
+        $user->name = $validatedData['name'];
+        $user->save();
+
+        return redirect()->back()->withSuccess('Atualizou o seu perfil com sucesso!');
+    }
     /**
      * Remove the specified resource from storage.
      *
