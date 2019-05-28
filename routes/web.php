@@ -42,10 +42,11 @@ Route::group(['middleware' => ['auth', 'verified', 'role:user']], function () {
     })->name('video');
 
     Route::get('profile', function (\App\Http\Controllers\UserController $controller) {
-        dd("teste");
-        $uid = Auth::user()->id;
-        return $controller->show($uid);
-    });
+        return $controller->show(Auth::user());
+    })->name('profile');
+    Route::post('profile/edit', function (\App\Http\Controllers\UserController $controller) {
+        return $controller->updateProfile(Auth::user(), request());
+    })->name('profile_edit');
 
     Route::get('users', 'UserController@index')->name('users');
     Route::get('users/{user}', 'UserController@show')->where(['uid' => '[0-9]+'])->name('user');
