@@ -5,23 +5,7 @@
     <?php
 
     $role = Auth::user()->roles->first();
-    /*foreach ($users as $user) {
 
-    if ($role->slug == 'admin'){
-    echo '<form action="users/' . $user->id . '/delete" method="POST">';
-    ?>@csrf<?php
-    echo '<input type="submit" value="Eliminar"></form>';
-    echo '</br>';
-    echo '</form>';
-
-
-    }
-
-    echo '<form action="users/' . $user->id . '/subscribe" method="POST">';
-    ?>@csrf<?php
-    echo '<input type="submit" value="Subscrever"></form>';
-    echo '</form>';
-    }*/
     ?>
     <section class="content-header">
         <h1>

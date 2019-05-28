@@ -123,7 +123,6 @@ class UserController extends Controller
         $user->email = $validatedData['email'];
 
         $user->roles()->detach();
-
         $user_role = Role::where('name', $request->group)->first();
         $user->roles()->attach($user_role);
 
@@ -132,6 +131,45 @@ class UserController extends Controller
         } else {
             return redirect()->back()->withErrors('Ocorreu um erro!');
         }
+    }
+
+    public function updateProfile(User $user, Request $request)
+    {
+
+        if (!Hash::check($request->current_password, $user->password)) {
+            return redirect()->back()->withErrors('Password atual não está correcta.');
+        }
+
+        $validatedData = null;
+
+        if (strlen($request->password) > 0) {
+            $validatedData = $request->validate([
+                'name' => ['required', 'string', 'max:255'],
+                'email' => ['required', 'string', 'email', 'max:255'],
+                'password' => ['string', 'min:8', 'confirmed'],
+            ]);
+
+            $user->password = Hash::make($validatedData['password']);
+        } else {
+            $validatedData = $request->validate([
+                'name' => ['required', 'string', 'max:255'],
+                'email' => ['required', 'string', 'email', 'max:255'],
+            ]);
+        }
+
+        if($user->email != $validatedData['email']) {
+            $user->email = $validatedData['email'];
+            $user->email_verified_at = null;
+
+            //Sends a event for email verification listeners
+            //TODO: Change email template
+            event(new Registered($user));
+        }
+
+        $user->name = $validatedData['name'];
+        $user->save();
+
+        return redirect()->back()->withSuccess('Atualizou o seu perfil com sucesso!');
     }
 
     /**
@@ -167,7 +205,7 @@ class UserController extends Controller
 
         $subed_cat = Categoria::find($request->categoria);
         $cat_id = $subed_cat->id;
-        $user->categoria()->attach([1 =>['categoria_id'=> $cat_id]]);
+        $user->categoria()->attach([1 => ['categoria_id' => $cat_id]]);
 
         return redirect()->back()->withSuccess('Subscrito com sucesso!');
     }
