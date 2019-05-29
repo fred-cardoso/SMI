@@ -43,7 +43,7 @@
                                     <td><a href="{{route('user', $user->id)}}">{{$user->name}}</a></td>
                                     <td>{{$user->roles()->first()->name}}</td>
                                     <td>
-                                        <form action="{{route('user_subscribe', $user->id)}}" method="POST">
+                                        <form action="{{route('user.subscribe', $user->id)}}" method="POST">
                                             @csrf
                                             <?php $userAuth = Auth::User()->id;
                                             $database = DB::table("user_user")->get();
@@ -111,7 +111,7 @@
                         <button type="button" class="btn btn-outline pull-left" data-dismiss="modal" wfd-id="251">
                             Cancelar
                         </button>
-                        <form action="{{route('user_delete', $user->id)}}" method="POST">
+                        <form action="{{route('user.delete', $user->id)}}" method="POST">
                             @csrf
                             <input type="submit" class="btn btn-outline" wfd-id="250" value="Eliminar Utilizador"/>
                         </form>

@@ -18,14 +18,53 @@
         <ul class="sidebar-menu" data-widget="tree">
 
             <li class="header">MAIN NAVIGATION</li>
-            <?php  $categoria =auth()->user()->categoria();
-            $cat_id = $categoria->first()->pivot->categoria_id;
-            $cat_name = $categoria->first()->nome;
-            echo' <li><a href="/categorias/'.$cat_id.'"><i class="fa fa-book"></i> <span>'.$cat_name.'</span></a></li>';
-            //echo ;
-            //foreach($categoria->$cat){
-            //   dd($cat);
-            //}
+            <?php  $categoria = auth()->user()->categoria();
+            $user_id = auth()->user()->id;
+            $putCategoria = $categoria->where('categoria_id', 1)->where('user_id', $user_id)->get();
+
+            $putCategoria2 = $categoria->first()->pivot->get();
+            $putCategoria3 = $categoria->first()->pivot;
+
+            $putCategoria = $categoria->where('categoria_id', 3)->where('user_id', $user_id)->get();
+            dd($putCategoria);
+            //dd($putCategoria);
+            //dd($putCategoria->isEmpty());
+            //dd($putCategoria->first()->nome);
+            //dd($user_id);
+            $counter = $categoria->count();
+            $catFinder = 1;
+            for ($x = 0; $x < $counter+1;) {
+                $putCategoria = $categoria->where('categoria_id', $catFinder)->where('user_id', $user_id)->get();
+                if ($putCategoria->isEmpty()) {
+                    //dd($putCategoria);
+                    if ($catFinder == 3) {
+                        echo '<li class="header">'.$catFinder."ola".$user_id.'MAIN NAVIGATION</li>';
+                        dd();
+                    }
+                    echo '<li class=active>' . $catFinder . 'Olu' . $user_id . '</li>';
+                } else {
+                    echo '<li class=active>' . $catFinder . 'Olé</li>';
+                    if($catFinder != 1){
+                        dd("entrou aqui");
+                    }
+                    $cat_name = $putCategoria->first()->nome;
+                    $cat_id = $putCategoria->first()->id;
+                    echo ' <li><a href="/categorias/' . $cat_id . '"><i class="fa fa-book"></i> <span>' . $cat_name . '</span></a></li>';
+                    $x++;
+                }
+                $catFinder += 1;
+
+                if ($catFinder == 3) {
+                    //dd($x);
+                }
+
+
+            }
+            //$cat_id = $categoria->first()->pivot->categoria_id;
+
+            //dd($categoria->first());
+
+
 
             ?>
             <li><a href="/"><i class="fa fa-book"></i> <span>Página Inicial</span></a></li>
