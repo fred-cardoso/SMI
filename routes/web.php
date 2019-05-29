@@ -79,12 +79,13 @@ Route::group(['middleware' => ['auth', 'verified', 'role:user']], function () {
         Route::group(['middleware' => 'role:admin'], function () {
             Route::get('users/create', 'UserController@create');
             Route::post('users/create', 'UserController@store');
+
             Route::get('users/{user}/edit', 'UserController@edit')->where(['user' => '[0-9]+'])->name('user.edit');
             Route::post('users/{user}/edit', 'UserController@update')->where(['user' => '[0-9]+']);
             Route::post('users/{user}/delete', 'UserController@destroy')->where(['user' => '[0-9]+'])->name('user.delete');
 
-            Route::get('configurations/edit', 'Configurations@edit')->name('config');
-            Route::post('configurations/edit', 'Configurations@update');
+            Route::get('configurations/edit', 'ConfigurationsController@edit')->name('config');
+            Route::post('configurations/edit', 'ConfigurationsController@update');
 
             Route::post('uploads/{conteudo}/delete', 'ConteudoController@destroy')->where(['conteudo' => '[0-9]+']);
 

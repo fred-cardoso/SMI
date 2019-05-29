@@ -54,7 +54,7 @@
                                         </form>
                                         <?php $role = Auth::user()->roles->first();?>
                                         @if($role->slug == 'admin')
-                                            <a href="{{route('cat_edit', $cat->id)}}" type="button"
+                                            <a href="{{route('cat.edit', $cat->id)}}" type="button"
                                                class="btn btn-primary">Editar</a>
                                         @endif
                                     </td>
