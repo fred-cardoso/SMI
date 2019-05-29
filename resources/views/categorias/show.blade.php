@@ -2,8 +2,10 @@
 @section('title', 'Categorias')
 @section('content')
     <?php
-    echo $categorias->name;
-    echo "</br>";
-    echo $categorias->secundaria;
+
+        echo $categoria->nome;
+        echo "</br>";
+        echo $categoria->secundaria;
+
     ?>
 @endsection

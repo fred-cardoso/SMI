@@ -8,7 +8,7 @@
                 <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
             </div>
             <div class="pull-left info">
-                <p>Alexander Pierce</p>
+                <p>{{auth()->user()->name}}</p>
                 <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
             </div>
         </div>
@@ -32,12 +32,58 @@
                     <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
+
                 </a>
                 <ul class="treeview-menu">
                     <li class="active"><a href="index.html"><i class="fa fa-circle-o"></i> Dashboard v1</a></li>
                     <li><a href="index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
                 </ul>
             </li>
+
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-share"></i> <span>Utilizadores</span>
+                    <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="/users"><i class="fa fa-circle-o"></i>Listar Utilizadores </a></li>
+                    <li><a href="#"><i class="fa fa-circle-o"></i>Subscrições </a></li>
+                </ul>
+
+
+            </li>
+
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-share"></i> <span>Categorias</span>
+                    <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="/categorias"><i class="fa fa-circle-o"></i>Listar Categorias </a></li>
+                    <li class="treeview">
+                        <a href="#"><i class="fa fa-circle-o"></i>Mostrar categorias
+                            <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="/categorias/1"><i class="fa fa-circle-o"></i>Categoria 1</a></li>
+                            <li><a href="/categorias/2"><i class="fa fa-circle-o"></i>Categoria 2 EXP</a></li>
+
+                        </ul>
+                    </li>
+                    <li><a href="/categorias/create"><i class="fa fa-circle-o"></i>Criar Categorias</a></li>
+                </ul>
+            </li>
+            <li class="header">Administração</li>
+            <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Configurações de DB</span></a></li>
+            <li><a href="#"><i class="fa fa-circle-o text-aqua"></i>Banned Users</a></li>
+
+<!--
             <li class="treeview">
                 <a href="#">
                     <i class="fa fa-files-o"></i>
@@ -50,7 +96,8 @@
                     <li><a href="pages/layout/top-nav.html"><i class="fa fa-circle-o"></i> Top Navigation</a></li>
                     <li><a href="pages/layout/boxed.html"><i class="fa fa-circle-o"></i> Boxed</a></li>
                     <li><a href="pages/layout/fixed.html"><i class="fa fa-circle-o"></i> Fixed</a></li>
-                    <li><a href="pages/layout/collapsed-sidebar.html"><i class="fa fa-circle-o"></i> Collapsed Sidebar</a></li>
+                    <li><a href="pages/layout/collapsed-sidebar.html"><i class="fa fa-circle-o"></i> Collapsed
+                            Sidebar</a></li>
                 </ul>
             </li>
             <li>
@@ -61,6 +108,7 @@
             </span>
                 </a>
             </li>
+
             <li class="treeview">
                 <a href="#">
                     <i class="fa fa-pie-chart"></i>
@@ -156,7 +204,11 @@
                     <li><a href="pages/examples/pace.html"><i class="fa fa-circle-o"></i> Pace Page</a></li>
                 </ul>
             </li>
-            <li class="treeview">
+            -->
+
+
+
+            <!-- <li class="treeview">
                 <a href="#">
                     <i class="fa fa-share"></i> <span>Multilevel</span>
                     <span class="pull-right-container">
@@ -188,12 +240,15 @@
                     </li>
                     <li><a href="#"><i class="fa fa-circle-o"></i> Level One</a></li>
                 </ul>
-            </li>
+            </li> -->
+
+            <!--
             <li><a href="https://adminlte.io/docs"><i class="fa fa-book"></i> <span>Documentation</span></a></li>
             <li class="header">LABELS</li>
             <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Important</span></a></li>
             <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Warning</span></a></li>
             <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> <span>Information</span></a></li>
+            -->
         </ul>
     </section>
     <!-- /.sidebar -->
