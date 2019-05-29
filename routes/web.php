@@ -49,7 +49,7 @@ Route::group(['middleware' => ['auth', 'verified', 'role:user']], function () {
     })->name('profile_edit');
 
     Route::get('users', 'UserController@index')->name('users');
-    Route::get('users/{user}', 'UserController@show')->where(['uid' => '[0-9]+'])->name('user');
+    Route::get('users/{user}', 'UserController@show')->where(['user' => '[0-9]+'])->name('user');
     Route::post('users/{user}/subscribe', 'UserController@subscribeUser')->where(['user' => '[0-9]+'])->name('user.subscribe');
     Route::post('users/{categoria}/subscribeCat', 'UserController@subscribeCategoria')->where(['categoria' => '[0-9]+'])->name('cat.subscribe');
 
@@ -79,9 +79,9 @@ Route::group(['middleware' => ['auth', 'verified', 'role:user']], function () {
         Route::group(['middleware' => 'role:admin'], function () {
             Route::get('users/create', 'UserController@create');
             Route::post('users/create', 'UserController@store');
-            Route::get('users/{user}/edit', 'UserController@edit')->where(['uid' => '[0-9]+'])->name('user_edit');
-            Route::post('users/{user}/edit', 'UserController@update')->where(['uid' => '[0-9]+']);
-            Route::post('users/{user}/delete', 'UserController@destroy')->where(['uid' => '[0-9]+'])->name('user_delete');
+            Route::get('users/{user}/edit', 'UserController@edit')->where(['user' => '[0-9]+'])->name('user_edit');
+            Route::post('users/{user}/edit', 'UserController@update')->where(['user' => '[0-9]+']);
+            Route::post('users/{user}/delete', 'UserController@destroy')->where(['user' => '[0-9]+'])->name('user_delete');
 
             Route::get('configurations/edit', 'Configurations@edit')->name('config');
             Route::post('configurations/edit', 'Configurations@update');
