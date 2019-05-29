@@ -29,7 +29,8 @@ class ConteudoController extends Controller
      */
     public function create()
     {
-        return view('conteudos.create');
+        $categories = Categoria::all();
+        return view('conteudos.create', compact('categories'));
     }
 
     /**

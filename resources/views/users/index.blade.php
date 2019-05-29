@@ -1,7 +1,6 @@
 @extends('layout.layout')
 @section('title', 'Utilizadores')
 @section('content')
-
     <?php
 
     $role = Auth::user()->roles->first();
@@ -17,7 +16,6 @@
             <li class="active">Utilizadores</li>
         </ol>
     </section>
-
     <!-- Main content -->
     <section class="content">
         <div class="row">
@@ -55,19 +53,21 @@
                                                 echo '<input name="sub"type="submit" value="Subscribe">';
 
 
-                                            }else{
+                                            } else {
                                                 echo '<input name="sub" type="submit" value="Unsubscribe">';
                                             }
 
                                             ?>
                                         </form>
                                         @if($role->slug == 'admin')
-                                            <a href="{{route('user_edit', $user->id)}}" type="button"
+                                            <a href="{{route('user.edit', $user->id)}}" type="button"
                                                class="btn btn-primary">Editar</a>
-                                            <button type="button" class="btn btn-danger" data-toggle="modal"
-                                                    data-target="#modal-delete-user-{{$user->id}}" wfd-id="264">
-                                                Eliminar
-                                            </button>
+                                            @if(auth()->user()->id != $user->id)
+                                                <button type="button" class="btn btn-danger" data-toggle="modal"
+                                                        data-target="#modal-delete-user-{{$user->id}}" wfd-id="264">
+                                                    Eliminar
+                                                </button>
+                                            @endif
                                         @endif
                                     </td>
                                 </tr>
@@ -93,6 +93,9 @@
     </section>
     <!-- /.content -->
     @foreach($users as $user)
+        @if(auth()->user()->id == $user->id)
+            @continue
+        @endif
         <div class="modal modal-danger fade" id="modal-delete-user-{{$user->id}}" wfd-id="130">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -106,7 +109,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-outline pull-left" data-dismiss="modal" wfd-id="251">
-                            Fechar
+                            Cancelar
                         </button>
                         <form action="{{route('user_delete', $user->id)}}" method="POST">
                             @csrf
