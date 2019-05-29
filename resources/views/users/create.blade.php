@@ -1,6 +1,3 @@
-<?php
-$roles = \App\Role::all();
-?>
 @extends('layout.layout')
 @section('title', 'Criar Utilizador')
 @section('content')

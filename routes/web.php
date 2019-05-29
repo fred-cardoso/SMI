@@ -82,8 +82,8 @@ Route::group(['middleware' => ['auth', 'verified', 'role:user']], function () {
             Route::post('users/{user}/edit', 'UserController@update')->where(['user' => '[0-9]+']);
             Route::post('users/{user}/delete', 'UserController@destroy')->where(['user' => '[0-9]+'])->name('user_delete');
 
-            Route::get('configurations', 'Configurations@edit')->name('configuratons');
-            Route::post('configurations', 'Configurations@update');
+            Route::get('configurations', 'ConfigurationsController@edit')->name('configuratons');
+            Route::post('configurations', 'ConfigurationsController@update');
 
             Route::post('uploads/{conteudo}/delete', 'ConteudoController@destroy')->where(['conteudo' => '[0-9]+']);
 
