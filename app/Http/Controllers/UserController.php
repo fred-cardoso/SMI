@@ -71,7 +71,7 @@ class UserController extends Controller
         $user_role = Role::where('name', $request->group)->first();
         $user->roles()->attach($user_role);
 
-        return redirect()->back()->withSuccess('Utilizador registado com sucesso!');
+        return redirect()->route('user', $user->id);
     }
 
     /**
@@ -93,7 +93,7 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        return view('users.create', compact('user'));
+        return view('users.edit', compact('user'));
     }
 
     /**

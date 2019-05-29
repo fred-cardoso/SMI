@@ -1,7 +1,6 @@
 @extends('layout.layout')
 @section('title', 'Utilizadores')
 @section('content')
-
     <?php
 
     $role = Auth::user()->roles->first();
@@ -106,7 +105,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-outline pull-left" data-dismiss="modal" wfd-id="251">
-                            Fechar
+                            Cancelar
                         </button>
                         <form action="{{route('user_delete', $user->id)}}" method="POST">
                             @csrf
