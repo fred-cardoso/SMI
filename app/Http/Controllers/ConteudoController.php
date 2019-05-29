@@ -54,13 +54,21 @@ class ConteudoController extends Controller
         $validatedData = $request->validate([
             'title' => 'required|string',
             'description' => 'required|string',
-            'category' => ['required', Rule::in($categories)],
-            'file' => 'required|mimetypes:image/gif,image/jpeg,image/bmp,image/png,video/mp4,video/mov,video/avi,video/flv,video/wmv',
+            'category.*' => ['required', Rule::in($categories)],
+            'file' => 'required|mimetypes:image/gif,image/jpeg,image/bmp,image/png,video/mp4,video/mov,video/avi,video/flv,video/wmv,application/zip,application/octet-stream,application/x-zip-compressed,multipart/x-zip',
         ]);
 
-        $path = $request->file('file')->store('files');
+        $file = $request->file('file');
 
-        $categoria = Categoria::where('id', $validatedData['category'])->first();
+        dd($file);
+
+        if($file->getMimeType()) {
+
+        }
+
+        dd("PAROU");
+
+        $path = $file->store('files');
 
         $conteudo = new Conteudo();
         $conteudo->titulo = $validatedData['title'];
@@ -70,9 +78,12 @@ class ConteudoController extends Controller
         $conteudo->user()->associate(Auth::user());
         $conteudo->save();
 
-        $conteudo->category()->attach($categoria);
+        foreach($validatedData['category'] as $id) {
+            $categoria = Categoria::where('id', $id)->first();
+            $conteudo->category()->attach($categoria);
+        }
 
-        return redirect()->back()->withSuccess("Conteúdo adicionado com sucesso!");
+        return redirect()->route('uploads.show', $conteudo->id);
     }
 
     /**

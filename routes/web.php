@@ -56,8 +56,8 @@ Route::group(['middleware' => ['auth', 'verified', 'role:user']], function () {
     Route::get('categorias/{categoria}', 'CategoriaController@show')->where(['categoria' => '[0-9]+']);
     Route::post('categorias/{categoria}/subscribe', 'UserController@subscribeCategoria')->where(['categoria' => '[0-9]+']);
 
-    Route::get('uploads', 'ConteudoController@index');
-    Route::get('uploads/{conteudo}', 'ConteudoController@show')->where(['conteudo' => '[0-9]+']);
+    Route::get('uploads', 'ConteudoController@index')->name('uploads');
+    Route::get('uploads/{conteudo}', 'ConteudoController@show')->where(['conteudo' => '[0-9]+'])->name('uploads.show');
     /**
      * Routes for "Simpatizante"
      */
@@ -67,7 +67,7 @@ Route::group(['middleware' => ['auth', 'verified', 'role:user']], function () {
         Route::get('categorias/{categoria}/edit', 'CategoriaController@edit')->where(['categoria' => '[0-9]+'])->name('cat_edit');
         Route::post('categorias/{categoria}/edit', 'CategoriaController@update')->where(['categoria' => '[0-9]+']);
 
-        Route::get('upload', 'ConteudoController@create');
+        Route::get('upload', 'ConteudoController@create')->name('upload');
         Route::post('upload', 'ConteudoController@store');
         Route::get('uploads/{conteudo}/edit', 'ConteudoController@edit')->where(['conteudo' => '[0-9]+']);
         Route::post('uploads/{conteudo}/edit', 'ConteudoController@update')->where(['conteudo' => '[0-9]+']);
