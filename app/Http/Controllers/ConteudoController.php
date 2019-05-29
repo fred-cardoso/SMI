@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use ZipArchive;
 
 class ConteudoController extends Controller
 {
@@ -36,18 +37,14 @@ class ConteudoController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        $tags = $request->tags;
-        $tags = str_replace(' ', '', $tags);
-        $tags = explode(',', $tags);
-
         $categories = array();
 
-        foreach(Categoria::all() as $category) {
+        foreach (Categoria::all() as $category) {
             array_push($categories, $category->id);
         }
 
@@ -60,15 +57,26 @@ class ConteudoController extends Controller
 
         $file = $request->file('file');
 
-        dd($file);
+        $zipMimeTypes = ['application/zip', 'application/octet-stream', 'application/x-zip-compressed', 'multipart/x-zip'];
 
-        if($file->getMimeType()) {
+        //Check if is a ZIP file
+        if (in_array($file->getMimeType(), $zipMimeTypes)) {
 
+            dd(storage_path());
+
+            $path = $file->store('files');
+            $zip = new ZipArchive;
+            $res = $zip->open('file.zip');
+            if ($res === TRUE) {
+                $zip->extractTo('/tempzip/extract_path/');
+                $zip->close();
+                echo 'woot!';
+            } else {
+                echo 'doh!';
+            }
         }
 
         dd("PAROU");
-
-        $path = $file->store('files');
 
         $conteudo = new Conteudo();
         $conteudo->titulo = $validatedData['title'];
@@ -78,7 +86,7 @@ class ConteudoController extends Controller
         $conteudo->user()->associate(Auth::user());
         $conteudo->save();
 
-        foreach($validatedData['category'] as $id) {
+        foreach ($validatedData['category'] as $id) {
             $categoria = Categoria::where('id', $id)->first();
             $conteudo->category()->attach($categoria);
         }
@@ -89,7 +97,7 @@ class ConteudoController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Conteudo  $conteudo
+     * @param \App\Conteudo $conteudo
      * @return \Illuminate\Http\Response
      */
     public function show(Conteudo $conteudo)
@@ -100,7 +108,7 @@ class ConteudoController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Conteudo  $conteudo
+     * @param \App\Conteudo $conteudo
      * @return \Illuminate\Http\Response
      */
     public function edit(Conteudo $conteudo)
@@ -111,15 +119,15 @@ class ConteudoController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Conteudo  $conteudo
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Conteudo $conteudo
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Conteudo $conteudo)
     {
         $categories = array();
 
-        foreach(Categoria::all() as $category) {
+        foreach (Categoria::all() as $category) {
             array_push($categories, $category->id);
         }
 
@@ -146,13 +154,13 @@ class ConteudoController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Conteudo  $conteudo
+     * @param \App\Conteudo $conteudo
      * @return \Illuminate\Http\Response
      */
     public function destroy(Conteudo $conteudo)
     {
         Storage::delete($conteudo->nome);
-        if($conteudo->forceDelete()) {
+        if ($conteudo->forceDelete()) {
             return redirect()->back()->withSuccess('Conteúdo eliminado com sucesso!');
         } else {
             return redirect()->back()->withErrors('Ocorreu um erro!');
