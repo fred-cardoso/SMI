@@ -8,7 +8,7 @@
             <small>Lista de Categorias</small>
         </h1>
         <ol class="breadcrumb">
-            <li><a href="#"><i class="fa fa-dashboard"></i> Página Inicial</a></li>
+            <li><a href="{{route("home")}}"><i class="fa fa-dashboard"></i> Página Inicial</a></li>
             <li class="active">Categorias</li>
         </ol>
     </section>
@@ -38,6 +38,20 @@
                                     <td>{{$cat->nome}}</td>
                                     <td>{{$cat->secundaria}}</td>
                                     <td>
+                                        <form action="{{route("cat.subscribe", $cat->id)}}" method="POST">
+                                            @csrf
+                                            <?php $userAuth = Auth::User()->id;
+                                            $database = DB::table("user_categoria")->get();
+                                            $checkIfSubscribed = sizeof($database->where('categoria_id', $cat->id)->where('user_id', Auth::user()->id));
+                                            if ($checkIfSubscribed == 0) {
+                                                echo '<input name="sub"type="submit" value="Subscribe">';
+
+                                            } else {
+                                                echo '<input name="sub" type="submit" value="Unsubscribe">';
+                                            }
+
+                                            ?>
+                                        </form>
                                         <?php $role = Auth::user()->roles->first();?>
                                         @if($role->slug == 'admin')
                                             <a href="{{route('cat_edit', $cat->id)}}" type="button"

@@ -110,7 +110,6 @@ class UserController extends Controller
         $groups = array();
 
 
-
         foreach ($groupsCollection as $group) {
             array_push($groups, $group->name);
         }
@@ -161,7 +160,7 @@ class UserController extends Controller
             ]);
         }
 
-        if($user->email != $validatedData['email']) {
+        if ($user->email != $validatedData['email']) {
             $user->email = $validatedData['email'];
             $user->email_verified_at = null;
 
@@ -175,6 +174,7 @@ class UserController extends Controller
 
         return redirect()->back()->withSuccess('Atualizou o seu perfil com sucesso!');
     }
+
     /**
      * Remove the specified resource from storage.
      *
@@ -192,19 +192,17 @@ class UserController extends Controller
 
     public function subscribeUser(Request $request)
     {
-
-
         $user = Auth::user();
 
         $subed_user = User::find($request->user);
 
         $subed_id = $subed_user->id;
         //dd($user->user()->syncWithoutDetaching([['subscribed_id' => $subed_id]]));
-        if($request->sub == "Unsubscribe"){
+        if ($request->sub == "Unsubscribe") {
             ;
-           // $user->user()->detach(['subed_id' =>[]]);
-        }else{
-            $user->user()->attach(['lmao' =>['subscribed_id' => $subed_id]]);
+            // $user->user()->detach(['subed_id' =>[]]);
+        } else {
+            $user->user()->attach(['lmao' => ['subscribed_id' => $subed_id]]);
         }
 
 
@@ -220,7 +218,11 @@ class UserController extends Controller
         $subed_cat = Categoria::find($request->categoria);
 
         $cat_id = $subed_cat->id;
-        $user->categoria()->toggle([['categoria_id' => $cat_id]]);
+        if ($request->sub == "Unsubscribe") {
+            $user->categoria()->detach(['categoria_id' => $cat_id]);
+        } else {
+            $user->categoria()->attach(['categoria_id' => ['categoria_id' => $cat_id]]);
+        }
 
 
         return redirect()->back()->withSuccess('Subscrito com sucesso!');
