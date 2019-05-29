@@ -93,7 +93,9 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        return view('users.edit', compact('user'));
+        $user->load('roles');
+        $roles = Role::all();
+        return view('users.edit', compact(['user', 'roles']));
     }
 
     /**
@@ -108,8 +110,6 @@ class UserController extends Controller
         $groupsCollection = Role::all();
 
         $groups = array();
-
-
 
         foreach ($groupsCollection as $group) {
             array_push($groups, $group->name);
