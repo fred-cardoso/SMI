@@ -3,17 +3,8 @@
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
         <!-- Sidebar user panel -->
-        <div class="user-panel">
-            <div class="pull-left image">
-                <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
-            </div>
-            <div class="pull-left info">
-                <p>{{auth()->user()->name}}</p>
-                <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
-            </div>
-        </div>
         <!-- search form -->
-        <form action="#" method="get" class="sidebar-form">
+        <form action='{{route('home')}}' method="get" class="sidebar-form">
             <div class="input-group">
                 <input type="text" name="q" class="form-control" placeholder="Search...">
                 <span class="input-group-btn">
@@ -25,18 +16,30 @@
         <!-- /.search form -->
         <!-- sidebar menu: : style can be found in sidebar.less -->
         <ul class="sidebar-menu" data-widget="tree">
+
             <li class="header">MAIN NAVIGATION</li>
+            <?php  $categoria =auth()->user()->categoria();
+            $cat_id = $categoria->first()->pivot->categoria_id;
+            $cat_name = $categoria->first()->nome;
+            echo' <li><a href="/categorias/'.$cat_id.'"><i class="fa fa-book"></i> <span>'.$cat_name.'</span></a></li>';
+            //echo ;
+            //foreach($categoria->$cat){
+            //   dd($cat);
+            //}
+
+            ?>
+            <li><a href="/"><i class="fa fa-book"></i> <span>Página Inicial</span></a></li>
             <li class="active treeview">
                 <a href="#">
-                    <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+                    <i class="fa fa-dashboard"></i> <span>Conteúdo</span>
                     <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
+  <i class="fa fa-angle-left pull-right"></i>
+</span>
 
                 </a>
                 <ul class="treeview-menu">
-                    <li class="active"><a href="index.html"><i class="fa fa-circle-o"></i> Dashboard v1</a></li>
-                    <li><a href="index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
+                    <li class="active"><a href="/"><i class="fa fa-circle-o"></i> Lista de conteúdos</a></li>
+
                 </ul>
             </li>
 
@@ -44,11 +47,11 @@
                 <a href="#">
                     <i class="fa fa-share"></i> <span>Utilizadores</span>
                     <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
+  <i class="fa fa-angle-left pull-right"></i>
+</span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="/users"><i class="fa fa-circle-o"></i>Listar Utilizadores </a></li>
+                    <li><a href="{{route('users')}}"><i class="fa fa-circle-o"></i>Listar Utilizadores </a></li>
                     <li><a href="#"><i class="fa fa-circle-o"></i>Subscrições </a></li>
                 </ul>
 
@@ -59,16 +62,16 @@
                 <a href="#">
                     <i class="fa fa-share"></i> <span>Categorias</span>
                     <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
+  <i class="fa fa-angle-left pull-right"></i>
+</span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="/categorias"><i class="fa fa-circle-o"></i>Listar Categorias </a></li>
+                    <li><a href="{{route('categorias')}}"><i class="fa fa-circle-o"></i>Listar Categorias </a></li>
                     <li class="treeview">
                         <a href="#"><i class="fa fa-circle-o"></i>Mostrar categorias
                             <span class="pull-right-container">
-                  <i class="fa fa-angle-left pull-right"></i>
-                </span>
+      <i class="fa fa-angle-left pull-right"></i>
+    </span>
                         </a>
                         <ul class="treeview-menu">
                             <li><a href="/categorias/1"><i class="fa fa-circle-o"></i>Categoria 1</a></li>
@@ -80,10 +83,11 @@
                 </ul>
             </li>
             <li class="header">Administração</li>
-            <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Configurações de DB</span></a></li>
+            <li><a href="{{route('config')}}"><i class="fa fa-circle-o text-red"></i>
+                    <span>Configurações de sistema</span></a></li>
             <li><a href="#"><i class="fa fa-circle-o text-aqua"></i>Banned Users</a></li>
 
-<!--
+            <!--
             <li class="treeview">
                 <a href="#">
                     <i class="fa fa-files-o"></i>
@@ -205,7 +209,6 @@
                 </ul>
             </li>
             -->
-
 
 
             <!-- <li class="treeview">

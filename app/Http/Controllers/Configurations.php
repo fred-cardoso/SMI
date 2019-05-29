@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class ConfigurationsController extends Controller
+class Configurations extends Controller
 {
     public function setEnv($name, $value)
     {
@@ -102,7 +102,7 @@ class ConfigurationsController extends Controller
         $this ->set_env('db_username',$request->db_username);
         $this ->set_env('db_password',$request->db_password);
 
-        return redirect()->back()->withSuccess("Configurações guardadas com sucesso.");
+        return redirect()->back()->withSucess("Configurações salvas com sucesso.");
     }
 
     public function putPermanentEnv($key, $value)
@@ -117,7 +117,6 @@ class ConfigurationsController extends Controller
             file_get_contents($path)
         ));
     }
-
     function set_env(string $key, string $value, $env_path = null)
     {
         $value = preg_replace('/\s+/', '', $value); //replace special ch
@@ -127,4 +126,14 @@ class ConfigurationsController extends Controller
         /** Save file eith new content */
         $env = file_put_contents(isset($env_path) ? $env_path : base_path('.env'), $env);
     }
+
+
+
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Conteudo  $conteudo
+     * @return \Illuminate\Http\Response
+     */
 }
