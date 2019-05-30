@@ -55,26 +55,19 @@
                             $user_id = auth()->user()->id;
                             $userSub = auth()->user()->user();
                             $counter = $userSub->count();
-
                             $subFinder = 1;
                             for ($x = 0; $x < $counter;) {
                                 $userSub = auth()->user()->user();
-                                //dd($userSub->get());
-
                                 $subscribe = $userSub->where('subscribed_id', $subFinder)->where('user_id', $user_id)->get();
-                                //dd($subscribe);
                                 if ($subscribe->isEmpty()) {
                                 } else {
-                                    //dd($subscribe);
                                     $userSubName = auth()->user()->where('id', $subFinder)->first()->name;
                                     echo ' <li><a href="/users/' . $subFinder . '"><i class="fa fa-book"></i> <span>' . $userSubName . '</span></a></li>';
                                     $x++;
                                 }
                                 $subFinder += 1;
                             }
-
                             ?>
-
                         </ul>
                     </li>
                 </ul>
@@ -114,9 +107,7 @@
                                 }
                                 $catFinder += 1;
                             }
-
                             ?>
-
                         </ul>
                     </li>
                     <li><a href="/categorias/create"><i class="fa fa-circle-o"></i>Criar Categorias</a></li>
