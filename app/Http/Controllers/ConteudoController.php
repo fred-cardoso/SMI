@@ -14,6 +14,18 @@ use Illuminate\Http\File;
 
 class ConteudoController extends Controller
 {
+
+    private $categories_ids = array();
+    private $categories_names = array();
+
+    public function __construct()
+    {
+        foreach (Categoria::all() as $category) {
+            array_push($this->categories_ids, $category->id);
+            array_push($this->categories_names, $category->nome);
+        }
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -44,18 +56,10 @@ class ConteudoController extends Controller
      */
     public function store(Request $request)
     {
-        $categories = array();
-        $categories_names = array();
-
-        foreach (Categoria::all() as $category) {
-            array_push($categories, $category->id);
-            array_push($categories_names, $category->nome);
-        }
-
         $validatedData = $request->validate([
             'title' => 'required|string',
             'description' => 'required|string',
-            'category.*' => ['required', Rule::in($categories)],
+            'category.*' => ['required', Rule::in($this->categories_ids)],
             'file' => 'required|mimetypes:image/gif,image/jpeg,image/bmp,image/png,video/mp4,video/mov,video/avi,video/flv,video/wmv,audio/mpeg,audio/vnd.wav,audio/ogg,application/zip,application/octet-stream,application/x-zip-compressed,multipart/x-zip',
         ]);
 
@@ -114,7 +118,7 @@ class ConteudoController extends Controller
                         $file_category = $xml_categories->item($x)->attributes->getNamedItem('name')->nodeValue;
 
                         //Checks for valid categories names
-                        if (!in_array($file_category, $categories_names)) {
+                        if (!in_array($file_category, $this->categories_names)) {
                             return redirect()->back()->withErrors('A categoria ' . $file_category . ' não existe no sistema.');
                         }
 
@@ -195,7 +199,8 @@ class ConteudoController extends Controller
      */
     public function edit(Conteudo $conteudo)
     {
-        return view('conteudos.create', compact('conteudo'));
+        $categories = Categoria::all();
+        return view('conteudos.edit', compact(['conteudo', 'categories']));
     }
 
     /**
@@ -207,28 +212,28 @@ class ConteudoController extends Controller
      */
     public function update(Request $request, Conteudo $conteudo)
     {
-        $categories = array();
-
-        foreach (Categoria::all() as $category) {
-            array_push($categories, $category->id);
-        }
-
         $validatedData = $request->validate([
-            'title' => ['required', 'string'],
-            'description' => ['required', 'string'],
-            'category' => ['required', Rule::in($categories)],
+            'title' => 'required|string',
+            'description' => 'required|string',
+            'category.*' => ['required', Rule::in($this->categories_ids)],
         ]);
 
-        $categoria = Categoria::where('id', $validatedData['category'])->first();
+        if($request->private == null ) {
+            $conteudo->privado = false;
+        } else {
+            $conteudo->privado = true;
+        }
 
         $conteudo->titulo = $validatedData['title'];
         $conteudo->descricao = $validatedData['description'];
-        //TODO
-        $conteudo->tipo = "teste";
         $conteudo->save();
 
         $conteudo->category()->detach();
-        $conteudo->category()->attach($categoria);
+
+        foreach ($validatedData['category'] as $id) {
+            $categoria = Categoria::where('id', $id)->first();
+            $conteudo->category()->attach($categoria);
+        }
 
         return redirect()->back()->withSuccess("Conteúdo editado com sucesso!");
     }
