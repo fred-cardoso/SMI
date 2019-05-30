@@ -87,7 +87,7 @@
     </section>
     <!-- /.content -->
     @foreach($users as $user)
-        @if(auth()->user()->id == $user->id)
+        @if(!auth()->check() or auth()->user()->id == $user->id)
             @continue
         @endif
         <div class="modal modal-danger fade" id="modal-delete-user-{{$user->id}}" wfd-id="130">
