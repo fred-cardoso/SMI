@@ -9,7 +9,7 @@
     </div>
     <!-- /.login-logo -->
     <div class="login-box-body">
-        <p class="login-box-msg">@lang("auth.begin_session)"</p>
+        <p class="login-box-msg">@lang("auth.begin_session")</p>
 
         <form action="{{route('login')}}" method="post">
             @csrf
@@ -22,7 +22,7 @@
             @endif
 
             <div class="form-group has-feedback">
-                <input type="email" name="email" class="form-control" placeholder="Email" value="{{old('email')}}" required>
+                <input type="email" name="email" class="form-control" placeholder="@lang('auth.email')" value="{{old('email')}}" required>
                 <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
             </div>
             <div class="form-group has-feedback">

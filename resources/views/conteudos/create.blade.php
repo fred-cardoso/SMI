@@ -3,13 +3,13 @@
 @section('content')
     <section class="content-header">
         <h1>
-            Conteúdos
+            @lang("conteudos.content")
             <small>Upload</small>
         </h1>
         <ol class="breadcrumb">
-            <li><a href="{{route('home')}}"><i class="fa fa-dashboard"></i> Página Inicial</a></li>
-            <li><a href="{{route('uploads')}}"><i class="fa fa-users"></i> Conteúdos</a></li>
-            <li class="active">Upload</li>
+            <li><a href="{{route('home')}}"><i class="fa fa-dashboard"></i>@lang("categorias.home_page")</a></li>
+            <li><a href="{{route('uploads')}}"><i class="fa fa-users"></i>@lang("conteudos.content")</a></li>
+            <li class="active">@lang("conteudos.upload")</li>
         </ol>
     </section>
     <!-- Main content -->
@@ -31,32 +31,29 @@
                     </div>
                 @endif
                 <div class="alert alert-info">
-                    <h4>Informação!</h4>
-                    <p>Para inserir conteúdos em massa deverá enviar um ficheiro com extensão ZIP, este deve conter um
-                        ficheiro com extensão XML denominado <i>meta</i>. O ficheiro <i>meta</i> deve poder ser validado
-                        com este <a target="_blank" href="{{Storage::url('public/zip_files.xsd')}}">XSD</a>.</p>
-                    <p>No caso de fazer um upload de um ficheiro ZIP, os conteúdos serão colocados com os dados
-                        correspondentes do ficheiro <i>meta</i> sendo os dados do formulário abaixo ignorados.</p>
+                    <h4>@lang("common.info")</h4>
+                    <p>@lang("conteudos.msg1")<i>@lang("conteudos.meta")</i>.@lang("conteudos.msg2") <i>@lang("conteudos.meta")</i> @lang("conteudos.msg3")<a target="_blank" href="{{Storage::url('public/zip_files.xsd')}}">XSD</a>.</p>
+                    <p>@lang("conteudos.msg4")<i>@lang("conteudos.meta")</i> @lang("conteudos.msg5")</p>
                 </div>
                 <form role="form" action="{{route('upload')}}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="box">
                         <div class="box-header with-border">
-                            <h3 class="box-title">Novo Conteúdo</h3>
+                            <h3 class="box-title">@lang("conteudos.content_new")</h3>
                         </div>
                         <!-- /.box-header -->
                         <div class="box-body">
                             <!-- text input -->
                             <div class="form-group">
-                                <label>Título</label>
+                                <label>@lang('conteudos.title')</label>
                                 <input type="text" name="title" class="form-control" value="{{old('title')}}" required>
                             </div>
                             <div class="form-group">
-                                <label>Descrição</label>
+                                <label>@lang('conteudos.description')</label>
                                 <textarea class="form-control" name="description">{{old('description')}}</textarea>
                             </div>
                             <div class="form-group">
-                                <label>Categorias</label>
+                                <label>@lang('categorias.categories')</label>
                                 @foreach($categories as $category)
                                     <div class="checkbox">
                                         <label>
@@ -67,22 +64,22 @@
                                 @endforeach
                             </div>
                             <div class="form_group">
-                                <label>Privacidade do Conteúdo</label>
+                                <label>@lang("conteudos.content_privacy")</label>
                                 <div class="checkbox">
                                     <label>
                                         <input type="checkbox" name="private"
-                                               value="on" {{old('private') ?? ''}}/>Conteúdo Privado
+                                               value="on" {{old('private') ?? ''}}/>@lang('conteudos.private_content')
                                     </label>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label>Ficheiro(s)</label>
+                                <label>@lang('common.file')</label>
                                 <input type="file" name="file" required>
                             </div>
                         </div>
                         <!-- /.box-body -->
                         <div class="box-footer">
-                            <button type="submit" class="btn btn-primary pull-right">Enviar</button>
+                            <button type="submit" class="btn btn-primary pull-right">@lang("common.send")</button>
                         </div>
                         <!-- /.box-footer -->
                     </div>

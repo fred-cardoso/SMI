@@ -3,12 +3,12 @@
 @section('content')
     <section class="content-header">
         <h1>
-            Conteúdos
-            <small>Lista de Conteúdos</small>
+            @lang("conteudos.content")
+            <small>@lang("conteudos.list_content")</small>
         </h1>
         <ol class="breadcrumb">
-            <li><a href="{{route("home")}}"><i class="fa fa-dashboard"></i> Página Inicial</a></li>
-            <li class="active">Conteúdos</li>
+            <li><a href="{{route("home")}}"><i class="fa fa-dashboard"></i>@lang("categorias.home_page")</a></li>
+            <li class="active">  @lang("conteudos.content")</li>
         </ol>
     </section>
     <!-- Main content -->
@@ -20,13 +20,13 @@
                         <table id="example2" class="table table-bordered table-striped">
                             <thead>
                             <tr>
-                                <th>ID</th>
-                                <th>Título</th>
-                                <th>Autor</th>
-                                <th>Data da Criação</th>
+                                <th>@lang('common.id')</th>
+                                <th>@lang('conteudos.title')</th>
+                                <th>@lang('common.author')</th>
+                                <th>@lang('common.creation_date')</th>
                                 @role('admin')
-                                <th>Visibilidade</th>
-                                <th>Acções</th>
+                                <th>@lang('common.visibility')</th>
+                                <th>@lang('common.actions')</th>
                                 @endrole
                             </tr>
                             </thead>
@@ -50,10 +50,10 @@
                                     </td>
                                     <td>
                                         <a href="{{route('uploads.edit', $conteudo->id)}}" type="button"
-                                           class="btn btn-primary">Editar</a>
+                                           class="btn btn-primary">@lang('common.edit')</a>
                                         <button type="button" class="btn btn-danger" data-toggle="modal"
                                                 data-target="#modal-delete-user-{{$conteudo->id}}" wfd-id="264">
-                                            Eliminar
+                                            @lang('common.delete')
                                         </button>
                                     </td>
                                     @endrole
@@ -62,13 +62,13 @@
                             </tbody>
                             <tfoot>
                             <tr>
-                                <th>ID</th>
-                                <th>Título</th>
-                                <th>Autor</th>
-                                <th>Data da Criação</th>
+                                <th>@lang('common.id')</th>
+                                <th>@lang('conteudos.title')</th>
+                                <th>@lang('common.author')</th>
+                                <th>@lang('common.creation_date')</th>
                                 @role('admin')
-                                <th>Visibilidade</th>
-                                <th>Acções</th>
+                                <th>@lang('common.visibility')</th>
+                                <th>@lang('common.actions')</th>
                                 @endrole
                             </tr>
                             </tfoot>
@@ -90,18 +90,18 @@
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Fechar" wfd-id="252">
                             <span aria-hidden="true">×</span></button>
-                        <h4 class="modal-title">Alerta!</h4>
+                        <h4 class="modal-title">@lang('common.warning')</h4>
                     </div>
                     <div class="modal-body">
-                        <p>Pretende eliminar o conteúdo <b>{{$conteudo->titulo}}</b> permanentemente?</p>
+                        <p>@lang('conteudos.perm_delete') <b>{{$conteudo->titulo}}</b> ? </p>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-outline pull-left" data-dismiss="modal" wfd-id="251">
-                            Cancelar
+                            @lang('categorias.cancel')
                         </button>
                         <form action="{{route('uploads.delete', $conteudo->id)}}" method="POST">
                             @csrf
-                            <input type="submit" class="btn btn-outline" wfd-id="250" value="Eliminar Conteúdo"/>
+                            <input type="submit" class="btn btn-outline" wfd-id="250" value="@lang("conteudos.delete_content")">
                         </form>
                     </div>
                 </div>

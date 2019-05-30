@@ -25,6 +25,15 @@ return [
     'config_msg1' =>'Alterar as configurações de base de dados pode provocar o mau funcionamento do sistema.',
     'config_msg2' =>'Confirme primeiro se os parâmetros estão certos antes de alterar.',
     'config_msg3' => 'Se ocorrer algum problema pode editar o ficheiro de configuração manual.',
+    'info' => 'Informação!',
+    'send' => 'Enviar',
+    'file' => 'Ficheiro(s)',
+    'author' =>'Autor',
+    'creation_date' => 'Data de criação',
+    'visibility' => 'Visibilidade',
+    'delete' => 'Eliminar',
+    'last_modified' => 'Ultima modificação'
+
 
 ];
 
