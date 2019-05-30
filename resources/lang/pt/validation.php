@@ -114,6 +114,7 @@ return [
     'uploaded'             => 'O upload do ficheiro :attribute falhou.',
     'url'                  => 'O formato do URL indicado para o campo :attribute é inválido.',
     'uuid'                 => 'The :attribute must be a valid UUID.',
+    'recaptcha'            => 'Por favor verifique que é um humano!',
 
     /*
     |--------------------------------------------------------------------------
