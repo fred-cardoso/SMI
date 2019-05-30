@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class Configurations extends Controller
+class ConfigurationsController extends Controller
 {
     public function setEnv($name, $value)
     {
