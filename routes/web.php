@@ -23,7 +23,7 @@ Route::group(['middleware' => ['auth', 'verified', 'role:user']], function () {
     /**
      * User basic Routes
      */
-    Route::get('uploads/video/{path}', function ($path) {
+    Route::get('uploads/media/{path}', function ($path) {
 
         $file = null;
 
@@ -39,7 +39,7 @@ Route::group(['middleware' => ['auth', 'verified', 'role:user']], function () {
             'Content-Disposition' => 'inline; filename="' . $filename . '"'
         );
         return Response::make($file, 200, $headers);
-    })->name('video');
+    })->name('media');
 
     Route::get('profile', function (\App\Http\Controllers\UserController $controller) {
         return $controller->show(Auth::user());
