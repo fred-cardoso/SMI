@@ -52,7 +52,7 @@ class CategoriaController extends Controller
         if($resultado) {
             return redirect()->route('categorias');
         } else {
-            return redirect()->back()->with('erro', 'Ocorreu um erro!');
+            return redirect()->back()->withErrors('Ocorreu um erro!');
         }
     }
 
