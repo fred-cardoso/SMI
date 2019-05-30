@@ -63,7 +63,7 @@
                                                     Eliminar
                                                 </button>
                                             @endif
-                                        @role
+                                        @endrole
                                     </td>
                                 </tr>
                             @endforeach
