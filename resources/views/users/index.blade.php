@@ -54,7 +54,7 @@
 
                                             ?>
                                         </form>
-                                        @if($role->slug == 'admin')
+                                        @role('admin')
                                             <a href="{{route('user.edit', $user->id)}}" type="button"
                                                class="btn btn-primary">Editar</a>
                                             @if(auth()->user()->id != $user->id)
@@ -63,7 +63,7 @@
                                                     Eliminar
                                                 </button>
                                             @endif
-                                        @endif
+                                        @role
                                     </td>
                                 </tr>
                             @endforeach

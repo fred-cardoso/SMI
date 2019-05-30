@@ -22,7 +22,6 @@ class UserController extends Controller
     public function index()
     {
         $users = User::all();
-        $role = Auth::user()->roles->first();
         return view('users.index', compact(['users', 'role']));
     }
 
