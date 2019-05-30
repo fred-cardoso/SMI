@@ -35,25 +35,26 @@
                                 <b>Subscritos</b> <a class="pull-right">543</a>
                             </li>
                         </ul>
+                        @auth
+                            @if(!\Request::is('profile') and !\Request::is('users/' . Auth::user()->id))
+                                <form action="{{route('user.subscribe', $user->id)}}" method="POST">
+                                    @csrf
+                                    <?php $userAuth = Auth::User()->id;
+                                    $database = DB::table("user_user")->get();
+                                    $checkIfSubscribed = sizeof($database->where('subscribed_id', $userAuth && 'user_id', $user->id));
 
-                        @if(!\Request::is('profile') and !\Request::is('users/' . Auth::user()->id))
-                            <form action="{{route('user.subscribe', $user->id)}}" method="POST">
-                                @csrf
-                                <?php $userAuth = Auth::User()->id;
-                                $database = DB::table("user_user")->get();
-                                $checkIfSubscribed = sizeof($database->where('subscribed_id', $userAuth && 'user_id', $user->id));
-
-                                if ($checkIfSubscribed == 0) {
-                                    echo '<input type="submit" class="btn btn-primary btn-block" value="Seguir">';
+                                    if ($checkIfSubscribed == 0) {
+                                        echo '<input type="submit" class="btn btn-primary btn-block" value="Seguir">';
 
 
-                                } else {
-                                    echo '<input type="submit" class="btn btn-primary btn-block" value="Parar de Seguir">';
-                                }
+                                    } else {
+                                        echo '<input type="submit" class="btn btn-warning btn-block" value="Parar de Seguir">';
+                                    }
 
-                                ?>
-                            </form>
-                        @endif
+                                    ?>
+                                </form>
+                            @endif
+                        @endauth
                     </div>
                     <!-- /.box-body -->
                 </div>
@@ -92,8 +93,9 @@
             <div class="col-md-9">
                 <div class="nav-tabs-custom">
                     <ul class="nav nav-tabs">
-                        <li @if(!sizeof($errors->all()) > 0 and !session('success')) class="active" @endif><a href="#activity"
-                                                                                      data-toggle="tab">Actividade</a>
+                        <li @if(!sizeof($errors->all()) > 0 and !session('success')) class="active" @endif><a
+                                    href="#activity"
+                                    data-toggle="tab">Actividade</a>
                         </li>
                         @if(\Request::is('profile'))
                             <li @if(sizeof($errors->all()) > 0 or session('success')) class="active" @endif><a
@@ -103,7 +105,8 @@
                         @endif
                     </ul>
                     <div class="tab-content">
-                        <div class="@if(!sizeof($errors->all()) > 0 and !session('success')) active @endif tab-pane" id="activity">
+                        <div class="@if(!sizeof($errors->all()) > 0 and !session('success')) active @endif tab-pane"
+                             id="activity">
                             <!-- Post -->
                             <div class="post">
                                 <div class="user-block">

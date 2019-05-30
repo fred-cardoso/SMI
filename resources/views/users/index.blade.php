@@ -38,32 +38,36 @@
                                     <td><a href="{{route('user', $user->id)}}">{{$user->name}}</a></td>
                                     <td>{{$user->roles()->first()->name}}</td>
                                     <td>
-                                        <form action="{{route('user.subscribe', $user->id)}}" method="POST">
-                                            @csrf
-                                            <?php $userAuth = Auth::User()->id;
-                                            $database = DB::table("user_user")->get();
-                                            $checkIfSubscribed = sizeof($database->where('subscribed_id', $user->id)->where('user_id', $userAuth));
-                                            if ($checkIfSubscribed == 0) {
-                                                echo '<input name="sub"type="submit" value="Subscribe">';
+                                        @auth
+                                            <form action="{{route('user.subscribe', $user->id)}}" method="POST">
+                                                @csrf
+                                                <?php $userAuth = Auth::User()->id;
+                                                $database = DB::table("user_user")->get();
+                                                $checkIfSubscribed = sizeof($database->where('subscribed_id', $user->id)->where('user_id', $userAuth));
+                                                if ($checkIfSubscribed == 0) {
+                                                    echo '<input class="btn btn-secondary" name="sub"type="submit" value="Subscribe">';
 
 
-                                            } else {
-                                                echo '<input name="sub" type="submit" value="Unsubscribe">';
-                                            }
+                                                } else {
+                                                    echo '<input class="btn btn-warning" name="sub" type="submit" value="Unsubscribe">';
+                                                }
 
-                                            ?>
-                                        </form>
-                                        @role('admin')
-                                            <a href="{{route('user.edit', $user->id)}}" type="button"
-                                               class="btn btn-primary">Editar</a>
-                                            @if(auth()->user()->id != $user->id)
-                                                <button type="button" class="btn btn-danger" data-toggle="modal"
-                                                        data-target="#modal-delete-user-{{$user->id}}" wfd-id="264">
-                                                    Eliminar
-                                                </button>
-                                            @endif
-                                        @endrole
+                                                ?>
+
+                                                @role('admin')
+                                                <a href="{{route('user.edit', $user->id)}}" type="button"
+                                                   class="btn btn-primary">Editar</a>
+                                                @if(auth()->user()->id != $user->id)
+                                                    <button type="button" class="btn btn-danger" data-toggle="modal"
+                                                            data-target="#modal-delete-user-{{$user->id}}" wfd-id="264">
+                                                        Eliminar
+                                                    </button>
+                                                @endif
+
+                                                @endrole
+                                            </form>
                                     </td>
+                                    @endauth
                                 </tr>
                             @endforeach
                             </tbody>
