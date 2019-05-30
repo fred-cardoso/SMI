@@ -40,16 +40,17 @@ class CategoriaController extends Controller
     {
         $categoria = new Categoria();
         $categoria->nome = $request->nomeCat; //request
+        if($request->secundaria != "on"){
 
-
-        if($request->secundaria == null){
             $categoria->secundaria = false;
+        }else{
+            $categoria->secundaria = true;
         }
 
         $resultado = $categoria->save();
 
         if($resultado) {
-            return redirect()->route('indice');
+            return redirect()->route('categorias');
         } else {
             return redirect()->back()->with('erro', 'Ocorreu um erro!');
         }
@@ -75,7 +76,7 @@ class CategoriaController extends Controller
      */
     public function edit(Categoria $categoria)
     {
-        return view('categorias.create', compact('categoria'));
+        return view('categorias.edit', compact('categoria'));
     }
 
     /**

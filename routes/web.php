@@ -65,7 +65,7 @@ Route::group(['middleware' => ['auth', 'verified', 'role:user']], function () {
      * Routes for "Simpatizante"
      */
     Route::group(['middleware' => 'role:simpatizante'], function () {
-        Route::get('categorias/create', 'CategoriaController@create');
+        Route::get('categorias/create', 'CategoriaController@create')->name('cat.create');
         Route::post('categorias/create', 'CategoriaController@store');
         Route::get('categorias/{categoria}/edit', 'CategoriaController@edit')->where(['categoria' => '[0-9]+'])->name('cat.edit');
         Route::post('categorias/{categoria}/edit', 'CategoriaController@update')->where(['categoria' => '[0-9]+']);

@@ -35,29 +35,32 @@
                             @foreach($categorias as $cat)
                                 <tr>
                                     <td>{{$cat->id}}</td>
-                                    <td>{{$cat->nome}}</td>
+                                    <td><a href="{{route('categorias', $cat->id)}}">{{$cat->nome}}</td>
                                     <td>{{$cat->secundaria}}</td>
                                     <td>
-                                        <form action="{{route("cat.subscribe", $cat->id)}}" method="POST">
-                                            @csrf
-                                            <?php $userAuth = Auth::User()->id;
-                                            $database = DB::table("user_categoria")->get();
-                                            $checkIfSubscribed = sizeof($database->where('categoria_id', $cat->id)->where('user_id', Auth::user()->id));
-                                            if ($checkIfSubscribed == 0) {
-                                                echo '<input name="sub"type="submit" value="Subscribe">';
+                                        @auth
+                                            <form action="{{route("cat.subscribe", $cat->id)}}" method="POST">
+                                                @csrf
+                                                <?php $userAuth = Auth::User()->id;
+                                                $database = DB::table("user_categoria")->get();
+                                                $checkIfSubscribed = sizeof($database->where('categoria_id', $cat->id)->where('user_id', Auth::user()->id));
+                                                if ($checkIfSubscribed == 0) {
+                                                    echo '<input class="btn btn-secondary" name="sub"type="submit" value="Subscribe">';
 
-                                            } else {
-                                                echo '<input name="sub" type="submit" value="Unsubscribe">';
-                                            }
+                                                } else {
+                                                    echo '<input class="btn btn-warning" name="sub" type="submit" value="Unsubscribe">';
+                                                }
 
-                                            ?>
-                                        </form>
-                                        <?php $role = Auth::user()->roles->first();?>
-                                        @if($role->slug == 'admin')
-                                            <a href="{{route('cat.edit', $cat->id)}}" type="button"
-                                               class="btn btn-primary">Editar</a>
-                                        @endif
+                                                ?>
+
+                                                <?php $role = Auth::user()->roles->first();?>
+                                                @role('admin')
+                                                <a href="{{route('cat.edit', $cat->id)}}" type="button"
+                                                   class="btn btn-primary">Editar</a>
+                                                @endrole
+                                            </form>
                                     </td>
+                                    @endauth
                                 </tr>
                             @endforeach
                             </tbody>

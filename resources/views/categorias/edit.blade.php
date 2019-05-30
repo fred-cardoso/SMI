@@ -3,13 +3,13 @@
 @section('content')
     <section class="content-header">
         <h1>
-                    Categorias
-            <small>Criar</small>
+            Categorias
+            <small>Editar {{$categoria->nome}}</small>
         </h1>
         <ol class="breadcrumb">
             <li><a href="{{route("home")}}"><i class="fa fa-dashboard"></i> Página Inicial</a></li>
             <li><a href="{{route("users")}}"><i class="fa fa-users"></i> Utilizadores</a></li>
-            <li class="active">Criar Categoria</li>
+            <li class="active">Editar Categoria</li>
         </ol>
     </section>
     <!-- Main content -->
@@ -34,7 +34,7 @@
                     @csrf
                     <div class="box">
                         <div class="box-header with-border">
-                            <h3 class="box-title">Criar Categoria</h3>
+                            <h3 class="box-title">Editar Categoria</h3>
                         </div>
                         <!-- /.box-header -->
                         <div class="box-body">
@@ -42,7 +42,7 @@
                             <div class="form-group">
                                 <label for="nomeCat" class="col-sm-2 control-label">Nome Categoria</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" name="nomeCat" id="nomeCat" placeholder="Digite o nome da Categoria">
+                                    <input type="text" class="form-control" name="nomeCat" id="nomeCat" placeholder="{{$categoria->nome}}">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -64,7 +64,7 @@
                         <!-- /.box-body -->
                         <div class="box-footer">
                             <button type="submit" class="btn btn-default">Cancel</button>
-                            <button type="submit" class="btn btn-info pull-right">Criar Categoria</button>
+                            <button type="submit" class="btn btn-info pull-right">Editar Categoria</button>
                         </div>
                         <!-- /.box-footer -->
                     </div>
