@@ -19,6 +19,7 @@
 
             <li class="header">MAIN NAVIGATION</li>
 
+
             <li><a href="/"><i class="fa fa-book"></i> <span>Página Inicial</span></a></li>
             <li class="active treeview">
                 <a href="#">
@@ -43,9 +44,40 @@
                 </a>
                 <ul class="treeview-menu">
                     <li><a href="{{route('users')}}"><i class="fa fa-circle-o"></i>Listar Utilizadores </a></li>
-                    <li><a href="#"><i class="fa fa-circle-o"></i>Subscrições </a></li>
-                </ul>
+                    <li class="treeview">
+                        <a href="#"><i class="fa fa-circle-o"></i>Utilizadores Subscritos
+                            <span class="pull-right-container">
+      <i class="fa fa-angle-left pull-right"></i>
+    </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <?php
+                            $user_id = auth()->user()->id;
+                            $userSub = auth()->user()->user();
+                            $counter = $userSub->count();
 
+                            $subFinder = 1;
+                            for ($x = 0; $x < $counter;) {
+                                $userSub = auth()->user()->user();
+                                //dd($userSub->get());
+
+                                $subscribe = $userSub->where('subscribed_id', $subFinder)->where('user_id', $user_id)->get();
+                                //dd($subscribe);
+                                if ($subscribe->isEmpty()) {
+                                } else {
+                                    //dd($subscribe);
+                                    $userSubName = auth()->user()->where('id', $subFinder)->first()->name;
+                                    echo ' <li><a href="/users/' . $subFinder . '"><i class="fa fa-book"></i> <span>' . $userSubName . '</span></a></li>';
+                                    $x++;
+                                }
+                                $subFinder += 1;
+                            }
+
+                            ?>
+
+                        </ul>
+                    </li>
+                </ul>
 
             </li>
 
@@ -59,7 +91,7 @@
                 <ul class="treeview-menu">
                     <li><a href="{{route('categorias')}}"><i class="fa fa-circle-o"></i>Listar Categorias </a></li>
                     <li class="treeview">
-                        <a href="#"><i class="fa fa-circle-o"></i>Mostrar categorias
+                        <a href="#"><i class="fa fa-circle-o"></i>Categorias Subscritas
                             <span class="pull-right-container">
       <i class="fa fa-angle-left pull-right"></i>
     </span>
@@ -70,7 +102,6 @@
                             $categoria = auth()->user()->categoria();
                             $counter = $categoria->count();
                             $catFinder = 1;
-                            //dd($categoria->where('categoria_id',3)->where('user_id', $user_id)->get());
                             for ($x = 0; $x < $counter;) {
                                 $categoria = auth()->user()->categoria();
                                 $putCategoria = $categoria->where('categoria_id', $catFinder)->where('user_id', $user_id)->get();
@@ -83,7 +114,7 @@
                                 }
                                 $catFinder += 1;
                             }
-                            
+
                             ?>
 
                         </ul>

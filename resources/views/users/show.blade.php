@@ -37,7 +37,7 @@
                         </ul>
 
                         @if(!\Request::is('profile') and !\Request::is('users/' . Auth::user()->id))
-                            <form action="{{route('user_subscribe', $user->id)}}" method="POST">
+                            <form action="{{route('user.subscribe', $user->id)}}" method="POST">
                                 @csrf
                                 <?php $userAuth = Auth::User()->id;
                                 $database = DB::table("user_user")->get();
