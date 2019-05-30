@@ -13,7 +13,8 @@ return [
     |
     */
     'content' => 'Contents',
-    'upload' => 'upload',
+    'upload' => 'Upload',
+    'upload_content' =>' Upload Content',
     'msg1' => ' To insert content in mass, you should send a ZIP file, this must contain a XML named',
     'msg2'  => ' The',
     'msg3' => 'file, should be validated by this ',
@@ -26,7 +27,7 @@ return [
     'description' => 'Description',
     'content_privacy'=>'Content privacy',
     'private_content' => 'Private content',
-    'list_content' => 'Content list',
+    'list_content' => 'Content Listing',
     'perm_delete' => 'Are you sure you want to permanently delete ',
     'delete_content' =>'Delete content',
 

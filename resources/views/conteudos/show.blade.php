@@ -12,9 +12,9 @@ use Illuminate\Support\Facades\Storage;
             <small>@lang('conteudos.list_content')</small>
         </h1>
         <ol class="breadcrumb">
-            <li><a href="{{route('home')}}"><i class="fa fa-dashboard"></i>@lang('categorias.home_page')</a></li>
-            <li><a href="{{route('uploads')}}">@lang('conteudos.content')</a></li>
-            <li class="active">{{$conteudo->titulo}}</li>
+            <li><a href="{{route('home')}}"><i class="fa fa-home"></i>@lang('categorias.home_page')</a></li>
+            <li><a href="{{route('uploads')}}"><i class="fa fa-television"></i> @lang('conteudos.content')</a></li>
+            <li class="active"><i class="fa fa-youtube-square"></i> {{$conteudo->titulo}}</li>
         </ol>
     </section>
 

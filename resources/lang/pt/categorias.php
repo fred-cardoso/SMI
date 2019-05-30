@@ -23,8 +23,8 @@ return [
     'secondary' => 'Secundária',
     'cancel' => 'Cancelar',
     'create' => 'Criar',
-    'edit_cat' => 'Editar categoria',
-    'list_cat' => 'Listar categorias',
+    'edit_cat' => 'Editar Categoria',
+    'list_cat' => 'Listar Categorias',
     'subed_cat' => 'Categorias Subscritas',
 
 

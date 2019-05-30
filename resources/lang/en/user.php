@@ -13,9 +13,9 @@ return [
     |
     */
 
-    'create' => 'Create user',
-    'edit_user' => 'Edit user',
-    'list' =>'User listing',
+    'create' => 'Create User',
+    'edit_user' => 'Edit User',
+    'list' =>'User Listing',
     'profile' =>'Profile',
     'about' =>'About',
     'content_sent' => 'Number of published content',

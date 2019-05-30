@@ -13,15 +13,4 @@ return [
     |
     */
 
-    'create' => 'Criar Utilizador',
-    'edit_user' => 'Editar Utilizador ',
-    'list' =>'Listagem de Utilizadores',
-    'profile' =>'Perfil',
-    'about' =>'Sobre',
-    'content_sent' =>' Nº de Conteúdos Enviados',
-    'registry_date' =>'Data de Registro',
-    'pw' => 'Password Atual',
-
-
-
 ];

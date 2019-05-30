@@ -7,9 +7,9 @@
             <small>@lang('common.edit'){{$user->name}}</small>
         </h1>
         <ol class="breadcrumb">
-            <li><a href="{{route("home")}}"><i class="fa fa-dashboard"></i>@lang('categorias.home_page')</a></li>
+            <li><a href="{{route("home")}}"><i class="fa fa-home"></i>@lang('categorias.home_page')</a></li>
             <li><a href="{{route("users")}}"><i class="fa fa-users"></i>@lang('categorias.users') </a></li>
-            <li class="active">@lang('user.edit_user')</li>
+            <li class="active"><i class="fa fa-pencil"></i> @lang('user.edit_user')</li>
         </ol>
     </section>
     <!-- Main content -->
