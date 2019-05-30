@@ -70,7 +70,7 @@ Route::group(['middleware' => ['auth', 'verified', 'role:user']], function () {
 
         Route::get('upload', 'ConteudoController@create')->name('upload');
         Route::post('upload', 'ConteudoController@store');
-        Route::get('uploads/{conteudo}/edit', 'ConteudoController@edit')->where(['conteudo' => '[0-9]+']);
+        Route::get('uploads/{conteudo}/edit', 'ConteudoController@edit')->where(['conteudo' => '[0-9]+'])->name('uploads.edit');
         Route::post('uploads/{conteudo}/edit', 'ConteudoController@update')->where(['conteudo' => '[0-9]+']);
 
         /**
@@ -87,7 +87,7 @@ Route::group(['middleware' => ['auth', 'verified', 'role:user']], function () {
             Route::get('configurations/edit', 'ConfigurationsController@edit')->name('config');
             Route::post('configurations/edit', 'ConfigurationsController@update');
 
-            Route::post('uploads/{conteudo}/delete', 'ConteudoController@destroy')->where(['conteudo' => '[0-9]+']);
+            Route::post('uploads/{conteudo}/delete', 'ConteudoController@destroy')->where(['conteudo' => '[0-9]+'])->name('uploads.delete');
 
             Route::post('categorias/{categoria}/delete', 'CategoriaController@destroy')->where(['categoria' => '[0-9]+']);
         });
