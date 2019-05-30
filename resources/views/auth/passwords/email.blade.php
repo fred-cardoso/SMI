@@ -9,7 +9,7 @@
         @endif
         <div class="box">
             <div class="box-header with-border">
-                <h3 class="box-title">Recuperação de Password</h3>
+                <h3 class="box-title">{{__('auth.password_recovery')}}</h3>
             </div>
             <form method="POST" action="{{ route('password.email') }}" class="form-horizontal">
                 <div class="box-body">
