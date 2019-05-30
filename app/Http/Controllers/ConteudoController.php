@@ -165,6 +165,13 @@ class ConteudoController extends Controller
         $path = $file->store('files');
 
         $conteudo = new Conteudo();
+
+        if($request->private == null) {
+            $conteudo->privado = false;
+        } else {
+            $conteudo->privado = true;
+        }
+
         $conteudo->titulo = $validatedData['title'];
         $conteudo->descricao = $validatedData['description'];
         $conteudo->nome = $path;
@@ -188,6 +195,12 @@ class ConteudoController extends Controller
      */
     public function show(Conteudo $conteudo)
     {
+        if($conteudo->privado and !Auth::check()) {
+            abort(404);
+        }
+
+        if($conteudo->privado and (!auth()->user()->hasRole('admin') or !$conteudo->user()->first()->id == auth()->user()->id))
+            abort(404);
         return view('conteudos.show', compact('conteudo'));
     }
 

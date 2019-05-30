@@ -34,6 +34,9 @@ use Illuminate\Support\Facades\Storage;
                                     href="{{route('user', $conteudo->user()->first()->id)}}">{{$conteudo->user()->first()->name}}</a>
                         </p>
                         <hr>
+                        <strong><i class="fa fa-map-marker margin-r-5"></i> Visibilidade</strong>
+                        <p class="text-muted"><span class="label label-{{$conteudo->privado == 1 ? 'danger' : 'success'}}">{{$conteudo->privado == 1 ? 'Privado' : 'Público'}}</span></p>
+                        <hr>
                         <strong><i class="fa fa-pencil margin-r-5"></i> Categorias</strong>
                         <p>
                             @foreach($conteudo->category()->get() as $categoria)

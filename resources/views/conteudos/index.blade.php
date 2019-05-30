@@ -25,6 +25,7 @@
                                 <th>Autor</th>
                                 <th>Data da Criação</th>
                                 @role('admin')
+                                <th>Visibilidade</th>
                                 <th>Acções</th>
                                 @endrole
                             </tr>
@@ -32,6 +33,9 @@
                             <tbody>
 
                             @foreach($conteudos as $conteudo)
+                                @if($conteudo->privado and (!auth()->user()->hasRole('admin') or !$conteudo->user()->first()->id == auth()->user()->id))
+                                    @continue
+                                @endif
                                 <tr>
                                     <td>{{$conteudo->id}}</td>
                                     <td><a href="{{route('uploads.show', $conteudo->id)}}">{{$conteudo->titulo}}</a>
@@ -41,6 +45,9 @@
                                     </td>
                                     <td>{{$conteudo->created_at}}</td>
                                     @role('admin')
+                                    <td>
+                                        <span class="label label-{{$conteudo->privado == 1 ? 'danger' : 'success'}}">{{$conteudo->privado == 1 ? 'Privado' : 'Público'}}</span>
+                                    </td>
                                     <td>
                                         <a href="{{route('uploads.edit', $conteudo->id)}}" type="button"
                                            class="btn btn-primary">Editar</a>
@@ -60,6 +67,7 @@
                                 <th>Autor</th>
                                 <th>Data da Criação</th>
                                 @role('admin')
+                                <th>Visibilidade</th>
                                 <th>Acções</th>
                                 @endrole
                             </tr>

@@ -66,6 +66,15 @@
                                     </div>
                                 @endforeach
                             </div>
+                            <div class="form_group">
+                                <label>Privacidade do Conteúdo</label>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" name="private"
+                                               value="on" {{old('private') ?? ''}}/>Conteúdo Privado
+                                    </label>
+                                </div>
+                            </div>
                             <div class="form-group">
                                 <label>Ficheiro(s)</label>
                                 <input type="file" name="file" required>
