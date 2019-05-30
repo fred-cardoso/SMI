@@ -9,7 +9,7 @@
     </div>
     <!-- /.login-logo -->
     <div class="login-box-body">
-        <p class="login-box-msg">Iniciar sessão</p>
+        <p class="login-box-msg">@lang("auth.begin_session)"</p>
 
         <form action="{{route('login')}}" method="post">
             @csrf
@@ -33,13 +33,13 @@
                 <div class="col-xs-8">
                     <div class="checkbox icheck">
                         <label>
-                            <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Lembrar-me
+                            <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> @lang("auth.remember_me")
                         </label>
                     </div>
                 </div>
                 <!-- /.col -->
                 <div class="col-xs-4">
-                    <button type="submit" class="btn btn-primary btn-block btn-flat">Entrar</button>
+                    <button type="submit" class="btn btn-primary btn-block btn-flat">@lang("auth.begin_session")</button>
                 </div>
                 <!-- /.col -->
             </div>
@@ -47,17 +47,13 @@
 
         <div class="social-auth-links text-center">
             <p>- OU -</p>
-            <a href="#" class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-facebook"></i> Sign in
-                using
-                Facebook</a>
-            <a href="#" class="btn btn-block btn-social btn-google btn-flat"><i class="fa fa-google-plus"></i> Sign in
-                using
-                Google+</a>
+            <a href="#" class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-facebook"></i> @lang("auth.log_facebook")</a>
+            <a href="#" class="btn btn-block btn-social btn-google btn-flat"><i class="fa fa-google-plus"></i> @lang("auth.log_google_plus")</a>
         </div>
         <!-- /.social-auth-links -->
 
-        <a href="{{route('password.request')}}">Recuperar Password</a><br>
-        <a href="{{route('register')}}" class="text-center">Registar Novo Utilizador</a>
+        <a href="{{route('password.request')}}">@lang("auth.recover_pw")</a><br>
+        <a href="{{route('register')}}" class="text-center">@lang("auth.reg_new_user")</a>
 
     </div>
     <!-- /.login-box-body -->

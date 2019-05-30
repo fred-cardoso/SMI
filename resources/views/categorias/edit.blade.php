@@ -3,13 +3,13 @@
 @section('content')
     <section class="content-header">
         <h1>
-            Categorias
-            <small>Editar {{$categoria->nome}}</small>
+            @lang("categorias.categories")
+            <small>@lang("categorias.edit_cat") : {{$categoria->nome}}</small>
         </h1>
         <ol class="breadcrumb">
-            <li><a href="{{route("home")}}"><i class="fa fa-dashboard"></i> Página Inicial</a></li>
-            <li><a href="{{route("users")}}"><i class="fa fa-users"></i> Utilizadores</a></li>
-            <li class="active">Editar Categoria</li>
+            <li><a href="{{route("home")}}"><i class="fa fa-dashboard"></i>@lang("categorias.home_page")</a></li>
+            <li><a href="{{route("users")}}"><i class="fa fa-users"></i> @lang("categorias.users")</a></li>
+            <li class="active">@lang("categorias.edit_cat")</li>
         </ol>
     </section>
     <!-- Main content -->
@@ -34,13 +34,13 @@
                     @csrf
                     <div class="box">
                         <div class="box-header with-border">
-                            <h3 class="box-title">Editar Categoria</h3>
+                            <h3 class="box-title">@lang("categorias.edit_cat")</h3>
                         </div>
                         <!-- /.box-header -->
                         <div class="box-body">
                             <!-- text input -->
                             <div class="form-group">
-                                <label for="nomeCat" class="col-sm-2 control-label">Nome Categoria</label>
+                                <label for="nomeCat" class="col-sm-2 control-label">@lang("categorias.name_cat")</label>
                                 <div class="col-sm-10">
                                     <input type="text" class="form-control" name="nomeCat" id="nomeCat" placeholder="{{$categoria->nome}}">
                                 </div>
@@ -50,9 +50,9 @@
                                     <div class="checkbox">
                                         <label>
                                             @role('admin')
-                                            <input type="checkbox" name="secundaria">Secundária
+                                            <input type="checkbox" name="secundaria">@lang("categorias.secondary")
                                             @else
-                                                <input type="checkbox" name="secundaria" checked disabled>Secundária
+                                                <input type="checkbox" name="secundaria" checked disabled>@lang("categorias.secondary")
                                                 @endrole
                                         </label>
                                     </div>
@@ -63,8 +63,8 @@
                         </div>
                         <!-- /.box-body -->
                         <div class="box-footer">
-                            <button type="submit" class="btn btn-default">Cancel</button>
-                            <button type="submit" class="btn btn-info pull-right">Editar Categoria</button>
+                            <button type="submit" class="btn btn-default">@lang("categorias.cancel")</button>
+                            <button type="submit" class="btn btn-info pull-right">@lang("categorias.edit_cat")</button>
                         </div>
                         <!-- /.box-footer -->
                     </div>

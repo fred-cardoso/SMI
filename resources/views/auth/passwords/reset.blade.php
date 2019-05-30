@@ -4,7 +4,7 @@
     <section class="content">
         <div class="box">
             <div class="box-header with-border">
-                <h3 class="box-title">Recuperação de Password</h3>
+                <h3 class="box-title">@lang("auth.password_recovery")"</h3>
             </div>
             <form method="POST" action="{{ route('password.update') }}" class="form-horizontal">
                 <div class="box-body">
@@ -12,7 +12,7 @@
                     <input type="hidden" name="token" value="{{ $token }}">
                     <div class="form-group row">
                         <label for="email"
-                               class="col-md-4 col-form-label text-md-right">Email</label>
+                               class="col-md-4 col-form-label text-md-right">@lang("auth.email")</label>
 
                         <div class="col-md-6">
                             <input id="email" type="email" class="form-control @error('email') is-invalid @enderror"
@@ -28,7 +28,7 @@
                     </div>
 
                     <div class="form-group row">
-                        <label for="password" class="col-md-4 col-form-label text-md-right">Password</label>
+                        <label for="password" class="col-md-4 col-form-label text-md-right">@lang("auth.pw")</label>
 
                         <div class="col-md-6">
                             <input id="password" type="password"
@@ -45,7 +45,7 @@
 
                     <div class="form-group row">
                         <label for="password-confirm"
-                               class="col-md-4 col-form-label text-md-right">Repetir Password</label>
+                               class="col-md-4 col-form-label text-md-right">@lang("auth.repeate_pw")"</label>
 
                         <div class="col-md-6">
                             <input id="password-confirm" type="password" class="form-control"
@@ -55,7 +55,7 @@
                 </div>
                 <div class="box-footer">
                     <button type="submit" class="btn btn-primary">
-                        Alterar a password
+                        @lang("auth.change_pw")
                     </button>
                 </div>
             </form>
