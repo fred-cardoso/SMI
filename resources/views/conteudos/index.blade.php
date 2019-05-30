@@ -33,7 +33,9 @@
                             <tbody>
 
                             @foreach($conteudos as $conteudo)
-                                @if($conteudo->privado and (!auth()->user()->hasRole('admin') or !$conteudo->user()->first()->id == auth()->user()->id))
+                                @if($conteudo->privado and !auth()->check())
+                                    @continue
+                                @elseif ($conteudo->private and (!auth()->user()->hasRole('admin') or !$conteudo->user()->first()->id == auth()->user()->id))
                                     @continue
                                 @endif
                                 <tr>
