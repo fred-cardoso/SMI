@@ -35,7 +35,7 @@
                             @foreach($categorias as $cat)
                                 <tr>
                                     <td>{{$cat->id}}</td>
-                                    <td><a href="{{route('categorias', $cat->id)}}">{{$cat->nome}}</td>
+                                    <td><a href="{{route('categorias.show', $cat->id)}}">{{$cat->nome}}</a></td>
                                     <td>{{$cat->secundaria}}</td>
                                     <td>
                                         @auth

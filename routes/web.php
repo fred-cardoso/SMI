@@ -23,7 +23,7 @@ Route::get('uploads', 'ConteudoController@index')->name('uploads');
 Route::get('uploads/{conteudo}', 'ConteudoController@show')->where(['conteudo' => '[0-9]+'])->name('uploads.show');
 
 Route::get('categorias', 'CategoriaController@index')->name('categorias');
-Route::get('categorias/{categoria}', 'CategoriaController@show')->where(['categoria' => '[0-9]+']);
+Route::get('categorias/{categoria}', 'CategoriaController@show')->where(['categoria' => '[0-9]+'])->name("categorias.show");
 
 Route::get('users', 'UserController@index')->name('users');
 Route::get('users/{user}', 'UserController@show')->where(['user' => '[0-9]+'])->name('user');

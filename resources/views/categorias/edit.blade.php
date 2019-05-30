@@ -7,8 +7,8 @@
             <small>@lang("categorias.edit_cat") : {{$categoria->nome}}</small>
         </h1>
         <ol class="breadcrumb">
-            <li><a href="{{route("home")}}"><i class="fa fa-dashboard"></i>@lang("categorias.home_page")</a></li>
-            <li><a href="{{route("users")}}"><i class="fa fa-users"></i> @lang("categorias.users")</a></li>
+            <li><a href="{{route('home')}}"><i class="fa fa-dashboard"></i>@lang("categorias.home_page")</a></li>
+            <li><a href="{{route('categorias')}}"><i class="fa fa-users"></i>@lang("categorias.users")</a></li>
             <li class="active">@lang("categorias.edit_cat")</li>
         </ol>
     </section>
@@ -42,7 +42,7 @@
                             <div class="form-group">
                                 <label for="nomeCat" class="col-sm-2 control-label">@lang("categorias.name_cat")</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" name="nomeCat" id="nomeCat" placeholder="{{$categoria->nome}}">
+                                    <input type="text" class="form-control" name="nomeCat" id="nomeCat" value="{{$categoria->nome}}">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -63,7 +63,6 @@
                         </div>
                         <!-- /.box-body -->
                         <div class="box-footer">
-                            <button type="submit" class="btn btn-default">@lang("categorias.cancel")</button>
                             <button type="submit" class="btn btn-info pull-right">@lang("categorias.edit_cat")</button>
                         </div>
                         <!-- /.box-footer -->
