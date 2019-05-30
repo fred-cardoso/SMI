@@ -3,12 +3,12 @@
 @section('content')
     <section class="content-header">
         <h1>
-            Configurações
-            <small>Configurações de Sistema</small>
+            @lang("common.config")
+            <small>@lang("common.config_system")</small>
         </h1>
         <ol class="breadcrumb">
-            <li><a href="{{route("home")}}"><i class="fa fa-dashboard"></i> Página Inicial</a></li>
-            <li class="active">Configurações</li>
+            <li><a href="{{route("home")}}"><i class="fa fa-dashboard"></i>@lang("categorias.home_page")</a></li>
+            <li class="active">@lang("common.config")</li>
         </ol>
     </section>
     <!-- Main content -->
@@ -30,17 +30,17 @@
                     </div>
                 @endif
                 <div class="callout callout-warning">
-                    <h4>Atenção</h4>
+                    <h4>@lang("common.warning")</h4>
 
-                    <p>Alterar as configurações de base de dados pode provocar o mau funcionamento do sistema.</p>
-                    <p>Confirme primeiro se os parâmetros estão certos antes de alterar.</p>
-                    <p>Se ocorrer algum problema pode editar o ficheiro de configuração manual.</p>
+                    <p>@lang("common.config_msg1")</p>
+                    <p>@lang("common.config_msg2")</p>
+                    <p>@lang("common.config_msg3")</p>
                 </div>
                 <form role="form" action="{{route('config')}}" method="POST">
                     @csrf
                     <div class="box">
                         <div class="box-header with-border">
-                            <h3 class="box-title">Editar Configurações</h3>
+                            <h3 class="box-title">@lang("common.edit_config")</h3>
                         </div>
                         <!-- /.box-header -->
                         <div class="box-body">
@@ -101,7 +101,7 @@
                         </div>
                         <!-- /.box-body -->
                         <div class="box-footer">
-                            <button type="submit" class="btn btn-primary pull-right">Atualizar</button>
+                            <button type="submit" class="btn btn-primary pull-right">@lang("common.update")</button>
                         </div>
                         <!-- /.box-footer -->
                     </div>

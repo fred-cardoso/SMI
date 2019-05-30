@@ -4,12 +4,12 @@
 
     <section class="content-header">
         <h1>
-            Categorias
-            <small>Lista de Categorias</small>
+            @lang("categorias.categories")
+            <small>@lang("categorias.list_cat")</small>
         </h1>
         <ol class="breadcrumb">
-            <li><a href="{{route("home")}}"><i class="fa fa-dashboard"></i> Página Inicial</a></li>
-            <li class="active">Categorias</li>
+            <li><a href="{{route("home")}}"><i class="fa fa-dashboard"></i>@lang("categorias.home_page")</a></li>
+            <li class="active">@lang("categorias.categories")</li>
         </ol>
     </section>
     <!-- Main content -->
@@ -18,17 +18,17 @@
             <div class="col-xs-12">
                 <div class="box">
                     <div class="box-header">
-                        <h3 class="box-title">Categorias</h3>
+                        <h3 class="box-title">@lang("categorias.categories")</h3>
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
                         <table id="example2" class="table table-bordered table-striped">
                             <thead>
                             <tr>
-                                <th>ID</th>
-                                <th>Nome</th>
-                                <th>Secundária</th>
-                                <th>Acções</th>
+                                <th>@lang("common.id")</th>
+                                <th>@lang("common.name")</th>
+                                <th>@lang("categorias.secondary")</th>
+                                <th>@lang("common.actions")</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -45,7 +45,7 @@
                                                 $database = DB::table("user_categoria")->get();
                                                 $checkIfSubscribed = sizeof($database->where('categoria_id', $cat->id)->where('user_id', Auth::user()->id));
                                                 if ($checkIfSubscribed == 0) {
-                                                    echo '<input class="btn btn-secondary" name="sub"type="submit" value="Subscribe">';
+                                                    echo '<input class="btn btn-secondary" name="sub"type="submit"value="Subscribe">';
 
                                                 } else {
                                                     echo '<input class="btn btn-warning" name="sub" type="submit" value="Unsubscribe">';
@@ -53,10 +53,9 @@
 
                                                 ?>
 
-                                                <?php $role = Auth::user()->roles->first();?>
                                                 @role('admin')
                                                 <a href="{{route('cat.edit', $cat->id)}}" type="button"
-                                                   class="btn btn-primary">Editar</a>
+                                                   class="btn btn-primary">@lang("common.edit")</a>
                                                 @endrole
                                             </form>
                                     </td>
@@ -66,10 +65,10 @@
                             </tbody>
                             <tfoot>
                             <tr>
-                                <th>ID</th>
-                                <th>Nome</th>
-                                <th>Secundária</th>
-                                <th>Acções</th>
+                                <th>@lang("common.id")</th>
+                                <th>@lang("common.name")</th>
+                                <th>@lang("categorias.secondary")</th>
+                                <th>@lang("common.actions")</th>
                             </tr>
                             </tfoot>
                         </table>
