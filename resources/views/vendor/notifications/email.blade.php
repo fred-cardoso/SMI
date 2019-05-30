@@ -51,7 +51,7 @@
 @slot('subcopy')
 @lang(
     "Se tem problemas em clicar no botão \":actionText\", copie e cole o URL abaixo\n".
-    'para o seu browser browser: [:actionURL](:actionURL)',
+    'para o seu browser: [:actionURL](:actionURL)',
     [
         'actionText' => $actionText,
         'actionURL' => $actionUrl,
