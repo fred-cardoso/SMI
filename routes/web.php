@@ -19,6 +19,15 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
+Route::get('uploads', 'ConteudoController@index')->name('uploads');
+Route::get('uploads/{conteudo}', 'ConteudoController@show')->where(['conteudo' => '[0-9]+'])->name('uploads.show');
+
+Route::get('categorias', 'CategoriaController@index')->name('categorias');
+Route::get('categorias/{categoria}', 'CategoriaController@show')->where(['categoria' => '[0-9]+']);
+
+Route::get('users', 'UserController@index')->name('users');
+Route::get('users/{user}', 'UserController@show')->where(['user' => '[0-9]+'])->name('user');
+
 Route::group(['middleware' => ['auth', 'verified', 'role:user']], function () {
     /**
      * User basic Routes
@@ -48,17 +57,10 @@ Route::group(['middleware' => ['auth', 'verified', 'role:user']], function () {
         return $controller->updateProfile(Auth::user(), request());
     })->name('profile_edit');
 
-    Route::get('users', 'UserController@index')->name('users');
-    Route::get('users/{user}', 'UserController@show')->where(['user' => '[0-9]+'])->name('user');
     Route::post('users/{user}/subscribe', 'UserController@subscribeUser')->where(['user' => '[0-9]+'])->name('user.subscribe');
     Route::post('users/{categoria}/subscribeCat', 'UserController@subscribeCategoria')->where(['categoria' => '[0-9]+'])->name('cat.subscribe');
 
-    Route::get('categorias', 'CategoriaController@index')->name('categorias');
-    Route::get('categorias/{categoria}', 'CategoriaController@show')->where(['categoria' => '[0-9]+']);
     Route::post('categorias/{categoria}/subscribe', 'UserController@subscribeCategoria')->where(['categoria' => '[0-9]+']);
-
-    Route::get('uploads', 'ConteudoController@index')->name('uploads');
-    Route::get('uploads/{conteudo}', 'ConteudoController@show')->where(['conteudo' => '[0-9]+'])->name('uploads.show');
     /**
      * Routes for "Simpatizante"
      */
