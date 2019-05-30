@@ -143,8 +143,8 @@ class ConteudoController extends Controller
                     $conteudo->user()->associate(Auth::user());
                     $conteudo->save();
 
-                    foreach ($file_categories as $id) {
-                        $categoria = Categoria::where('id', $id)->first();
+                    foreach ($file_categories as $name) {
+                        $categoria = Categoria::where('nome', $name)->first();
                         $conteudo->category()->attach($categoria);
                     }
                 }
