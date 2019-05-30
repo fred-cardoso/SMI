@@ -25,6 +25,19 @@
                         </ul>
                     </div>
                 @endif
+                @if(session('success'))
+                    <div class="alert alert-success">
+                        {{session('success')}}
+                    </div>
+                @endif
+                <div class="alert alert-info">
+                    <h4>Informação!</h4>
+                    <p>Para inserir conteúdos em massa deverá enviar um ficheiro com extensão ZIP, este deve conter um
+                        ficheiro com extensão XML denominado <i>meta</i>. O ficheiro <i>meta</i> deve poder ser validado
+                        com este <a target="_blank" href="{{Storage::url('public/zip_files.xsd')}}">XSD</a>.</p>
+                    <p>No caso de fazer um upload de um ficheiro ZIP, os conteúdos serão colocados com os dados
+                        correspondentes do ficheiro <i>meta</i> sendo os dados do formulário abaixo ignorados.</p>
+                </div>
                 <form role="form" action="{{route('upload')}}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="box">
