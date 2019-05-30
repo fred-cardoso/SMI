@@ -13,21 +13,10 @@ return [
     |
     */
 
-
-    'categories' => 'Categories',
-    "home_page" => "Home",
-    'users' => 'Users',
-    'create_cat' =>'Create category',
-    'name_cat' => 'Category name',
-    'put_cat_name' =>"Fill the category's name",
-    'secondary' => 'Secondary',
-    'cancel'=> 'Cancel',
-    'create' => 'Create',
-    'edit_cat' => 'Edit category',
-    'list_cat' => 'Category listing',
-    'subed_cat' => 'Subscribed categories'
+    'member' => 'Membro desde ',
+    'main_nav' => 'NAVEGAÇÃO PRINCIPAL',
+    'admin' => 'ADMINISTRAÇÃO',
+    'ban' => 'Utilizadores banidos'
 
 
-
-    ];
-
+];

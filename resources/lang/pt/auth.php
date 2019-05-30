@@ -19,7 +19,7 @@ return [
     'email' => 'Email',
     'change_pw'=>'Alterar password',
     'pw' =>'Password',
-    'repeate_pw' =>'Repita a password',
+    'repeate_pw' =>'Confirme a password',
     'begin_session' =>'Iniciar Sessão',
     'remember_me' => 'Lembre-me',
     'log_facebook' => 'Iniciar Sessão com facebook',
@@ -32,7 +32,8 @@ return [
     'resend_mail' => 'Foi reenviado um email de verificação para o seu email.',
     'verify_mail' => 'Verifique o seu email',
     'verification_1' => '  Antes de continuar, por favor verifique o seu email. Se não recebeu o email, ',
-    'verification_2' =>'clique aqui para voltar a enviar'
+    'verification_2' =>'clique aqui para voltar a enviar',
+    'logout' => 'Sair',
 
 
 

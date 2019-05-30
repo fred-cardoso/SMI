@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'edit' => 'Editar',
+    'edit' => 'Editar ',
     'id'=> 'ID',
     'name' => 'Nome',
     'actions' => 'Ações',
@@ -32,7 +32,9 @@ return [
     'creation_date' => 'Data de criação',
     'visibility' => 'Visibilidade',
     'delete' => 'Eliminar',
-    'last_modified' => 'Ultima modificação'
+    'last_modified' => 'Ultima modificação',
+    'role' =>'Papel',
+    'activity' =>'Actividade'
 
 
 ];

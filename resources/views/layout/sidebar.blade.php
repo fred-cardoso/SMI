@@ -17,62 +17,40 @@
         <!-- sidebar menu: : style can be found in sidebar.less -->
         <ul class="sidebar-menu" data-widget="tree">
 
-            <li class="header">MAIN NAVIGATION</li>
+            <li class="header">@lang('outlayout.main_nav')</li>
 
 
-            <li><a href="/"><i class="fa fa-book"></i> <span>Página Inicial</span></a></li>
+            <li><a href="/"><i class="fa fa-book"></i> <span>@lang('categorias.home_page')</span></a></li>
             <li class="treeview">
                 <a href="#">
-                    <i class="fa  fa-television"></i> <span>Conteúdo</span>
+                    <i class="fa  fa-television"></i> <span>@lang('conteudos.content')</span>
                     <span class="pull-right-container">
   <i class="fa fa-angle-left pull-right"></i>
 </span>
 
                 </a>
                 <ul class="treeview-menu">
-                    <li class="active"><a href="/"><i class="fa fa-circle-o"></i> Lista de conteúdos</a></li>
+                    <li class="active"><a href="{{route('uploads')}}"><i
+                                    class="fa fa-circle-o"></i>@lang('conteudos.list_content')</a></li>
 
                 </ul>
             </li>
 
             <li class="{{ request()->is('users/*') || request()->is('users') ? 'active treeview' : 'treeview' }}">
                 <a href="#">
-                    <i class="fa fa-user"></i> <span>Utilizadores</span>
+                    <i class="fa fa-user"></i> <span>@lang('categorias.users')</span>
                     <span class="pull-right-container">
   <i class="fa fa-angle-left pull-right"></i>
 </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li class="{{ request()->url() == route('users') ? 'active' : '' }}"><a href="{{route('users')}}"><i class="fa fa-circle-o"></i>Listar Utilizadores </a></li>
-                    @auth
-                        <li class="treeview">
-                            <a href="#"><i class="fa fa-circle-o"></i>Utilizadores Subscritos
-                                <span class="pull-right-container">
-      <i class="fa fa-angle-left pull-right"></i>
-    </span>
-                            </a>
-
-                            <ul class="treeview-menu">
-                                <?php
-                                $user_id = auth()->user()->id;
-                                $userSub = auth()->user()->user();
-                                $counter = $userSub->count();
-                                $subFinder = 1;
-                                for ($x = 0; $x < $counter;) {
-                                    $userSub = auth()->user()->user();
-                                    $subscribe = $userSub->where('subscribed_id', $subFinder)->where('user_id', $user_id)->get();
-                                    if ($subscribe->isEmpty()) {
-                                    } else {
-                                        $userSubName = auth()->user()->where('id', $subFinder)->first()->name;
-                                        echo ' <li><a href="/users/' . $subFinder . '"><i class="fa fa-user"></i> <span>' . $userSubName . '</span></a></li>';
-                                        $x++;
-                                    }
-                                    $subFinder += 1;
-                                }
-                                ?>
-                            </ul>
-                            @endauth
-                        </li>
+                    <li class="{{ request()->url() == route('users') ? 'active' : '' }}"><a href="{{route('users')}}"><i
+                                    class="fa fa-circle-o"></i>@lang('user.list')</a></li>
+                    @role('admin')
+                    <li class="{{ request()->url() == route('users.create') ? 'active' : '' }}"><a
+                                href="{{route('users.create')}}"><i class="fa fa-circle-o"></i>@lang('user.create')</a>
+                    </li>
+                    @endrole
 
                 </ul>
 
@@ -81,16 +59,17 @@
 
             <li class="{{ request()->is('categorias/*') || request()->is('categorias') ? 'active treeview' : 'treeview' }}">
                 <a href="#">
-                    <i class="fa fa-book"></i> <span>Categorias</span>
+                    <i class="fa fa-book"></i> <span>@lang('categorias.categories')</span>
                     <span class="pull-right-container">
   <i class="fa fa-angle-left pull-right"></i>
 </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li class="{{ request()->url() == route('categorias') ? 'active' : '' }}"><a href="{{route('categorias')}}"><i class="fa fa-circle-o"></i>Listar Categorias </a></li>
+                    <li class="{{ request()->url() == route('categorias') ? 'active' : '' }}"><a
+                                href="{{route('categorias')}}"><i class="fa fa-circle-o"></i>@lang('categorias.list_cat') </a></li>
                     @auth
                         <li class="treeview">
-                            <a href="#"><i class="fa fa-circle-o"></i>Categorias Subscritas
+                            <a href="#"><i class="fa fa-circle-o"></i>@lang('categorias.subed_cat')
                                 <span class="pull-right-container">
       <i class="fa fa-angle-left pull-right"></i>
     </span>
@@ -119,18 +98,21 @@
 
                         </li>
                         @role('simpatizante')
-                        <li class="{{ request()->url() == route('cat.create') ? 'active' : '' }}"><a href="{{route('cat.create')}}"><i class="fa fa-circle-o"></i>Criar Categorias</a></li>
+                        <li class="{{ request()->url() == route('cat.create') ? 'active' : '' }}"><a
+                                    href="{{route('cat.create')}}"><i class="fa fa-circle-o"></i>@lang('categorias.create_cat')</a>
+                        </li>
                         @endrole
                     @endauth
                 </ul>
 
             </li>
             @role('admin')
-            <li class="header">Administração</li>
+            <li class="header">@lang('outlayout.admin')</li>
 
-            <li class="{{ request()->is('configurations/edit') ? 'active' : '' }}"><a href="{{route('config')}}"><i class="fa fa-circle-o text-red"></i>
-                    <span>Configurações de sistema</span></a></li>
-            <li><a href="#"><i class="fa fa-circle-o text-aqua"></i>Banned Users</a></li>
+            <li class="{{ request()->is('configurations/edit') ? 'active' : '' }}"><a href="{{route('config')}}"><i
+                            class="fa fa-circle-o text-red"></i>
+                    <span>@lang('common.config_system')</span></a></li>
+            <li><a href="#"><i class="fa fa-circle-o text-aqua"></i>@lang('outlayout.ban')</a></li>
             @endrole
             <!--
            <li class="treeview">

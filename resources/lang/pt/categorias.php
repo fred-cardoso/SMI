@@ -25,6 +25,7 @@ return [
     'create' => 'Criar',
     'edit_cat' => 'Editar categoria',
     'list_cat' => 'Listar categorias',
+    'subed_cat' => 'Categorias Subscritas',
 
 
 

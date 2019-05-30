@@ -3,12 +3,12 @@
 @section('content')
     <section class="content-header">
         <h1>
-            Perfil
-            <small>Perfil de {{$user->name}}</small>
+            @lang('user.profile')
+            <small>{{$user->name}}</small>
         </h1>
         <ol class="breadcrumb">
             <li><a href="{{route("home")}}"><i class="fa fa-dashboard"></i> Página Inicial</a></li>
-            <li class="active">Perfil</li>
+            <li class="active">@lang('user.profile')</li>
         </ol>
     </section>
     <!-- Main content -->
@@ -27,14 +27,6 @@
 
                         <p class="text-muted text-center">{{$user->roles()->first()->name}}</p>
 
-                        <ul class="list-group list-group-unbordered">
-                            <li class="list-group-item">
-                                <b>Subscritores</b> <a class="pull-right">1,322</a>
-                            </li>
-                            <li class="list-group-item">
-                                <b>Subscritos</b> <a class="pull-right">543</a>
-                            </li>
-                        </ul>
                         @auth
                             @if(!\Request::is('profile') and !\Request::is('users/' . Auth::user()->id))
                                 <form action="{{route('user.subscribe', $user->id)}}" method="POST">
@@ -63,25 +55,26 @@
                 <!-- About Me Box -->
                 <div class="box box-primary">
                     <div class="box-header with-border">
-                        <h3 class="box-title">Sobre</h3>
+                        <h3 class="box-title">@lang('user.about')</h3>
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
-                        <strong><i class="fa fa-book margin-r-5"></i> Data do Registo</strong>
+                        <strong><i class="fa fa-calendar margin-r-5"></i>@lang('user.registry_date')</strong>
 
                         <p class="text-muted">
+
                             {{$user->created_at}}
                         </p>
 
                         <hr>
 
-                        <strong><i class="fa fa-map-marker margin-r-5"></i> Perfil</strong>
+                        <strong><i class="fa fa-id-card margin-r-5"></i>@lang('user.about')</strong>
 
                         <p class="text-muted">{{$user->roles()->first()->name}}</p>
 
                         <hr>
 
-                        <strong><i class="fa fa-pencil margin-r-5"></i> Nº de Conteúdos Enviados</strong>
+                        <strong><i class="fa fa-pencil margin-r-5"></i>@lang('user.content_sent')</strong>
 
                         <p class="text-muted">TODO</p>
                     </div>
@@ -95,12 +88,12 @@
                     <ul class="nav nav-tabs">
                         <li @if(!sizeof($errors->all()) > 0 and !session('success')) class="active" @endif><a
                                     href="#activity"
-                                    data-toggle="tab">Actividade</a>
+                                    data-toggle="tab">@lang('common.activity')</a>
                         </li>
                         @if(\Request::is('profile'))
                             <li @if(sizeof($errors->all()) > 0 or session('success')) class="active" @endif><a
                                         href="#settings"
-                                        data-toggle="tab">Definições</a>
+                                        data-toggle="tab">@lang('common.config')</a>
                             </li>
                         @endif
                     </ul>
@@ -250,7 +243,7 @@
                                         </div>
                                     @endif
                                     <div class="form-group">
-                                        <label for="inputName" class="col-sm-2 control-label">Nome</label>
+                                        <label for="inputName" class="col-sm-2 control-label">@lang('common.name')</label>
 
                                         <div class="col-sm-10">
                                             <input type="text" name="name" class="form-control" id="inputName"
@@ -258,7 +251,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="inputEmail" class="col-sm-2 control-label">Email</label>
+                                        <label for="inputEmail" class="col-sm-2 control-label">@lang('auth.email')</label>
 
                                         <div class="col-sm-10">
                                             <input type="email" name="email" class="form-control" id="inputEmail"
@@ -267,7 +260,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="inputName" class="col-sm-2 control-label">Password Atual</label>
+                                        <label for="inputName" class="col-sm-2 control-label">@lang('user.pw')</label>
 
                                         <div class="col-sm-10">
                                             <input type="password" name="current_password" class="form-control"
@@ -275,7 +268,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="inputName" class="col-sm-2 control-label">Password</label>
+                                        <label for="inputName" class="col-sm-2 control-label">@lang('auth.pw')</label>
 
                                         <div class="col-sm-10">
                                             <input type="password" name="password" class="form-control"
@@ -283,8 +276,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="inputExperience" class="col-sm-2 control-label">Confirmar Nova
-                                            Password</label>
+                                        <label for="inputExperience" class="col-sm-2 control-label">@lang('auth.repeate_pw')</label>
 
                                         <div class="col-sm-10">
                                             <input type="password" name="password_confirmation" class="form-control"

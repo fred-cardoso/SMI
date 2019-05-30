@@ -20,7 +20,7 @@ return [
     'email' => 'Email',
     'change_pw' => 'Change password',
     'pw' => 'Password',
-    'repeate_pw' => 'Repeat password',
+    'repeate_pw' => 'Confirm password',
     'begin_session' => 'Log in',
     'remember_me' => "Remember me",
     'log_facebook' => 'Sign in with Facebook',
@@ -33,5 +33,6 @@ return [
     'resend_mail' => 'A verification email was re-sent!',
     'verify_mail' => 'Check your email inbox.',
     'verification_1' => 'Before you can continue, please verify your inbox, if you do not receive our e-mail,',
-    'verification_2' => 'Click here to re-send'
+    'verification_2' => 'Click here to re-send',
+    'logout' => 'Log out',
 ];

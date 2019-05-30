@@ -3,13 +3,13 @@
 @section('content')
     <section class="content-header">
         <h1>
-            Utilizadores
-            <small>Criar Utilizador</small>
+            @lang('categorias.users')
+            <small>@lang('user.create')</small>
         </h1>
         <ol class="breadcrumb">
-            <li><a href="{{route("home")}}"><i class="fa fa-dashboard"></i> Página Inicial</a></li>
-            <li><a href="{{route("users")}}"><i class="fa fa-users"></i> Utilizadores</a></li>
-            <li class="active">Criar Utilizador</li>
+            <li><a href="{{route("home")}}"><i class="fa fa-dashboard"></i>@lang('categorias.home_page')</a></li>
+            <li><a href="{{route("users")}}"><i class="fa fa-users"></i>@lang('categorias.users')</a></li>
+            <li class="active">@lang('user.create')</li>
         </ol>
     </section>
     <!-- Main content -->
@@ -29,21 +29,21 @@
                     @csrf
                     <div class="box">
                         <div class="box-header with-border">
-                            <h3 class="box-title">Criar Utilizador</h3>
+                            <h3 class="box-title">@lang('user.create')</h3>
                         </div>
                         <!-- /.box-header -->
                         <div class="box-body">
                             <!-- text input -->
                             <div class="form-group">
-                                <label>Nome</label>
+                                <label>@lang('common.name')</label>
                                 <input type="text" name="name" class="form-control" value="{{old('name')}}" required>
                             </div>
                             <div class="form-group">
-                                <label>Email</label>
+                                <label>@lang('auth.email')</label>
                                 <input type="email" name="email" class="form-control" value="{{old('email')}}" required>
                             </div>
                             <div class="form-group">
-                                <label>Grupo</label>
+                                <label>@lang('common.role')</label>
                                 <select name="group" class="form-control">
                                     @foreach($roles as $role)
                                         <option value="{{$role->name}}">{{$role->name}}</option>
@@ -51,12 +51,12 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label>Password</label>
+                                <label>@lang('auth.pw')</label>
                                 <input type="password" name="password" class="form-control" value="{{old('password')}}"
                                        required>
                             </div>
                             <div class="form-group">
-                                <label>Confirmar Password</label>
+                                <label>@lang('auth.repeate_pw')</label>
                                 <input type="password" name="password_confirmation" class="form-control"
                                        value="{{old('password_confirmation')}}" required>
                             </div>

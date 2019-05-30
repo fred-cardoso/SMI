@@ -3,12 +3,12 @@
 @section('content')
     <section class="content-header">
         <h1>
-            Utilizadores
-            <small>Lista de Utilizadores</small>
+            @lang('categorias.users')
+            <small>@lang('user.list')</small>
         </h1>
         <ol class="breadcrumb">
-            <li><a href="{{route("home")}}"><i class="fa fa-dashboard"></i> Página Inicial</a></li>
-            <li class="active">Utilizadores</li>
+            <li><a href="{{route("home")}}"><i class="fa fa-dashboard"></i>@lang('categorias.home_page')</a></li>
+            <li class="active">@lang('categorias.users')</li>
         </ol>
     </section>
     <!-- Main content -->
@@ -17,17 +17,17 @@
             <div class="col-xs-12">
                 <div class="box">
                     <div class="box-header">
-                        <h3 class="box-title">Utilizadores</h3>
+                        <h3 class="box-title">@lang('categorias.users')</h3>
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
                         <table id="example2" class="table table-bordered table-striped">
                             <thead>
                             <tr>
-                                <th>ID</th>
-                                <th>Nome</th>
-                                <th>Grupo</th>
-                                <th>Acções</th>
+                                <th>@lang('common.id')</th>
+                                <th>@lang('common.name')</th>
+                                <th>@lang('common.role')</th>
+                                <th>@lang('common.actions')</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -56,11 +56,11 @@
 
                                                 @role('admin')
                                                 <a href="{{route('user.edit', $user->id)}}" type="button"
-                                                   class="btn btn-primary">Editar</a>
+                                                   class="btn btn-primary">@lang('common.edit')</a>
                                                 @if(auth()->user()->id != $user->id)
                                                     <button type="button" class="btn btn-danger" data-toggle="modal"
                                                             data-target="#modal-delete-user-{{$user->id}}" wfd-id="264">
-                                                        Eliminar
+                                                        @lang('common.delete')
                                                     </button>
                                                 @endif
 
@@ -73,10 +73,10 @@
                             </tbody>
                             <tfoot>
                             <tr>
-                                <th>ID</th>
-                                <th>Nome</th>
-                                <th>Grupo</th>
-                                <th>Acções</th>
+                                <th>@lang('common.id')</th>
+                                <th>@lang('common.name')</th>
+                                <th>@lang('common.role')</th>
+                                <th>@lang('common.actions')</th>
                             </tr>
                             </tfoot>
                         </table>

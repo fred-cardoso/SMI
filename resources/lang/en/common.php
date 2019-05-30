@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'edit' => 'Edit',
+    'edit' => 'Edit ',
     'id'=> 'ID',
     'name' => 'Name',
     'actions' => 'Actions',
@@ -33,6 +33,8 @@ return [
     'visibility' =>' Visibility',
     'delete' => 'Delete',
     'last_modified' => ' Last modification',
+    'role'=> 'Role',
+    'activity' =>'Activity'
 
 
 

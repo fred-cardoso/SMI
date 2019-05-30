@@ -3,13 +3,13 @@
 @section('content')
     <section class="content-header">
         <h1>
-            Utilizadores
-            <small>Editar {{$user->name}}</small>
+            @lang('categorias.users')
+            <small>@lang('common.edit'){{$user->name}}</small>
         </h1>
         <ol class="breadcrumb">
-            <li><a href="{{route("home")}}"><i class="fa fa-dashboard"></i> Página Inicial</a></li>
-            <li><a href="{{route("users")}}"><i class="fa fa-users"></i> Utilizadores</a></li>
-            <li class="active">Editar Utilizador</li>
+            <li><a href="{{route("home")}}"><i class="fa fa-dashboard"></i>@lang('categorias.home_page')</a></li>
+            <li><a href="{{route("users")}}"><i class="fa fa-users"></i>@lang('categorias.users') </a></li>
+            <li class="active">@lang('user.edit_user')</li>
         </ol>
     </section>
     <!-- Main content -->
@@ -34,21 +34,21 @@
                     @csrf
                     <div class="box">
                         <div class="box-header with-border">
-                            <h3 class="box-title">Editar Utilizador</h3>
+                            <h3 class="box-title">@lang('user.edit_user')</h3>
                         </div>
                         <!-- /.box-header -->
                         <div class="box-body">
                             <!-- text input -->
                             <div class="form-group">
-                                <label>Nome</label>
+                                <label>@lang('common.name')</label>
                                 <input type="text" name="name" class="form-control" value="{{old('name') ?? $user->name}}" required>
                             </div>
                             <div class="form-group">
-                                <label>Email</label>
+                                <label>@lang('auth.email')</label>
                                 <input type="email" name="email" class="form-control" value="{{old('email') ?? $user->email}}" required>
                             </div>
                             <div class="form-group">
-                                <label>Grupo</label>
+                                <label>@lang('common.role')</label>
                                 <select name="group" class="form-control">
                                     @foreach($roles as $role)
                                         <option value="{{$role->name}}" {{$user->roles()->first()->name == $role->name ? 'selected' : ''}}>{{$role->name}}</option>
@@ -58,7 +58,7 @@
                         </div>
                         <!-- /.box-body -->
                         <div class="box-footer">
-                            <button type="submit" class="btn btn-primary pull-right">Editar</button>
+                            <button type="submit" class="btn btn-primary pull-right">@lang('common.edit')</button>
                         </div>
                         <!-- /.box-footer -->
                     </div>

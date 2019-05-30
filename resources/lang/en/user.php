@@ -13,21 +13,16 @@ return [
     |
     */
 
-
-    'categories' => 'Categories',
-    "home_page" => "Home",
-    'users' => 'Users',
-    'create_cat' =>'Create category',
-    'name_cat' => 'Category name',
-    'put_cat_name' =>"Fill the category's name",
-    'secondary' => 'Secondary',
-    'cancel'=> 'Cancel',
-    'create' => 'Create',
-    'edit_cat' => 'Edit category',
-    'list_cat' => 'Category listing',
-    'subed_cat' => 'Subscribed categories'
+    'create' => 'Create user',
+    'edit_user' => 'Edit user',
+    'list' =>'User listing',
+    'profile' =>'Profile',
+    'about' =>'About',
+    'content_sent' => 'Number of published content',
+    'registry_date' =>'Registry date',
+    'pw' => 'Current password'
 
 
 
-    ];
 
+];
