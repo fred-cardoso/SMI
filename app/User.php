@@ -8,6 +8,7 @@ use Illuminate\Auth\MustVerifyEmail as MVerifyMail;
 use App\Notifications\VerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Permissions\HasPermissionsTrait;
+use App\Notifications\ResetPasswordNotification;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
