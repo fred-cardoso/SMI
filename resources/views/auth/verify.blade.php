@@ -4,18 +4,16 @@
     <section class="content">
         @if (session('resent'))
             <div class="alert alert-success" role="alert">
-                Foi reenviado um email de verificação para o seu email.
+                @lang("auth.resend_mail")
             </div>
     @endif
     <!-- Default box -->
         <div class="box">
             <div class="box-header with-border">
-                <h3 class="box-title">Verifique o seu email</h3>
+                <h3 class="box-title">@lang("auth.verify_mail")</h3>
             </div>
             <div class="box-body">
-                Antes de continuar, por favor verifique o seu email.
-                Se não recebeu o email, <a href="{{ route('verification.resend') }}">clique aqui para voltar a
-                    enviar</a>.
+                @lang("auth.verification_1")<a href="{{ route('verification.resend') }}">@lang("auth.verification_2")</a>.
             </div>
             <!-- /.box-body -->
         </div>

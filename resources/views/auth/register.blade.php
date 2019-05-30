@@ -9,7 +9,7 @@
     </div>
 
     <div class="register-box-body">
-        <p class="login-box-msg">Registo</p>
+        <p class="login-box-msg">@lang("auth.register")</p>
 
         <form action="{{route('register')}}" method="post">
             @csrf
@@ -21,12 +21,12 @@
                 </div>
             @endif
             <div class="form-group has-feedback">
-                <input type="text" name="name" class="form-control" placeholder="Nome completo" value="{{old('name')}}"
+                <input type="text" name="name" class="form-control" placeholder="@lang("auth.fullname")" value="{{old('name')}}"
                        required>
                 <span class="glyphicon glyphicon-user form-control-feedback"></span>
             </div>
             <div class="form-group has-feedback">
-                <input type="email" name="email" class="form-control" placeholder="Email" value="{{old('email')}}"
+                <input type="email" name="email" class="form-control" placeholder="@lang("auth.email")" value="{{old('email')}}"
                        required>
                 <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
             </div>
@@ -35,7 +35,7 @@
                 <span class="glyphicon glyphicon-lock form-control-feedback"></span>
             </div>
             <div class="form-group has-feedback">
-                <input type="password" name="password_confirmation" class="form-control" placeholder="Repita a password"
+                <input type="password" name="password_confirmation" class="form-control" placeholder="@lang("auth.repeate_pw")"
                        required>
                 <span class="glyphicon glyphicon-log-in form-control-feedback"></span>
             </div>
@@ -50,7 +50,7 @@
             <div class="row">
                 <!-- /.col -->
                 <div class="col-xs-12">
-                    <button type="submit" class="btn btn-primary btn-block btn-flat">Registar</button>
+                    <button type="submit" class="btn btn-primary btn-block btn-flat">@lang("auth.register")</button>
                 </div>
                 <!-- /.col -->
             </div>
@@ -58,15 +58,11 @@
 
         <div class="social-auth-links text-center">
             <p>- OU -</p>
-            <a href="#" class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-facebook"></i> Sign up
-                using
-                Facebook</a>
-            <a href="#" class="btn btn-block btn-social btn-google btn-flat"><i class="fa fa-google-plus"></i> Sign up
-                using
-                Google+</a>
+            <a href="#" class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-facebook"></i> @lang("auth.log_facebook")</a>
+            <a href="#" class="btn btn-block btn-social btn-google btn-flat"><i class="fa fa-google-plus"></i> @lang("auth.log_google_plus")</a>
         </div>
 
-        <a href="{{route('login')}}" class="text-center">Já tenho uma conta</a>
+        <a href="{{route('login')}}" class="text-center">@lang("auth.have_acc")</a>
     </div>
     <!-- /.form-box -->
 </div>
