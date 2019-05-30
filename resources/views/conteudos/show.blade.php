@@ -9,11 +9,11 @@ use Illuminate\Support\Facades\Storage;
     <section class="content-header">
         <h1>
             {{$conteudo->titulo}}
-            <small>Lista de Conteúdos</small>
+            <small>@lang('conteudos.list_content')</small>
         </h1>
         <ol class="breadcrumb">
-            <li><a href="{{route('home')}}"><i class="fa fa-dashboard"></i> Página Inicial</a></li>
-            <li><a href="{{route('uploads')}}">Conteúdos</a></li>
+            <li><a href="{{route('home')}}"><i class="fa fa-dashboard"></i>@lang('categorias.home_page')</a></li>
+            <li><a href="{{route('uploads')}}">@lang('conteudos.content')</a></li>
             <li class="active">{{$conteudo->titulo}}</li>
         </ol>
     </section>
@@ -26,18 +26,18 @@ use Illuminate\Support\Facades\Storage;
                         <h3 class="box-title">{{$conteudo->titulo}}</h3>
                     </div>
                     <div class="box-body">
-                        <strong><i class="fa fa-book margin-r-5"></i> Descrição</strong>
+                        <strong><i class="fa fa-book margin-r-5"></i>@lang('conteudos.description')</strong>
                         <p class="text-muted">{{$conteudo->descricao}}</p>
                         <hr>
-                        <strong><i class="fa fa-map-marker margin-r-5"></i> Autor</strong>
+                        <strong><i class="fa fa-map-marker margin-r-5"></i> @lang('common.author')</strong>
                         <p class="text-muted"><a
                                     href="{{route('user', $conteudo->user()->first()->id)}}">{{$conteudo->user()->first()->name}}</a>
                         </p>
                         <hr>
-                        <strong><i class="fa fa-map-marker margin-r-5"></i> Visibilidade</strong>
+                        <strong><i class="fa fa-map-marker margin-r-5"></i> @lang('common.visibility')</strong>
                         <p class="text-muted"><span class="label label-{{$conteudo->privado == 1 ? 'danger' : 'success'}}">{{$conteudo->privado == 1 ? 'Privado' : 'Público'}}</span></p>
                         <hr>
-                        <strong><i class="fa fa-pencil margin-r-5"></i> Categorias</strong>
+                        <strong><i class="fa fa-pencil margin-r-5"></i> @lang('categorias.categories')</strong>
                         <p>
                             @foreach($conteudo->category()->get() as $categoria)
                                 <span class="label label-{{$categoria->secundaria == 1 ? 'info' : 'primary'}}">{{$categoria->nome}}</span>
@@ -45,10 +45,10 @@ use Illuminate\Support\Facades\Storage;
 
                         </p>
                         <hr>
-                        <strong><i class="fa fa-file-text-o margin-r-5"></i> Data da Criação</strong>
+                        <strong><i class="fa fa-file-text-o margin-r-5"></i> @lang('common.creation_date')</strong>
                         <p>{{$conteudo->created_at}}</p>
                         <hr>
-                        <strong><i class="fa fa-file-text-o margin-r-5"></i> Última Modificação</strong>
+                        <strong><i class="fa fa-file-text-o margin-r-5"></i>@lang('common.last_modified')</strong>
                         <p>{{$conteudo->updated_at}}</p>
                     </div>
                 </div>

@@ -25,6 +25,15 @@ return [
     'config_msg1' => 'Changing the system configurations may result in a faulty system. ',
     'config_msg2' =>'Before updating, check if the attributes are right.',
     'config_msg3' => 'At last resource you can manage the configurations manually by acessing the file itself.',
+    'info' => 'Information',
+    'send' =>'Send',
+    'file' =>'File(s)',
+    'author'=>' Author',
+    'creation_date' => 'Creation date',
+    'visibility' =>' Visibility',
+    'delete' => 'Delete',
+    'last_modified' => ' Last modification',
+
 
 
 
