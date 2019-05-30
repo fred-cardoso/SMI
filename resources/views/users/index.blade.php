@@ -1,11 +1,6 @@
 @extends('layout.layout')
 @section('title', 'Utilizadores')
 @section('content')
-    <?php
-
-    $role = Auth::user()->roles->first();
-
-    ?>
     <section class="content-header">
         <h1>
             Utilizadores
