@@ -79,7 +79,7 @@ Route::group(['middleware' => ['auth', 'verified', 'role:user']], function () {
          * Routes for admin
          */
         Route::group(['middleware' => 'role:admin'], function () {
-            Route::get('users/create', 'UserController@create');
+            Route::get('users/create', 'UserController@create')->name('users.create');
             Route::post('users/create', 'UserController@store');
 
             Route::get('users/{user}/edit', 'UserController@edit')->where(['user' => '[0-9]+'])->name('user.edit');
@@ -95,5 +95,3 @@ Route::group(['middleware' => ['auth', 'verified', 'role:user']], function () {
         });
     });
 });
-
-//Route::get('/home', 'HomeController@index')->name('home');

@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
-use mysql_xdevapi\Exception;
 
 class UserController extends Controller
 {
@@ -93,7 +92,8 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        return view('users.create', compact('user'));
+        $roles = Role::all();
+        return view('users.edit', compact(['user', 'roles']));
     }
 
     /**

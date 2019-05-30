@@ -36,7 +36,7 @@
                     <p>Confirme primeiro se os parâmetros estão certos antes de alterar.</p>
                     <p>Se ocorrer algum problema pode editar o ficheiro de configuração manual.</p>
                 </div>
-                <form role="form" action="{{route('configuratons')}}" method="POST">
+                <form role="form" action="{{route('config')}}" method="POST">
                     @csrf
                     <div class="box">
                         <div class="box-header with-border">
