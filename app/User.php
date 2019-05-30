@@ -4,12 +4,14 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Auth\MustVerifyEmail as MVerifyMail;
+use App\Notifications\VerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Permissions\HasPermissionsTrait;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use Notifiable, HasPermissionsTrait;
+    use Notifiable, HasPermissionsTrait, MVerifyMail;
 
     /**
      * The attributes that are mass assignable.
@@ -47,5 +49,10 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function categoria(){
         return $this->belongsToMany(Categoria::Class,"user_categoria");
+    }
+
+    public function sendEmailVerificationNotification()
+    {
+        $this->notify(new VerifyEmail);
     }
 }
