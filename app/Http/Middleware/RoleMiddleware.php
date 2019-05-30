@@ -28,14 +28,10 @@ class RoleMiddleware
          * ID na BD é o admin e o menor é o user básico
          */
         $roleBD = Role::where('slug', $role)->first();
-        //dd($roleBD, $request->user()->roles()->first()->id);
+
         if($roleBD->id < $request->user()->roles()->first()->id) {
             abort(404);
         }
-
-        /*if(!$request->user()->hasRole($role)) {
-            abort(404);
-        }*/
 
         if($permission !== null && !$request->user()->can($permission)) {
             abort(404);

@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Role;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Gate;
@@ -33,7 +34,22 @@ class PermissionsServiceProvider extends ServiceProvider
         });
         //Blade directives
         Blade::directive('role', function ($role) {
-            return "<?php if(auth()->check() && auth()->user()->hasRole({$role})) : ?>";
+            $role = str_replace("'", "", $role);
+
+            $roleBD = Role::where('slug', $role)->first();
+
+            $value = false;
+
+            try {
+                if ($roleBD->id >= auth()->user()->roles()->first()->id) {
+                    $value = true;
+                }
+            } catch (\Exception $exception) {
+                //Catch unrecognized $role variable
+            }
+
+            return "<?php if(auth()->check() && {$value}) : ?>";
+            /*return "<?php if(auth()->check() && auth()->user()->hasRole({$role})) : ?>";*/
         });
         Blade::directive('endrole', function () {
             return "<?php endif; ?>";
