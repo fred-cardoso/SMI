@@ -20,7 +20,11 @@
         Nome da Categoria<br>
         <input type="text" name="nomeCat" value="{{$categoria->nome ?? ''}}" ><br>
         Secundária:<br>
+        @role('admin')
         <input type="checkbox" name="secundaria" value="{{$categoria->secundaria ?? ''}}">
+        @else
+        <input type="checkbox" name="secundaria" checked disabled>
+        @endrole
         <br>
         @isset($categoria)
             <input type="submit" value="Editar Categoria">

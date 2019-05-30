@@ -42,8 +42,7 @@
                                             @csrf
                                             <?php $userAuth = Auth::User()->id;
                                             $database = DB::table("user_user")->get();
-                                            $checkIfSubscribed = sizeof($database->where('subscribed_id', $userAuth && 'user_id', $user->id));
-
+                                            $checkIfSubscribed = sizeof($database->where('subscribed_id', $user->id)->where('user_id', $userAuth));
                                             if ($checkIfSubscribed == 0) {
                                                 echo '<input name="sub"type="submit" value="Subscribe">';
 
