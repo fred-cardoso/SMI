@@ -157,8 +157,6 @@ class ConteudoController extends Controller
             }
         }
 
-        dd("PAROU");
-
         //Inserção de conteúdo único
         $path = $file->store('files');
 
