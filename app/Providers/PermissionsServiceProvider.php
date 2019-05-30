@@ -50,10 +50,10 @@ class PermissionsServiceProvider extends ServiceProvider
                 }
             }
 
-            return "<?php if(auth()->check() && {$value}) { ?>";
+            return "<?php if(auth()->check() && {$value}) : ?>";
         });
         Blade::directive('endrole', function () {
-            return "<?php } ?>";
+            return "<?php endif; ?>";
         });
     }
 }
