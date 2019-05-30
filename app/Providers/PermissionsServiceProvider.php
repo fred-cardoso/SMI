@@ -38,21 +38,22 @@ class PermissionsServiceProvider extends ServiceProvider
 
             $roleBD = Role::where('slug', $role)->first();
 
-            $value = false;
+            $value = "false";
 
-            try {
-                if ($roleBD->id >= auth()->user()->roles()->first()->id) {
-                    $value = true;
+            if (auth()->check()) {
+                try {
+                    if ($roleBD->id >= auth()->user()->roles()->first()->id) {
+                        $value = "true";
+                    }
+                } catch (\Exception $exception) {
+                    //Catch unrecognized $role variable
                 }
-            } catch (\Exception $exception) {
-                //Catch unrecognized $role variable
             }
 
-            return "<?php if(auth()->check() && {$value}) : ?>";
-            /*return "<?php if(auth()->check() && auth()->user()->hasRole({$role})) : ?>";*/
+            return "<?php if(auth()->check() && {$value}) { ?>";
         });
         Blade::directive('endrole', function () {
-            return "<?php endif; ?>";
+            return "<?php } ?>";
         });
     }
 }
