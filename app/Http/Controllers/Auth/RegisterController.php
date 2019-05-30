@@ -68,6 +68,7 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'g-recaptcha-response' => 'required|recaptcha',
         ]);
 
         $user_role = Role::where('slug', 'user')->first();

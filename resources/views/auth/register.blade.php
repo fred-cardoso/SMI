@@ -39,6 +39,14 @@
                        required>
                 <span class="glyphicon glyphicon-log-in form-control-feedback"></span>
             </div>
+
+            @if(env('GOOGLE_RECAPTCHA_KEY'))
+                <div class="form-group has-feedback">
+                    <div class="g-recaptcha"
+                         data-sitekey="{{env('GOOGLE_RECAPTCHA_KEY')}}">
+                    </div>
+                </div>
+            @endif
             <div class="row">
                 <!-- /.col -->
                 <div class="col-xs-12">
@@ -70,6 +78,7 @@
 <script src="{{URL::to('/')}}/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- iCheck -->
 <script src="{{URL::to('/')}}/plugins/iCheck/icheck.min.js"></script>
+<script src='https://www.google.com/recaptcha/api.js'></script>
 <script>
     $(function () {
         $('input').iCheck({
