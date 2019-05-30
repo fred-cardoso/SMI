@@ -23,7 +23,7 @@
             <li><a href="/"><i class="fa fa-book"></i> <span>Página Inicial</span></a></li>
             <li class="active treeview">
                 <a href="#">
-                    <i class="fa fa-dashboard"></i> <span>Conteúdo</span>
+                    <i class="fa  fa-television"></i> <span>Conteúdo</span>
                     <span class="pull-right-container">
   <i class="fa fa-angle-left pull-right"></i>
 </span>
@@ -37,87 +37,101 @@
 
             <li class="treeview">
                 <a href="#">
-                    <i class="fa fa-share"></i> <span>Utilizadores</span>
+                    <i class="fa fa-user"></i> <span>Utilizadores</span>
                     <span class="pull-right-container">
   <i class="fa fa-angle-left pull-right"></i>
 </span>
                 </a>
                 <ul class="treeview-menu">
                     <li><a href="{{route('users')}}"><i class="fa fa-circle-o"></i>Listar Utilizadores </a></li>
-                    <li class="treeview">
-                        <a href="#"><i class="fa fa-circle-o"></i>Utilizadores Subscritos
-                            <span class="pull-right-container">
+                    @auth
+                        <li class="treeview">
+                            <a href="#"><i class="fa fa-circle-o"></i>Utilizadores Subscritos
+                                <span class="pull-right-container">
       <i class="fa fa-angle-left pull-right"></i>
     </span>
-                        </a>
-                        <ul class="treeview-menu">
-                            <?php
-                            $user_id = auth()->user()->id;
-                            $userSub = auth()->user()->user();
-                            $counter = $userSub->count();
-                            $subFinder = 1;
-                            for ($x = 0; $x < $counter;) {
+                            </a>
+
+                            <ul class="treeview-menu">
+                                <?php
+                                $user_id = auth()->user()->id;
                                 $userSub = auth()->user()->user();
-                                $subscribe = $userSub->where('subscribed_id', $subFinder)->where('user_id', $user_id)->get();
-                                if ($subscribe->isEmpty()) {
-                                } else {
-                                    $userSubName = auth()->user()->where('id', $subFinder)->first()->name;
-                                    echo ' <li><a href="/users/' . $subFinder . '"><i class="fa fa-book"></i> <span>' . $userSubName . '</span></a></li>';
-                                    $x++;
+                                $counter = $userSub->count();
+                                $subFinder = 1;
+                                for ($x = 0; $x < $counter;) {
+                                    $userSub = auth()->user()->user();
+                                    $subscribe = $userSub->where('subscribed_id', $subFinder)->where('user_id', $user_id)->get();
+                                    if ($subscribe->isEmpty()) {
+                                    } else {
+                                        $userSubName = auth()->user()->where('id', $subFinder)->first()->name;
+                                        echo ' <li><a href="/users/' . $subFinder . '"><i class="fa fa-user"></i> <span>' . $userSubName . '</span></a></li>';
+                                        $x++;
+                                    }
+                                    $subFinder += 1;
                                 }
-                                $subFinder += 1;
-                            }
-                            ?>
-                        </ul>
-                    </li>
+                                ?>
+                            </ul>
+                            @endauth
+                        </li>
+
                 </ul>
+
 
             </li>
 
             <li class="treeview">
                 <a href="#">
-                    <i class="fa fa-share"></i> <span>Categorias</span>
+                    <i class="fa fa-book"></i> <span>Categorias</span>
                     <span class="pull-right-container">
   <i class="fa fa-angle-left pull-right"></i>
 </span>
                 </a>
                 <ul class="treeview-menu">
                     <li><a href="{{route('categorias')}}"><i class="fa fa-circle-o"></i>Listar Categorias </a></li>
-                    <li class="treeview">
-                        <a href="#"><i class="fa fa-circle-o"></i>Categorias Subscritas
-                            <span class="pull-right-container">
+                    @auth
+                        <li class="treeview">
+                            <a href="#"><i class="fa fa-circle-o"></i>Categorias Subscritas
+                                <span class="pull-right-container">
       <i class="fa fa-angle-left pull-right"></i>
     </span>
-                        </a>
-                        <ul class="treeview-menu">
-                            <?php
-                            $user_id = auth()->user()->id;
-                            $categoria = auth()->user()->categoria();
-                            $counter = $categoria->count();
-                            $catFinder = 1;
-                            for ($x = 0; $x < $counter;) {
+                            </a>
+
+                            <ul class="treeview-menu">
+                                <?php
+                                $user_id = auth()->user()->id;
                                 $categoria = auth()->user()->categoria();
-                                $putCategoria = $categoria->where('categoria_id', $catFinder)->where('user_id', $user_id)->get();
-                                if ($putCategoria->isEmpty()) {
-                                } else {
-                                    $cat_name = $putCategoria->first()->nome;
-                                    $cat_id = $putCategoria->first()->id;
-                                    echo ' <li><a href="/categorias/' . $cat_id . '"><i class="fa fa-book"></i> <span>' . $cat_name . '</span></a></li>';
-                                    $x++;
+                                $counter = $categoria->count();
+                                $catFinder = 1;
+                                for ($x = 0; $x < $counter;) {
+                                    $categoria = auth()->user()->categoria();
+                                    $putCategoria = $categoria->where('categoria_id', $catFinder)->where('user_id', $user_id)->get();
+                                    if ($putCategoria->isEmpty()) {
+                                    } else {
+                                        $cat_name = $putCategoria->first()->nome;
+                                        $cat_id = $putCategoria->first()->id;
+                                        echo ' <li><a href="/categorias/' . $cat_id . '"><i class="fa fa-book"></i> <span>' . $cat_name . '</span></a></li>';
+                                        $x++;
+                                    }
+                                    $catFinder += 1;
                                 }
-                                $catFinder += 1;
-                            }
-                            ?>
-                        </ul>
-                    </li>
-                    <li><a href="/categorias/create"><i class="fa fa-circle-o"></i>Criar Categorias</a></li>
+                                ?>
+                            </ul>
+
+                        </li>
+                        @role('simpatizante')
+                        <li><a href="/categorias/create"><i class="fa fa-circle-o"></i>Criar Categorias</a></li>
+                        @endrole
+                    @endauth
                 </ul>
+
             </li>
+            @role('admin')
             <li class="header">Administração</li>
+
             <li><a href="{{route('config')}}"><i class="fa fa-circle-o text-red"></i>
                     <span>Configurações de sistema</span></a></li>
             <li><a href="#"><i class="fa fa-circle-o text-aqua"></i>Banned Users</a></li>
-
+            @endrole
             <!--
             <li class="treeview">
                 <a href="#">
