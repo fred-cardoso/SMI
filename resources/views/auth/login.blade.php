@@ -30,7 +30,7 @@
                 <span class="glyphicon glyphicon-lock form-control-feedback"></span>
             </div>
             <div class="row">
-                <div class="col-xs-8">
+                <div class="col-md-7">
                     <div class="checkbox icheck">
                         <label>
                             <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> @lang("auth.remember_me")
@@ -38,7 +38,7 @@
                     </div>
                 </div>
                 <!-- /.col -->
-                <div class="col-xs-4">
+                <div class="col-md-5">
                     <button type="submit" class="btn btn-primary btn-block btn-flat">@lang("auth.begin_session")</button>
                 </div>
                 <!-- /.col -->
