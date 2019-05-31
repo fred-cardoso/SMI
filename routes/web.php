@@ -26,27 +26,28 @@ Route::get('categorias/{categoria}', 'CategoriaController@show')->where(['catego
 Route::get('users', 'UserController@index')->name('users');
 Route::get('users/{user}', 'UserController@show')->where(['user' => '[0-9]+'])->name('user');
 
+Route::get('uploads/media/{path}', function ($path) {
+
+    $file = null;
+
+    try {
+        $file = Storage::get("files/" . $path);
+    } catch (Exception $exception) {
+        abort(404);
+    }
+
+    $filename = storage_path() . "files/" . $path;
+    $headers = array(
+        'Content-type' => Storage::mimeType("files/" . $path),
+        'Content-Disposition' => 'inline; filename="' . $filename . '"'
+    );
+    return Response::make($file, 200, $headers);
+})->name('media');
+
 Route::group(['middleware' => ['auth', 'verified', 'role:user']], function () {
     /**
      * User basic Routes
      */
-    Route::get('uploads/media/{path}', function ($path) {
-
-        $file = null;
-
-        try {
-            $file = Storage::get("files/" . $path);
-        } catch (Exception $exception) {
-            abort(404);
-        }
-
-        $filename = storage_path() . "files/" . $path;
-        $headers = array(
-            'Content-type' => Storage::mimeType("files/" . $path),
-            'Content-Disposition' => 'inline; filename="' . $filename . '"'
-        );
-        return Response::make($file, 200, $headers);
-    })->name('media');
 
     Route::get('profile', function (\App\Http\Controllers\UserController $controller) {
         return $controller->show(Auth::user());

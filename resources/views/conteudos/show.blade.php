@@ -15,7 +15,7 @@
 
     <section class="content">
         <div class="row">
-            <div class="col-xs-3">
+            <div class="col-md-3">
                 <div class="box box-primary">
                     <div class="box-header with-border">
                         <h3 class="box-title">{{$conteudo->titulo}}</h3>
@@ -48,7 +48,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-xs-9">
+            <div class="col-md-9">
                 <div class="box box-primary">
                     <div class="box-body">
                         @if($conteudo->tipo == 'image')
