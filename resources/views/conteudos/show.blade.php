@@ -28,9 +28,13 @@
                         <p class="text-muted"><a
                                     href="{{route('user', $conteudo->user()->first()->id)}}">{{$conteudo->user()->first()->name}}</a>
                         </p>
-                        <hr>
-                        <strong><i class="fa fa-map-marker margin-r-5"></i> @lang('common.visibility')</strong>
-                        <p class="text-muted"><span class="label label-{{$conteudo->privado == 1 ? 'danger' : 'success'}}">{{$conteudo->privado == 1 ? 'Privado' : 'Público'}}</span></p>
+                        @auth
+                            <hr>
+                            <strong><i class="fa fa-map-marker margin-r-5"></i> @lang('common.visibility')</strong>
+                            <p class="text-muted"><span
+                                        class="label label-{{$conteudo->privado == 1 ? 'danger' : 'success'}}">{{$conteudo->privado == 1 ? 'Privado' : 'Público'}}</span>
+                            </p>
+                        @endauth
                         <hr>
                         <strong><i class="fa fa-pencil margin-r-5"></i> @lang('categorias.categories')</strong>
                         <p>
