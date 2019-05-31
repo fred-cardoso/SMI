@@ -13,7 +13,8 @@ return [
     |
     */
     'content' => 'Conteúdos',
-    'upload' => 'upload',
+    'upload' => 'Upload',
+    'upload_content' => 'Carregar Conteúdos',
     'msg1' => 'Para inserir conteúdos em massa deverá enviar um ficheiro com extensão ZIP, este deve conter um
                         ficheiro com extensão XML denominado ',
     'msg2'  => 'O ficheiro',
@@ -28,7 +29,7 @@ return [
     'description' =>'Descrição',
     'content_privacy' => 'Privacidade do Conteúdo',
     'private_content' => 'Conteúdo Privado',
-    'list_content' => 'Lista de conteúdo',
+    'list_content' => 'Listagem de Conteúdos',
     'perm_delete' =>'Pretende eliminar permanentemente o conteúdo',
     'delete_content' => 'Eliminar conteúdo',
 

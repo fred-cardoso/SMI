@@ -7,8 +7,9 @@
             <small>{{$user->name}}</small>
         </h1>
         <ol class="breadcrumb">
-            <li><a href="{{route("home")}}"><i class="fa fa-dashboard"></i> Página Inicial</a></li>
-            <li class="active">@lang('user.profile')</li>
+            <li><a href="{{route("home")}}"><i class="fa fa-home"></i>@lang('categorias.home_page')</a></li>
+            <li><a href="{{route("users")}}"><i class="fa fa-users"></i>@lang('categorias.users') </a></li>
+            <li class="active"><i class="fa fa-user"></i> @lang('user.profile')</li>
         </ol>
     </section>
     <!-- Main content -->

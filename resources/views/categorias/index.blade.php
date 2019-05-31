@@ -8,8 +8,8 @@
             <small>@lang("categorias.list_cat")</small>
         </h1>
         <ol class="breadcrumb">
-            <li><a href="{{route("home")}}"><i class="fa fa-dashboard"></i>@lang("categorias.home_page")</a></li>
-            <li class="active">@lang("categorias.categories")</li>
+            <li><a href="{{route("home")}}"><i class="fa fa-home"></i>@lang("categorias.home_page")</a></li>
+            <li class="active"><i class="fa fa-book"></i> @lang("categorias.categories")</li>
         </ol>
     </section>
     <!-- Main content -->

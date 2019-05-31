@@ -17,15 +17,15 @@ return [
     'categories' => 'Categories',
     "home_page" => "Home",
     'users' => 'Users',
-    'create_cat' =>'Create category',
+    'create_cat' =>'Create Category',
     'name_cat' => 'Category name',
     'put_cat_name' =>"Fill the category's name",
     'secondary' => 'Secondary',
     'cancel'=> 'Cancel',
     'create' => 'Create',
-    'edit_cat' => 'Edit category',
-    'list_cat' => 'Category listing',
-    'subed_cat' => 'Subscribed categories'
+    'edit_cat' => 'Edit Category',
+    'list_cat' => 'Category Listing',
+    'subed_cat' => 'Subscribed Categories'
 
 
 

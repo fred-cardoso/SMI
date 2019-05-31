@@ -7,9 +7,9 @@
             <small>@lang('user.create')</small>
         </h1>
         <ol class="breadcrumb">
-            <li><a href="{{route("home")}}"><i class="fa fa-dashboard"></i>@lang('categorias.home_page')</a></li>
+            <li><a href="{{route("home")}}"><i class="fa fa-home"></i>@lang('categorias.home_page')</a></li>
             <li><a href="{{route("users")}}"><i class="fa fa-users"></i>@lang('categorias.users')</a></li>
-            <li class="active">@lang('user.create')</li>
+            <li class="active"><i class="fa fa-plus-circle"></i> @lang('user.create')</li>
         </ol>
     </section>
     <!-- Main content -->

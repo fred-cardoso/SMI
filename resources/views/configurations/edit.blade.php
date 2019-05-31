@@ -7,8 +7,8 @@
             <small>@lang("common.config_system")</small>
         </h1>
         <ol class="breadcrumb">
-            <li><a href="{{route("home")}}"><i class="fa fa-dashboard"></i>@lang("categorias.home_page")</a></li>
-            <li class="active">@lang("common.config")</li>
+            <li><a href="{{route("home")}}"><i class="fa fa-home"></i>@lang("categorias.home_page")</a></li>
+            <li class="active"><i class="fa fa-cog"></i> @lang("common.config")</li>
         </ol>
     </section>
     <!-- Main content -->

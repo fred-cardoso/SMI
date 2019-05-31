@@ -7,9 +7,9 @@
             <small>Upload</small>
         </h1>
         <ol class="breadcrumb">
-            <li><a href="{{route('home')}}"><i class="fa fa-dashboard"></i>@lang("categorias.home_page")</a></li>
-            <li><a href="{{route('uploads')}}"><i class="fa fa-users"></i>@lang("conteudos.content")</a></li>
-            <li class="active">@lang("conteudos.upload")</li>
+            <li><a href="{{route('home')}}"><i class="fa fa-home"></i>@lang("categorias.home_page")</a></li>
+            <li><a href="{{route('uploads')}}"><i class="fa fa-television"></i>@lang("conteudos.content")</a></li>
+            <li class="active"><i class="fa fa-upload"></i> @lang("conteudos.upload")</li>
         </ol>
     </section>
     <!-- Main content -->

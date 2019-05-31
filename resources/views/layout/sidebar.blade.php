@@ -19,9 +19,8 @@
 
             <li class="header">@lang('outlayout.main_nav')</li>
 
-
-            <li><a href="/"><i class="fa fa-book"></i> <span>@lang('categorias.home_page')</span></a></li>
-            <li class="treeview">
+            <li><a href="/"><i class="fa fa-home"></i> <span>@lang('categorias.home_page')</span></a></li>
+            <li class="{{ request()->is('uploads/*') || request()->is('upload') || request()->is("uploads") ? 'active treeview' : 'treeview' }}">
                 <a href="#">
                     <i class="fa  fa-television"></i> <span>@lang('conteudos.content')</span>
                     <span class="pull-right-container">
@@ -30,8 +29,14 @@
 
                 </a>
                 <ul class="treeview-menu">
-                    <li class="active"><a href="{{route('uploads')}}"><i
+                    <li class="{{ request()->url() == route('uploads') ? 'active' : '' }}"><a href="{{route('uploads')}}"><i
                                     class="fa fa-circle-o"></i>@lang('conteudos.list_content')</a></li>
+                    @role('simpatizante')
+
+                    <li class="{{ request()->url() == route('upload') ? 'active' : '' }}"><a
+                                href="{{route('upload')}}"><i class="fa fa-circle-o"></i>@lang('conteudos.upload_content')</a>
+                    </li>
+                    @endrole
 
                 </ul>
             </li>
@@ -68,6 +73,7 @@
                     <li class="{{ request()->url() == route('categorias') ? 'active' : '' }}"><a
                                 href="{{route('categorias')}}"><i class="fa fa-circle-o"></i>@lang('categorias.list_cat') </a></li>
                     @auth
+                        @if(auth()->user()->categoria()->count())
                         <li class="treeview">
                             <a href="#"><i class="fa fa-circle-o"></i>@lang('categorias.subed_cat')
                                 <span class="pull-right-container">
@@ -97,11 +103,13 @@
                             </ul>
 
                         </li>
+                        @endif
                         @role('simpatizante')
                         <li class="{{ request()->url() == route('cat.create') ? 'active' : '' }}"><a
                                     href="{{route('cat.create')}}"><i class="fa fa-circle-o"></i>@lang('categorias.create_cat')</a>
                         </li>
                         @endrole
+
                     @endauth
                 </ul>
 
