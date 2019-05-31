@@ -1,8 +1,3 @@
-<?php
-
-use Illuminate\Support\Facades\Storage;
-
-?>
 @extends('layout.layout')
 @section('title', $conteudo->titulo)
 @section('content')

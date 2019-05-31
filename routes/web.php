@@ -15,9 +15,7 @@ use Illuminate\Support\Facades\Storage;
 
 Auth::routes(['verify' => true]);
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
+Route::get('/', 'ConteudoController@home')->name('home');
 
 Route::get('uploads', 'ConteudoController@index')->name('uploads');
 Route::get('uploads/{conteudo}', 'ConteudoController@show')->where(['conteudo' => '[0-9]+'])->name('uploads.show');

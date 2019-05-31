@@ -4,77 +4,130 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-            Dashboard
-            <small>Version 2.0</small>
+            Página Inicial
+            <small>Bem vindo!</small>
         </h1>
         <ol class="breadcrumb">
-            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li class="active">Dashboard</li>
+            <li><i class="fa fa-dashboard"></i> Página Inicial</li>
         </ol>
     </section>
 
     <!-- Main content -->
     <section class="content">
-        <!-- Info boxes -->
-        <div class="row">
-            <div class="col-md-3 col-sm-6 col-xs-12">
-                <div class="info-box">
-                    <span class="info-box-icon bg-aqua"><i class="ion ion-ios-gear-outline"></i></span>
+        @php
+            $counter = 0;
+        @endphp
+        @foreach($conteudos as $conteudo)
+            @if($conteudo->privado and !auth()->check())
+                @continue
+            @elseif ($conteudo->private and (!auth()->user()->hasRole('admin') or !$conteudo->user()->first()->id == auth()->user()->id))
+                @continue
+            @endif
+            @php
+                $counter++;
+            @endphp
+            <div class="row">
+                @if($counter % 2 == 0)
+                    <div class="col-xs-3">
+                        <div class="box box-primary">
+                            <div class="box-header with-border">
+                                <h3 class="box-title"><a
+                                            href="{{route('uploads.show', $conteudo->id)}}">{{$conteudo->titulo}}</a></h3>
+                            </div>
+                            <div class="box-body">
+                                <strong><i class="fa fa-map-marker margin-r-5"></i> @lang('common.author')</strong>
+                                <p class="text-muted"><a
+                                            href="{{route('user', $conteudo->user()->first()->id)}}">{{$conteudo->user()->first()->name}}</a>
+                                </p>
+                                <strong><i class="fa fa-pencil margin-r-5"></i> @lang('categorias.categories')</strong>
+                                <p>
+                                    @foreach($conteudo->category()->get() as $categoria)
+                                        <span class="label label-{{$categoria->secundaria == 1 ? 'info' : 'primary'}}">{{$categoria->nome}}</span>
+                                    @endforeach
 
-                    <div class="info-box-content">
-                        <span class="info-box-text">CPU Traffic</span>
-                        <span class="info-box-number">90<small>%</small></span>
+                                </p>
+                                <hr>
+                                <strong><i class="fa fa-file-text-o margin-r-5"></i> @lang('common.creation_date')</strong>
+                                <p>{{$conteudo->created_at}}</p>
+                            </div>
+                        </div>
                     </div>
-                    <!-- /.info-box-content -->
-                </div>
-                <!-- /.info-box -->
-            </div>
-            <!-- /.col -->
-            <div class="col-md-3 col-sm-6 col-xs-12">
-                <div class="info-box">
-                    <span class="info-box-icon bg-red"><i class="fa fa-google-plus"></i></span>
-
-                    <div class="info-box-content">
-                        <span class="info-box-text">Likes</span>
-                        <span class="info-box-number">41,410</span>
+                    <div class="col-xs-9">
+                        <div class="box box-primary">
+                            <div class="box-body">
+                                @if($conteudo->tipo == 'image')
+                                    <img class="img-responsive pad"
+                                         src="data:image/jpeg;base64,{{base64_encode(Storage::get($conteudo->nome))}}"
+                                         alt="{{$conteudo->nome}}">
+                                @elseif($conteudo->tipo == 'video')
+                                    <video class="img-responsive" controls>
+                                        <source src="{{route('media', explode('/', $conteudo->nome)[1])}}"
+                                                type="{{Storage::mimeType($conteudo->nome)}}">
+                                        Your browser does not support the video element.
+                                    </video>
+                                @else
+                                    <audio controls>
+                                        <source src="{{route('media', explode('/', $conteudo->nome)[1])}}"
+                                                type="{{Storage::mimeType($conteudo->nome)}}">
+                                        Your browser does not support the audio element.
+                                    </audio>
+                                @endif
+                            </div>
+                        </div>
                     </div>
-                    <!-- /.info-box-content -->
-                </div>
-                <!-- /.info-box -->
-            </div>
-            <!-- /.col -->
-
-            <!-- fix for small devices only -->
-            <div class="clearfix visible-sm-block"></div>
-
-            <div class="col-md-3 col-sm-6 col-xs-12">
-                <div class="info-box">
-                    <span class="info-box-icon bg-green"><i class="ion ion-ios-cart-outline"></i></span>
-
-                    <div class="info-box-content">
-                        <span class="info-box-text">Sales</span>
-                        <span class="info-box-number">760</span>
+                @else
+                    <div class="col-xs-9">
+                        <div class="box box-primary">
+                            <div class="box-body">
+                                @if($conteudo->tipo == 'image')
+                                    <img class="img-responsive pad"
+                                         src="data:image/jpeg;base64,{{base64_encode(Storage::get($conteudo->nome))}}"
+                                         alt="{{$conteudo->nome}}">
+                                @elseif($conteudo->tipo == 'video')
+                                    <video class="img-responsive" controls>
+                                        <source src="{{route('media', explode('/', $conteudo->nome)[1])}}"
+                                                type="{{Storage::mimeType($conteudo->nome)}}">
+                                        Your browser does not support the video element.
+                                    </video>
+                                @else
+                                    <audio controls>
+                                        <source src="{{route('media', explode('/', $conteudo->nome)[1])}}"
+                                                type="{{Storage::mimeType($conteudo->nome)}}">
+                                        Your browser does not support the audio element.
+                                    </audio>
+                                @endif
+                            </div>
+                        </div>
                     </div>
-                    <!-- /.info-box-content -->
-                </div>
-                <!-- /.info-box -->
-            </div>
-            <!-- /.col -->
-            <div class="col-md-3 col-sm-6 col-xs-12">
-                <div class="info-box">
-                    <span class="info-box-icon bg-yellow"><i class="ion ion-ios-people-outline"></i></span>
+                    <div class="col-xs-3">
+                        <div class="box box-primary">
+                            <div class="box-header with-border">
+                                <h3 class="box-title"><a
+                                            href="{{route('uploads.show', $conteudo->id)}}">{{$conteudo->titulo}}</a></h3>
+                            </div>
+                            <div class="box-body">
+                                <strong><i class="fa fa-map-marker margin-r-5"></i> @lang('common.author')</strong>
+                                <p class="text-muted"><a
+                                            href="{{route('user', $conteudo->user()->first()->id)}}">{{$conteudo->user()->first()->name}}</a>
+                                </p>
+                                <strong><i class="fa fa-pencil margin-r-5"></i> @lang('categorias.categories')</strong>
+                                <p>
+                                    @foreach($conteudo->category()->get() as $categoria)
+                                        <span class="label label-{{$categoria->secundaria == 1 ? 'info' : 'primary'}}">{{$categoria->nome}}</span>
+                                    @endforeach
 
-                    <div class="info-box-content">
-                        <span class="info-box-text">New Members</span>
-                        <span class="info-box-number">2,000</span>
+                                </p>
+                                <hr>
+                                <strong><i class="fa fa-file-text-o margin-r-5"></i> @lang('common.creation_date')</strong>
+                                <p>{{$conteudo->created_at}}</p>
+                            </div>
+                        </div>
                     </div>
-                    <!-- /.info-box-content -->
-                </div>
-                <!-- /.info-box -->
+                @endif
             </div>
-            <!-- /.col -->
-        </div>
-        <!-- /.row -->
+        @endforeach
+
+        {{$conteudos->links()}}
 
         <div class="row">
             <div class="col-md-12">
@@ -83,7 +136,8 @@
                         <h3 class="box-title">Monthly Recap Report</h3>
 
                         <div class="box-tools pull-right">
-                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i
+                                        class="fa fa-minus"></i>
                             </button>
                             <div class="btn-group">
                                 <button type="button" class="btn btn-box-tool dropdown-toggle" data-toggle="dropdown">
@@ -96,7 +150,8 @@
                                     <li><a href="#">Separated link</a></li>
                                 </ul>
                             </div>
-                            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                            <button type="button" class="btn btn-box-tool" data-widget="remove"><i
+                                        class="fa fa-times"></i></button>
                         </div>
                     </div>
                     <!-- /.box-header -->
@@ -165,7 +220,8 @@
                         <div class="row">
                             <div class="col-sm-3 col-xs-6">
                                 <div class="description-block border-right">
-                                    <span class="description-percentage text-green"><i class="fa fa-caret-up"></i> 17%</span>
+                                    <span class="description-percentage text-green"><i
+                                                class="fa fa-caret-up"></i> 17%</span>
                                     <h5 class="description-header">$35,210.43</h5>
                                     <span class="description-text">TOTAL REVENUE</span>
                                 </div>
@@ -183,7 +239,8 @@
                             <!-- /.col -->
                             <div class="col-sm-3 col-xs-6">
                                 <div class="description-block border-right">
-                                    <span class="description-percentage text-green"><i class="fa fa-caret-up"></i> 20%</span>
+                                    <span class="description-percentage text-green"><i
+                                                class="fa fa-caret-up"></i> 20%</span>
                                     <h5 class="description-header">$24,813.53</h5>
                                     <span class="description-text">TOTAL PROFIT</span>
                                 </div>
@@ -192,7 +249,8 @@
                             <!-- /.col -->
                             <div class="col-sm-3 col-xs-6">
                                 <div class="description-block">
-                                    <span class="description-percentage text-red"><i class="fa fa-caret-down"></i> 18%</span>
+                                    <span class="description-percentage text-red"><i
+                                                class="fa fa-caret-down"></i> 18%</span>
                                     <h5 class="description-header">1200</h5>
                                     <span class="description-text">GOAL COMPLETIONS</span>
                                 </div>
@@ -219,9 +277,11 @@
                         <h3 class="box-title">Visitors Report</h3>
 
                         <div class="box-tools pull-right">
-                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i
+                                        class="fa fa-minus"></i>
                             </button>
-                            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                            <button type="button" class="btn btn-box-tool" data-widget="remove"><i
+                                        class="fa fa-times"></i></button>
                         </div>
                     </div>
                     <!-- /.box-header -->
@@ -272,12 +332,15 @@
 
                                 <div class="box-tools pull-right">
                                     <span data-toggle="tooltip" title="3 New Messages" class="badge bg-yellow">3</span>
-                                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i
+                                                class="fa fa-minus"></i>
                                     </button>
-                                    <button type="button" class="btn btn-box-tool" data-toggle="tooltip" title="Contacts"
+                                    <button type="button" class="btn btn-box-tool" data-toggle="tooltip"
+                                            title="Contacts"
                                             data-widget="chat-pane-toggle">
                                         <i class="fa fa-comments"></i></button>
-                                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i>
+                                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i
+                                                class="fa fa-times"></i>
                                     </button>
                                 </div>
                             </div>
@@ -292,7 +355,8 @@
                                             <span class="direct-chat-timestamp pull-right">23 Jan 2:00 pm</span>
                                         </div>
                                         <!-- /.direct-chat-info -->
-                                        <img class="direct-chat-img" src="dist/img/user1-128x128.jpg" alt="message user image">
+                                        <img class="direct-chat-img" src="dist/img/user1-128x128.jpg"
+                                             alt="message user image">
                                         <!-- /.direct-chat-img -->
                                         <div class="direct-chat-text">
                                             Is this template really for free? That's unbelievable!
@@ -308,7 +372,8 @@
                                             <span class="direct-chat-timestamp pull-left">23 Jan 2:05 pm</span>
                                         </div>
                                         <!-- /.direct-chat-info -->
-                                        <img class="direct-chat-img" src="dist/img/user3-128x128.jpg" alt="message user image">
+                                        <img class="direct-chat-img" src="dist/img/user3-128x128.jpg"
+                                             alt="message user image">
                                         <!-- /.direct-chat-img -->
                                         <div class="direct-chat-text">
                                             You better believe it!
@@ -324,7 +389,8 @@
                                             <span class="direct-chat-timestamp pull-right">23 Jan 5:37 pm</span>
                                         </div>
                                         <!-- /.direct-chat-info -->
-                                        <img class="direct-chat-img" src="dist/img/user1-128x128.jpg" alt="message user image">
+                                        <img class="direct-chat-img" src="dist/img/user1-128x128.jpg"
+                                             alt="message user image">
                                         <!-- /.direct-chat-img -->
                                         <div class="direct-chat-text">
                                             Working with AdminLTE on a great new app! Wanna join?
@@ -340,7 +406,8 @@
                                             <span class="direct-chat-timestamp pull-left">23 Jan 6:10 pm</span>
                                         </div>
                                         <!-- /.direct-chat-info -->
-                                        <img class="direct-chat-img" src="dist/img/user3-128x128.jpg" alt="message user image">
+                                        <img class="direct-chat-img" src="dist/img/user3-128x128.jpg"
+                                             alt="message user image">
                                         <!-- /.direct-chat-img -->
                                         <div class="direct-chat-text">
                                             I would love to.
@@ -357,7 +424,8 @@
                                     <ul class="contacts-list">
                                         <li>
                                             <a href="#">
-                                                <img class="contacts-list-img" src="dist/img/user1-128x128.jpg" alt="User Image">
+                                                <img class="contacts-list-img" src="dist/img/user1-128x128.jpg"
+                                                     alt="User Image">
 
                                                 <div class="contacts-list-info">
                                 <span class="contacts-list-name">
@@ -372,7 +440,8 @@
                                         <!-- End Contact Item -->
                                         <li>
                                             <a href="#">
-                                                <img class="contacts-list-img" src="dist/img/user7-128x128.jpg" alt="User Image">
+                                                <img class="contacts-list-img" src="dist/img/user7-128x128.jpg"
+                                                     alt="User Image">
 
                                                 <div class="contacts-list-info">
                                 <span class="contacts-list-name">
@@ -387,7 +456,8 @@
                                         <!-- End Contact Item -->
                                         <li>
                                             <a href="#">
-                                                <img class="contacts-list-img" src="dist/img/user3-128x128.jpg" alt="User Image">
+                                                <img class="contacts-list-img" src="dist/img/user3-128x128.jpg"
+                                                     alt="User Image">
 
                                                 <div class="contacts-list-info">
                                 <span class="contacts-list-name">
@@ -402,7 +472,8 @@
                                         <!-- End Contact Item -->
                                         <li>
                                             <a href="#">
-                                                <img class="contacts-list-img" src="dist/img/user5-128x128.jpg" alt="User Image">
+                                                <img class="contacts-list-img" src="dist/img/user5-128x128.jpg"
+                                                     alt="User Image">
 
                                                 <div class="contacts-list-info">
                                 <span class="contacts-list-name">
@@ -417,7 +488,8 @@
                                         <!-- End Contact Item -->
                                         <li>
                                             <a href="#">
-                                                <img class="contacts-list-img" src="dist/img/user6-128x128.jpg" alt="User Image">
+                                                <img class="contacts-list-img" src="dist/img/user6-128x128.jpg"
+                                                     alt="User Image">
 
                                                 <div class="contacts-list-info">
                                 <span class="contacts-list-name">
@@ -432,7 +504,8 @@
                                         <!-- End Contact Item -->
                                         <li>
                                             <a href="#">
-                                                <img class="contacts-list-img" src="dist/img/user8-128x128.jpg" alt="User Image">
+                                                <img class="contacts-list-img" src="dist/img/user8-128x128.jpg"
+                                                     alt="User Image">
 
                                                 <div class="contacts-list-info">
                                 <span class="contacts-list-name">
@@ -454,7 +527,8 @@
                             <div class="box-footer">
                                 <form action="#" method="post">
                                     <div class="input-group">
-                                        <input type="text" name="message" placeholder="Type Message ..." class="form-control">
+                                        <input type="text" name="message" placeholder="Type Message ..."
+                                               class="form-control">
                                         <span class="input-group-btn">
                             <button type="button" class="btn btn-warning btn-flat">Send</button>
                           </span>
@@ -475,9 +549,11 @@
 
                                 <div class="box-tools pull-right">
                                     <span class="label label-danger">8 New Members</span>
-                                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i
+                                                class="fa fa-minus"></i>
                                     </button>
-                                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i>
+                                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i
+                                                class="fa fa-times"></i>
                                     </button>
                                 </div>
                             </div>
@@ -545,9 +621,11 @@
                         <h3 class="box-title">Latest Orders</h3>
 
                         <div class="box-tools pull-right">
-                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i
+                                        class="fa fa-minus"></i>
                             </button>
-                            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                            <button type="button" class="btn btn-box-tool" data-widget="remove"><i
+                                        class="fa fa-times"></i></button>
                         </div>
                     </div>
                     <!-- /.box-header -->
@@ -568,7 +646,9 @@
                                     <td>Call of Duty IV</td>
                                     <td><span class="label label-success">Shipped</span></td>
                                     <td>
-                                        <div class="sparkbar" data-color="#00a65a" data-height="20">90,80,90,-70,61,-83,63</div>
+                                        <div class="sparkbar" data-color="#00a65a" data-height="20">
+                                            90,80,90,-70,61,-83,63
+                                        </div>
                                     </td>
                                 </tr>
                                 <tr>
@@ -576,7 +656,9 @@
                                     <td>Samsung Smart TV</td>
                                     <td><span class="label label-warning">Pending</span></td>
                                     <td>
-                                        <div class="sparkbar" data-color="#f39c12" data-height="20">90,80,-90,70,61,-83,68</div>
+                                        <div class="sparkbar" data-color="#f39c12" data-height="20">
+                                            90,80,-90,70,61,-83,68
+                                        </div>
                                     </td>
                                 </tr>
                                 <tr>
@@ -584,7 +666,9 @@
                                     <td>iPhone 6 Plus</td>
                                     <td><span class="label label-danger">Delivered</span></td>
                                     <td>
-                                        <div class="sparkbar" data-color="#f56954" data-height="20">90,-80,90,70,-61,83,63</div>
+                                        <div class="sparkbar" data-color="#f56954" data-height="20">
+                                            90,-80,90,70,-61,83,63
+                                        </div>
                                     </td>
                                 </tr>
                                 <tr>
@@ -592,7 +676,9 @@
                                     <td>Samsung Smart TV</td>
                                     <td><span class="label label-info">Processing</span></td>
                                     <td>
-                                        <div class="sparkbar" data-color="#00c0ef" data-height="20">90,80,-90,70,-61,83,63</div>
+                                        <div class="sparkbar" data-color="#00c0ef" data-height="20">
+                                            90,80,-90,70,-61,83,63
+                                        </div>
                                     </td>
                                 </tr>
                                 <tr>
@@ -600,7 +686,9 @@
                                     <td>Samsung Smart TV</td>
                                     <td><span class="label label-warning">Pending</span></td>
                                     <td>
-                                        <div class="sparkbar" data-color="#f39c12" data-height="20">90,80,-90,70,61,-83,68</div>
+                                        <div class="sparkbar" data-color="#f39c12" data-height="20">
+                                            90,80,-90,70,61,-83,68
+                                        </div>
                                     </td>
                                 </tr>
                                 <tr>
@@ -608,7 +696,9 @@
                                     <td>iPhone 6 Plus</td>
                                     <td><span class="label label-danger">Delivered</span></td>
                                     <td>
-                                        <div class="sparkbar" data-color="#f56954" data-height="20">90,-80,90,70,-61,83,63</div>
+                                        <div class="sparkbar" data-color="#f56954" data-height="20">
+                                            90,-80,90,70,-61,83,63
+                                        </div>
                                     </td>
                                 </tr>
                                 <tr>
@@ -616,7 +706,9 @@
                                     <td>Call of Duty IV</td>
                                     <td><span class="label label-success">Shipped</span></td>
                                     <td>
-                                        <div class="sparkbar" data-color="#00a65a" data-height="20">90,80,90,-70,61,-83,63</div>
+                                        <div class="sparkbar" data-color="#00a65a" data-height="20">
+                                            90,80,90,-70,61,-83,63
+                                        </div>
                                     </td>
                                 </tr>
                                 </tbody>
@@ -627,7 +719,8 @@
                     <!-- /.box-body -->
                     <div class="box-footer clearfix">
                         <a href="javascript:void(0)" class="btn btn-sm btn-info btn-flat pull-left">Place New Order</a>
-                        <a href="javascript:void(0)" class="btn btn-sm btn-default btn-flat pull-right">View All Orders</a>
+                        <a href="javascript:void(0)" class="btn btn-sm btn-default btn-flat pull-right">View All
+                            Orders</a>
                     </div>
                     <!-- /.box-footer -->
                 </div>
@@ -711,9 +804,11 @@
                         <h3 class="box-title">Browser Usage</h3>
 
                         <div class="box-tools pull-right">
-                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i
+                                        class="fa fa-minus"></i>
                             </button>
-                            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                            <button type="button" class="btn btn-box-tool" data-widget="remove"><i
+                                        class="fa fa-times"></i></button>
                         </div>
                     </div>
                     <!-- /.box-header -->
@@ -744,11 +839,13 @@
                     <div class="box-footer no-padding">
                         <ul class="nav nav-pills nav-stacked">
                             <li><a href="#">United States of America
-                                    <span class="pull-right text-red"><i class="fa fa-angle-down"></i> 12%</span></a></li>
+                                    <span class="pull-right text-red"><i class="fa fa-angle-down"></i> 12%</span></a>
+                            </li>
                             <li><a href="#">India <span class="pull-right text-green"><i class="fa fa-angle-up"></i> 4%</span></a>
                             </li>
                             <li><a href="#">China
-                                    <span class="pull-right text-yellow"><i class="fa fa-angle-left"></i> 0%</span></a></li>
+                                    <span class="pull-right text-yellow"><i class="fa fa-angle-left"></i> 0%</span></a>
+                            </li>
                         </ul>
                     </div>
                     <!-- /.footer -->
@@ -761,9 +858,11 @@
                         <h3 class="box-title">Recently Added Products</h3>
 
                         <div class="box-tools pull-right">
-                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i
+                                        class="fa fa-minus"></i>
                             </button>
-                            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                            <button type="button" class="btn btn-box-tool" data-widget="remove"><i
+                                        class="fa fa-times"></i></button>
                         </div>
                     </div>
                     <!-- /.box-header -->

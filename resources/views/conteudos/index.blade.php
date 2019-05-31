@@ -76,6 +76,12 @@
                             </tfoot>
                         </table>
                     </div>
+                    <div class="box box-footer">
+                        <div class="col-sm-7"></div>
+                        <div class="col-sm-5 text-right">
+                                {{$conteudos->links()}}
+                        </div>
+                    </div>
                     <!-- /.box-body -->
                 </div>
                 <!-- /.box -->
@@ -103,7 +109,8 @@
                         </button>
                         <form action="{{route('uploads.delete', $conteudo->id)}}" method="POST">
                             @csrf
-                            <input type="submit" class="btn btn-outline" wfd-id="250" value="@lang("conteudos.delete_content")">
+                            <input type="submit" class="btn btn-outline" wfd-id="250"
+                                   value="@lang("conteudos.delete_content")">
                         </form>
                     </div>
                 </div>

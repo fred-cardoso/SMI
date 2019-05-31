@@ -26,6 +26,12 @@ class ConteudoController extends Controller
         }
     }
 
+    public function home()
+    {
+        $conteudos = Conteudo::paginate(4);
+        return view('homepage', compact('conteudos'));
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -33,7 +39,7 @@ class ConteudoController extends Controller
      */
     public function index()
     {
-        $conteudos = Conteudo::all();
+        $conteudos = Conteudo::paginate(8);
         return view('conteudos.index', compact('conteudos'));
     }
 
