@@ -28,7 +28,7 @@ class ConteudoController extends Controller
 
     public function home()
     {
-        $conteudos = Conteudo::paginate(4);
+        $conteudos = Conteudo::orderBy('created_at', 'desc')->paginate(4);
         return view('homepage', compact('conteudos'));
     }
 
