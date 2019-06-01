@@ -190,6 +190,7 @@
                 for ($i = 0; $i < contents.length; $i++) {
                     if (contents.item($i).checked) {
                         form.submit();
+                        selected.value = selected.options[0].value;
                         return;
                     }
                 }

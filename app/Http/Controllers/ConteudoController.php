@@ -310,7 +310,7 @@ class ConteudoController extends Controller
 
             if ($zip->open($file_name, ZipArchive::CREATE) === TRUE) {
                 foreach ($conteudos as $conteudo) {
-                    $zip->addFile($storage_path . $conteudo->nome, preg_replace('/[^a-zA-Z0-9-_\.]/', '', Str::lower($conteudo->titulo)) . '.' . explode('.', $conteudo->nome)[1]);
+                    $zip->addFile($storage_path . $conteudo->nome, preg_replace('/[^a-zA-Z0-9-_\.]/', '', Str::lower($conteudo->titulo)) . $conteudo->id . '.' . explode('.', $conteudo->nome)[1]);
                 }
                 $zip->close();
                 return response()->download($file_name);
