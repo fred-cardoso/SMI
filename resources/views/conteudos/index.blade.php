@@ -41,7 +41,17 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-
+                                    @if($conteudos->count() == 0)
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="box box-primary">
+                                                    <div class="box-body">
+                                                        Ainda sem conteúdos!
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endif
                                     @foreach($conteudos as $conteudo)
                                         @if($conteudo->privado and (!auth()->check() or (!auth()->user()->hasRole('admin') and !$conteudo->isOwner(auth()->user()))))
                                             @continue
@@ -73,7 +83,8 @@
                                                     <a href="{{route('uploads.edit', $conteudo->id)}}" type="button"
                                                        class="btn btn-primary">@lang('common.edit')</a>
                                                     <button type="button" class="btn btn-danger" data-toggle="modal"
-                                                            data-target="#modal-delete-user-{{$conteudo->id}}" wfd-id="264">
+                                                            data-target="#modal-delete-user-{{$conteudo->id}}"
+                                                            wfd-id="264">
                                                         @lang('common.delete')
                                                     </button>
                                                 @endif

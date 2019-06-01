@@ -35,6 +35,17 @@
                             </tr>
                             </thead>
                             <tbody>
+                            @if($categorias->count() == 0)
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="box box-primary">
+                                            <div class="box-body">
+                                                Ainda sem categorias!
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
                             @foreach($categorias as $cat)
                                 <tr>
                                     <td>{{$cat->id}}</td>

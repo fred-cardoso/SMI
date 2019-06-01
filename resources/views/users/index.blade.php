@@ -7,7 +7,7 @@
             <small>@lang('user.list')</small>
         </h1>
         <ol class="breadcrumb">
-            <li><a href="{{route("home")}}"><i class="fa fa-home"></i>@lang('categorias.home_page')</a></li>
+            <li><a href="{{route("home")}}"><i class="fa fa-home"></i> @lang('categorias.home_page')</a></li>
             <li class="active"> <i class="fa fa-users"></i> @lang('categorias.users')</li>
         </ol>
     </section>
@@ -31,7 +31,17 @@
                             </tr>
                             </thead>
                             <tbody>
-
+                            @if($users->count() == 0)
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="box box-primary">
+                                            <div class="box-body">
+                                                Ainda sem utilizadores!
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
                             @foreach($users as $user)
                                 <tr>
                                     <td>{{$user->id}}</td>
