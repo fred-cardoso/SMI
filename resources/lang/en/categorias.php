@@ -21,11 +21,13 @@ return [
     'name_cat' => 'Category name',
     'put_cat_name' =>"Fill the category's name",
     'secondary' => 'Secondary',
+    'type' => 'Type',
     'cancel'=> 'Cancel',
     'create' => 'Create',
     'edit_cat' => 'Edit Category',
     'list_cat' => 'Category Listing',
-    'subed_cat' => 'Subscribed Categories'
+    'subed_cat' => 'Subscribed Categories',
+    'perm_delete' =>'Are you sure you want to permanently delete the category: ',
 
 
 

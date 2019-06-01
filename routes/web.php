@@ -95,7 +95,7 @@ Route::group(['middleware' => ['auth', 'verified', 'role:user']], function () {
 
             Route::post('uploads/{conteudo}/delete', 'ConteudoController@destroy')->where(['conteudo' => '[0-9]+'])->name('uploads.delete');
 
-            Route::post('categorias/{categoria}/delete', 'CategoriaController@destroy')->where(['categoria' => '[0-9]+']);
+            Route::post('categorias/{categoria}/delete', 'CategoriaController@destroy')->where(['categoria' => '[0-9]+'])->name('cat.delete');
         });
     });
 });
