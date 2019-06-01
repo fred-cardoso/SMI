@@ -220,6 +220,10 @@ class ConteudoController extends Controller
      */
     public function edit(Conteudo $conteudo)
     {
+        if(auth()->user()->hasRole('simpatizante') and !$conteudo->isOwner(auth()->user())) {
+            abort(404);
+        }
+
         $categories = Categoria::all();
         return view('conteudos.edit', compact(['conteudo', 'categories']));
     }
@@ -233,6 +237,10 @@ class ConteudoController extends Controller
      */
     public function update(Request $request, Conteudo $conteudo)
     {
+        if(auth()->user()->hasRole('simpatizante') and !$conteudo->isOwner(auth()->user())) {
+            abort(404);
+        }
+
         $validatedData = $request->validate([
             'title' => 'required|string',
             'description' => 'required|string',
@@ -297,6 +305,14 @@ class ConteudoController extends Controller
         }
 
         $conteudos = Conteudo::findMany($validatedData['selected']);
+
+        if(auth()->user()->hasRole('simpatizante')) {
+            foreach($conteudos as $conteudo) {
+                if(!$conteudo->isOwner(auth()->user())) {
+                    abort(404);
+                }
+            }
+        }
 
         if ($validatedData['action'] == "download") {
 

@@ -47,6 +47,8 @@
                                         <th>@lang('common.creation_date')</th>
                                         @role('admin')
                                         <th>@lang('common.visibility')</th>
+                                        @endrole
+                                        @role('simpatizante')
                                         <th>@lang('common.actions')</th>
                                         @endrole
                                     </tr>
@@ -54,9 +56,7 @@
                                     <tbody>
 
                                     @foreach($conteudos as $conteudo)
-                                        @if($conteudo->privado and !auth()->check())
-                                            @continue
-                                        @elseif ($conteudo->private and (!auth()->user()->hasRole('admin') or !$conteudo->user()->first()->id == auth()->user()->id))
+                                        @if($conteudo->privado and (!auth()->check() or !auth()->user()->hasRole('admin') or !$conteudo->isOwner(auth()->user())))
                                             @continue
                                         @endif
                                         <tr>
@@ -76,13 +76,26 @@
                                             <td>
                                                 <span class="label label-{{$conteudo->privado == 1 ? 'danger' : 'success'}}">{{$conteudo->privado == 1 ? 'Privado' : 'Público'}}</span>
                                             </td>
+                                            @endrole
+                                            @role('simpatizante')
                                             <td>
-                                                <a href="{{route('uploads.edit', $conteudo->id)}}" type="button"
-                                                   class="btn btn-primary">@lang('common.edit')</a>
+                                                @role('simpatizante')
+                                                @if(auth()->user()->hasRole('simpatizante'))
+                                                    @if($conteudo->isOwner(auth()->user()))
+                                                        <a href="{{route('uploads.edit', $conteudo->id)}}" type="button"
+                                                           class="btn btn-primary">@lang('common.edit')</a>
+                                                    @endif
+                                                @else
+                                                    <a href="{{route('uploads.edit', $conteudo->id)}}" type="button"
+                                                       class="btn btn-primary">@lang('common.edit')</a>
+                                                @endif
+                                                @endrole
+                                                @role('admin')
                                                 <button type="button" class="btn btn-danger" data-toggle="modal"
                                                         data-target="#modal-delete-user-{{$conteudo->id}}" wfd-id="264">
                                                     @lang('common.delete')
                                                 </button>
+                                                @endrole
                                             </td>
                                             @endrole
                                         </tr>
@@ -99,6 +112,8 @@
                                         <th>@lang('common.creation_date')</th>
                                         @role('admin')
                                         <th>@lang('common.visibility')</th>
+                                        @endrole
+                                        @role('simpatizante')
                                         <th>@lang('common.actions')</th>
                                         @endrole
                                     </tr>
@@ -176,11 +191,11 @@
             let selected_values = selected.options[selected.selectedIndex].value;
             if (selected_values != null) {
 
-                if(selected_values == "") {
+                if (selected_values == "") {
                     return;
                 }
 
-                if(selected_values == "delete") {
+                if (selected_values == "delete") {
                     alert('Deseja realmente apagar os ficheiros selecionados?');
                 }
 
@@ -198,7 +213,7 @@
                 let main_div = document.getElementById('main_div');
 
                 let content_alert = document.getElementById('contents_alert');
-                if(content_alert != null) {
+                if (content_alert != null) {
                     main_div.removeChild(content_alert);
                 }
 
