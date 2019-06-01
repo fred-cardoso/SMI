@@ -111,7 +111,7 @@
                                         <label>With Selected</label>
                                         <select class="form-control" id="action_selection" name="action"
                                                 onchange="massAction()">
-                                            <option>Select an option</option>
+                                            <option value="">Select an option</option>
                                             <option value="download">Download</option>
                                             @role('admin')
                                             <option value="delete">@lang('common.delete')</option>
@@ -175,6 +175,10 @@
             let selected = document.getElementById('action_selection');
             let selected_values = selected.options[selected.selectedIndex].value;
             if (selected_values != null) {
+
+                if(selected_values == "") {
+                    return;
+                }
 
                 if(selected_values == "delete") {
                     alert('Deseja realmente apagar os ficheiros selecionados?');
