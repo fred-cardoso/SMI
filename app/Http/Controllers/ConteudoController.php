@@ -10,9 +10,11 @@ use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Tinify\Source;
 use ZipArchive;
 use DOMDocument;
 use Illuminate\Http\File;
+use yasmuru\LaravelTinify\Facades\Tinify;
 
 class ConteudoController extends Controller
 {
@@ -170,20 +172,14 @@ class ConteudoController extends Controller
         }
 
         //TinyPNG
-        if($file->getMimeType()[0] == "image") {
+        if(explode('/',$file->getMimeType())[0] === "image") {
             $result = Tinify::fromBuffer($file->get());
 
-            dd($result);
+            $filename = uniqid().$file->getExtension();
+            Storage::put('files'.$filename,$result->toBuffer());
 
-            /** To save as File **/
-            $result->toFile('\path\to\save');
-
-            /** To get image as data **/
-            $data = $result->toBuffer();
+            $path = 'files' . $filename;
         }
-
-        //Inserção de conteúdo único
-        $path = $file->store('files');
 
         $conteudo = new Conteudo();
 
