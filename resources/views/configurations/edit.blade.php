@@ -1,5 +1,5 @@
 @extends('layout.layout')
-@section('title', 'Editar Configurações')
+@section('title', __("common.config_system"))
 @section('content')
     <section class="content-header">
         <h1>

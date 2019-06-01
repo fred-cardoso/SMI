@@ -1,5 +1,5 @@
 @extends('layout.layout')
-@section('title', 'Categorias')
+@section('title', $categoria->nome)
 @section('content')
     <section class="content-header">
         <h1>
@@ -19,10 +19,10 @@
                 <div class="col-md-12">
                     <div class="box box-primary">
                         <div class="box-header with-border">
-                            <h3 class="box-title">Sem conteúdo!</h3>
+                            <h3 class="box-title">@lang('conteudos.no_content')</h3>
                         </div>
                         <div class="box-body">
-                            <p class="text-muted">A categoria {{$categoria->nome}} ainda não tem conteúdos!
+                            <p class="text-muted">@lang('conteudos.no_cnt_msg'){{$categoria->nome}}
                             </p>
                         </div>
                     </div>
@@ -49,11 +49,11 @@
                                 </h3>
                             </div>
                             <div class="box-body">
-                                <strong><i class="fa fa-map-marker margin-r-5"></i> @lang('common.author')</strong>
+                                <strong><i class="fa fa-user margin-r-5"></i> @lang('common.author')</strong>
                                 <p class="text-muted"><a
                                             href="{{route('user', $conteudo->user()->first()->id)}}">{{$conteudo->user()->first()->name}}</a>
                                 </p>
-                                <strong><i class="fa fa-pencil margin-r-5"></i> @lang('categorias.categories')</strong>
+                                <strong><i class="fa fa-book margin-r-5"></i> @lang('categorias.categories')</strong>
                                 <p>
                                     @foreach($conteudo->category()->get() as $categoria)
                                         <span class="label label-{{$categoria->secundaria == 1 ? 'info' : 'primary'}}">{{$categoria->nome}}</span>
@@ -61,7 +61,7 @@
 
                                 </p>
                                 <hr>
-                                <strong><i class="fa fa-file-text-o margin-r-5"></i> @lang('common.creation_date')
+                                <strong><i class="fa fa-calendar margin-r-5"></i> @lang('common.creation_date')
                                 </strong>
                                 <p>{{$conteudo->created_at}}</p>
                             </div>
@@ -122,11 +122,11 @@
                                 </h3>
                             </div>
                             <div class="box-body">
-                                <strong><i class="fa fa-map-marker margin-r-5"></i> @lang('common.author')</strong>
+                                <strong><i class="fa fa-user margin-r-5"></i> @lang('common.author')</strong>
                                 <p class="text-muted"><a
                                             href="{{route('user', $conteudo->user()->first()->id)}}">{{$conteudo->user()->first()->name}}</a>
                                 </p>
-                                <strong><i class="fa fa-pencil margin-r-5"></i> @lang('categorias.categories')</strong>
+                                <strong><i class="fa fa-book margin-r-5"></i> @lang('categorias.categories')</strong>
                                 <p>
                                     @foreach($conteudo->category()->get() as $categoria)
                                         <span class="label label-{{$categoria->secundaria == 1 ? 'info' : 'primary'}}">{{$categoria->nome}}</span>
@@ -134,7 +134,7 @@
 
                                 </p>
                                 <hr>
-                                <strong><i class="fa fa-file-text-o margin-r-5"></i> @lang('common.creation_date')
+                                <strong><i class="fa fa-calendar margin-r-5"></i> @lang('common.creation_date')
                                 </strong>
                                 <p>{{$conteudo->created_at}}</p>
                             </div>

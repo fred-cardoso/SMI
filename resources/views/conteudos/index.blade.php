@@ -1,5 +1,5 @@
 @extends('layout.layout')
-@section('title', 'Utilizadores')
+@section('title', __("conteudos.list_content"))
 @section('content')
     <section class="content-header">
         <h1>
@@ -105,7 +105,7 @@
                             <div class="box box-footer">
                                 <div class="col-sm-2">
                                     @auth
-                                        <label>With Selected</label>
+                                        <label>@lang('conteudos.select_act')</label>
                                         <select class="form-control" id="action_selection" name="action"
                                                 onchange="massAction()">
                                             <option value="">@lang('conteudos.select_option')</option>

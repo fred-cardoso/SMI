@@ -14,27 +14,29 @@ return [
     */
     'content' => 'Contents',
     'upload' => 'Upload',
-    'upload_content' =>' Upload Content',
+    'upload_content' => ' Upload Content',
     'msg1' => ' To insert content in mass, you should send a ZIP file, this must contain a XML named',
-    'msg2'  => ' The',
+    'msg2' => ' The',
     'msg3' => 'file, should be validated by this ',
 
     'meta' => ' meta',
     'msg4' => 'In case of uploading a ZIP file, all the information will be referent to the ',
-    'msg5' =>' file, ignoring all the form data below',
+    'msg5' => ' file, ignoring all the form data below',
     'content_new' => 'New content',
     'title' => 'Title',
     'description' => 'Description',
-    'content_privacy'=>'Content privacy',
+    'content_privacy' => 'Content privacy',
     'private_content' => 'Private content',
     'list_content' => 'Content Listing',
     'perm_delete' => 'Are you sure you want to permanently delete ',
-    'delete_content' =>'Delete content',
-
-
-
-
-
+    'delete_content' => 'Delete content',
+    'select_option' => 'Select an option',
+    'download' => 'Download',
+    'set_public' => 'Set to public',
+    'set_private' => 'Set to private',
+    'select_act' => 'With Selected',
+    'no_content' => "There's no content!",
+    'no_cnt_msg' => 'There are no content available that belong to the following category: '
 
 
 ];

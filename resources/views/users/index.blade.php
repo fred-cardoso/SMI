@@ -39,8 +39,8 @@
                                     <td>{{$user->roles()->first()->name}}</td>
                                     <td>
                                         @auth
-                                            <form action="{{route('user.subscribe', $user->id)}}" method="POST">
-                                                @csrf
+                                           <!-- <form action="{{route('user.subscribe', $user->id)}}" method="POST">
+                                               @csrf
                                                 <?php $userAuth = Auth::User()->id;
                                                 $database = DB::table("user_user")->get();
                                                 $checkIfSubscribed = sizeof($database->where('subscribed_id', $user->id)->where('user_id', $userAuth));
@@ -53,7 +53,7 @@
                                                 }
 
                                                 ?>
-
+-->
                                                 @role('admin')
                                                 <a href="{{route('user.edit', $user->id)}}" type="button"
                                                    class="btn btn-primary">@lang('common.edit')</a>
@@ -65,7 +65,7 @@
                                                 @endif
 
                                                 @endrole
-                                            </form>
+                                            <!--</form>-->
                                     </td>
                                     @endauth
                                 </tr>
@@ -100,7 +100,7 @@
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Fechar" wfd-id="252">
                             <span aria-hidden="true">×</span></button>
-                        <h4 class="modal-title">Alerta!</h4>
+                        <h4 class="modal-title">@lang('common.warning')</h4>
                     </div>
                     <div class="modal-body">
                         <p>@lang('user.perm_delete')<b>{{$user->name}}</b> ?</p>

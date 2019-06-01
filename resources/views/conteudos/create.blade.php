@@ -1,5 +1,5 @@
 @extends('layout.layout')
-@section('title', 'Upload')
+@section('title', __("conteudos.upload"))
 @section('content')
     <section class="content-header">
         <h1>

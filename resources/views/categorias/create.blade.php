@@ -1,5 +1,5 @@
 @extends('layout.layout')
-@section('title', 'Criar Categoria')
+@section('title', __('categorias.create_cat')))
 @section('content')
     <section class="content-header">
         <h1>

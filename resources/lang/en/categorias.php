@@ -28,6 +28,8 @@ return [
     'list_cat' => 'Category Listing',
     'subed_cat' => 'Subscribed Categories',
     'perm_delete' =>'Are you sure you want to permanently delete the category: ',
+    'type' => 'Type',
+    'main' => 'Main',
 
 
 
