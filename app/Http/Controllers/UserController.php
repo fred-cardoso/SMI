@@ -82,7 +82,18 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        return view('users.show', compact('user'));
+        $conteudos = $user->contents()->get()->filter(function ($item) {
+            if ($item->privado) {
+                if(!Auth::check()) {
+                    return;
+                }
+                if(Auth::user()->hasRole('admin') or ($item->user()->first()->id == Auth::user()->id)) {
+                    return $item;
+                }
+            }
+            return $item;
+        });;
+        return view('users.show', compact(['user', 'conteudos']));
     }
 
     /**
