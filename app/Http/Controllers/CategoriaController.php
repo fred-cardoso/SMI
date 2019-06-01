@@ -50,7 +50,7 @@ class CategoriaController extends Controller
         $resultado = $categoria->save();
 
         if($resultado) {
-            return redirect()->route('categorias');
+            return redirect()->route('categorias')->withSuccess('Categoria criada com sucesso!');
         } else {
             return redirect()->back()->withErrors('Ocorreu um erro!');
         }
