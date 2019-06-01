@@ -169,11 +169,11 @@ class ConteudoController extends Controller
             }
         }
 
-        dd($file);
-
         //TinyPNG
         if($file->getMimeType()[0] == "image") {
-            $result = Tinify::fromBuffer($source_data);
+            $result = Tinify::fromBuffer($file->get());
+
+            dd($result);
 
             /** To save as File **/
             $result->toFile('\path\to\save');
