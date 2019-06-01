@@ -95,8 +95,16 @@
                style="color: {{$permissions['storage_framework'] ? 'forestgreen' : 'red'}}"></i>
         </div>
 
+        <hr>
+
         <form action="{{route('install')}}" method="post">
             @csrf
+
+            <div class="form-group has-feedback">
+                <input type="text" name="db_host" class="form-control" placeholder="Endereço do Servidor" value="{{old('db_host')}}" required>
+                <span class="fa fa-server form-control-feedback"></span>
+            </div>
+
             <h4 class="text-center">Configuração da Base de Dados</h4>
             <hr>
 

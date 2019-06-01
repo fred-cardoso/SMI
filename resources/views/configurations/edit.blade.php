@@ -33,6 +33,11 @@
                         <div class="box-body">
                             <!-- text input -->
                             <div class="form-group">
+                                <label>APP_URL</label>
+                                <input type="text" name="app_url" value="{{$config['app_url'] ?? ''}}" required>
+                            </div>
+                            <br><br><br>
+                            <div class="form-group">
                                 <label>MAIL_DRIVER</label>
                                 <input type="text" name="mail_driver" value="{{$config['mail_driver'] ?? ''}}" required>
                             </div>
