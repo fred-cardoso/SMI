@@ -59,8 +59,9 @@ Route::group(['middleware' => ['auth', 'verified', 'role:user']], function () {
     Route::post('users/{user}/subscribe', 'UserController@subscribeUser')->where(['user' => '[0-9]+'])->name('user.subscribe');
     Route::post('users/{categoria}/subscribeCat', 'UserController@subscribeCategoria')->where(['categoria' => '[0-9]+'])->name('cat.subscribe');
 
-    Route::post('categorias/{categoria}/subscribe', 'UserController@subscribeCategoria')->where(['categoria' => '[0-9]+']);
+    Route::post('categorias/{categoria}/subscribe', 'UserController@subscribeCategoria')->where(['categoria' => '[0-9]+'])->name('categorias.delete');
 
+    Route::post('uploads/{conteudo}/delete', 'ConteudoController@destroy')->where(['conteudo' => '[0-9]+'])->name('uploads.delete');
     /**
      * Dangerous route! User input needs to be validated in controller to avoid vulneratiblities
      */
@@ -79,6 +80,7 @@ Route::group(['middleware' => ['auth', 'verified', 'role:user']], function () {
         Route::get('uploads/{conteudo}/edit', 'ConteudoController@edit')->where(['conteudo' => '[0-9]+'])->name('uploads.edit');
         Route::post('uploads/{conteudo}/edit', 'ConteudoController@update')->where(['conteudo' => '[0-9]+']);
 
+        Route::post('categorias/{categoria}/delete', 'CategoriaController@destroy')->where(['categoria' => '[0-9]+']);
         /**
          * Routes for admin
          */
@@ -92,10 +94,6 @@ Route::group(['middleware' => ['auth', 'verified', 'role:user']], function () {
 
             Route::get('configurations/edit', 'ConfigurationsController@edit')->name('config');
             Route::post('configurations/edit', 'ConfigurationsController@update');
-
-            Route::post('uploads/{conteudo}/delete', 'ConteudoController@destroy')->where(['conteudo' => '[0-9]+'])->name('uploads.delete');
-
-            Route::post('categorias/{categoria}/delete', 'CategoriaController@destroy')->where(['categoria' => '[0-9]+']);
         });
     });
 });

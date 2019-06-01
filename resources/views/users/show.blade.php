@@ -101,10 +101,18 @@
                     <div class="tab-content">
                         <div class="@if(!sizeof($errors->all()) > 0 and !session('success')) active @endif tab-pane"
                              id="activity">
-                        @foreach($conteudos as $conteudo)
-                            @if($conteudo->privado and (!auth()->check() or !auth()->user()->hasRole('admin') or !$conteudo->isOwner(auth()->user())))
-                                @continue
+                            @if($conteudos->count() == 0)
+                                <div class="post">
+                                    <div class="user-block">
+                                        <span class="username" style="margin-left: 0">Utilizador sem conteúdos!</span>
+                                    </div>
+                                </div>
+                                <!-- /.post -->
                             @endif
+                            @foreach($conteudos as $conteudo)
+                                @if($conteudo->privado and (!auth()->check() or !auth()->user()->hasRole('admin') or !$conteudo->isOwner(auth()->user())))
+                                    @continue
+                                @endif
                             <!-- Post -->
                                 <div class="post">
                                     <div class="user-block">

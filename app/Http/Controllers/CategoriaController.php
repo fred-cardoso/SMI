@@ -16,7 +16,6 @@ class CategoriaController extends Controller
     public function index()
     {
         $categorias = Categoria::all();
-
         return view('categorias.index', compact('categorias'));
     }
 
@@ -33,23 +32,31 @@ class CategoriaController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        $categoria = new Categoria();
-        $categoria->nome = $request->nomeCat; //request
-        if($request->secundaria != "on"){
+        $validatedData = $request->validate([
+            'nomeCat' => 'required|string',
+        ]);
 
-            $categoria->secundaria = false;
-        }else{
+        $categoria = new Categoria();
+        $categoria->nome = $validatedData['nomeCat']; //request
+
+        if (auth()->user()->hasRole('simpatizante')) {
             $categoria->secundaria = true;
+        } else {
+            if ($request->secundaria != "on") {
+                $categoria->secundaria = false;
+            } else {
+                $categoria->secundaria = true;
+            }
         }
 
         $resultado = $categoria->save();
 
-        if($resultado) {
+        if ($resultado) {
             return redirect()->route('categorias')->withSuccess('Categoria criada com sucesso!');
         } else {
             return redirect()->back()->withErrors('Ocorreu um erro!');
@@ -59,43 +66,63 @@ class CategoriaController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Categoria  $categoria
+     * @param \App\Categoria $categoria
      * @return \Illuminate\Http\Response
      */
     public function show(Categoria $categoria)
     {
-
-        return view('categorias/show', compact('categoria'));
+        $conteudos = $categoria->content()->paginate(4);
+        return view('categorias/show', compact(['categoria', 'conteudos']));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Categoria  $categoria
+     * @param \App\Categoria $categoria
      * @return \Illuminate\Http\Response
      */
     public function edit(Categoria $categoria)
     {
+        if (auth()->user()->hasRole('simpatizante')) {
+            if(!$categoria->secundaria) {
+                abort(404);
+            }
+        }
         return view('categorias.edit', compact('categoria'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Categoria  $categoria
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Categoria $categoria
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Categoria $categoria)
     {
-        $categoria->nome = $request->nomeCat;
-        if($request->secundaria == null){
-            $categoria->secundaria = false;
-        }else{
-            $categoria->secundaria = true;
+        if (auth()->user()->hasRole('simpatizante')) {
+            if(!$categoria->secundaria) {
+                abort(404);
+            }
         }
 
-        if($categoria->save()) {
+        $validateData = $request->validate([
+            'nomeCat' => 'required|string',
+        ]);
+
+        $categoria->nome = $validateData['nomeCat'];
+
+        if (auth()->user()->hasRole('simpatizante')) {
+            $categoria->secundaria = true;
+        } else {
+            if ($request->secundaria != "on") {
+                $categoria->secundaria = false;
+            } else {
+                $categoria->secundaria = true;
+            }
+        }
+
+        if ($categoria->save()) {
             return redirect()->back()->withSuccess('Categoria atualizada com sucesso!');
         } else {
             return redirect()->back()->withErrors('Ocorreu um erro!');
@@ -105,12 +132,16 @@ class CategoriaController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Categoria  $categoria
+     * @param \App\Categoria $categoria
      * @return \Illuminate\Http\Response
      */
     public function destroy(Categoria $categoria)
     {
-        if($categoria->forceDelete()) {
+        if(auth()->user()->hasRole('simpatizante') and !$categoria->secundaria == 1) {
+            abort(404);
+        }
+
+        if ($categoria->forceDelete()) {
             return redirect()->back()->withSuccess('Categoria eliminada com sucesso!');
         } else {
             return redirect()->back()->withErrors('Ocorreu um erro!');

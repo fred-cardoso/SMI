@@ -15,20 +15,7 @@
     <section class="content">
         <div class="row">
             <div class="col-xs-12">
-                @if ($errors->any())
-                    <div class="alert alert-danger">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
-                @if (session()->has('success'))
-                    <div class="alert alert-success">
-                        {{session()->get('success')}}
-                    </div>
-                @endif
+                @extends('layout.result)
                 <div class="callout callout-warning">
                     <h4>@lang("common.warning")</h4>
 

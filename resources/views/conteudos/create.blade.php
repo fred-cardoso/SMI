@@ -16,20 +16,7 @@
     <section class="content">
         <div class="row">
             <div class="col-xs-12">
-                @if ($errors->any())
-                    <div class="alert alert-danger">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
-                @if(session('success'))
-                    <div class="alert alert-success">
-                        {{session('success')}}
-                    </div>
-                @endif
+                @extends('layout.result)
                 <div class="alert alert-info">
                     <h4>@lang("common.info")</h4>
                     <p>@lang("conteudos.msg1")<i>@lang("conteudos.meta")</i>.@lang("conteudos.msg2") <i>@lang("conteudos.meta")</i> @lang("conteudos.msg3")<a target="_blank" href="{{Storage::url('public/zip_files.xsd')}}">XSD</a>.</p>

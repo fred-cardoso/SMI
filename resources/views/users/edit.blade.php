@@ -16,20 +16,7 @@
     <section class="content">
         <div class="row">
             <div class="col-xs-12">
-                @if ($errors->any())
-                    <div class="alert alert-danger">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
-                @if(session('success'))
-                    <div class="alert alert-success">
-                        {{session('success')}}
-                    </div>
-                @endif
+                @extends('layout.result)
                 <form role="form" action="{{route('user.edit', $user->id)}}" method="POST">
                     @csrf
                     <div class="box">

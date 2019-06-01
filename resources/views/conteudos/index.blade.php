@@ -15,20 +15,7 @@
     <section class="content">
         <div class="row">
             <div class="col-xs-12" id="main_div">
-                @if ($errors->any())
-                    <div class="alert alert-danger">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
-                @if(session('success'))
-                    <div class="alert alert-success">
-                        {{session('success')}}
-                    </div>
-                @endif
+                @extends('layout.result)
                 @auth
                     <form action="{{route('uploads.batch')}}" method="POST" id="mass_action_form">
                         @csrf
@@ -80,21 +67,16 @@
                                             @role('simpatizante')
                                             <td>
                                                 @role('simpatizante')
-                                                @if(auth()->user()->hasRole('simpatizante'))
-                                                    @if($conteudo->isOwner(auth()->user()))
-                                                        <a href="{{route('uploads.edit', $conteudo->id)}}" type="button"
-                                                           class="btn btn-primary">@lang('common.edit')</a>
-                                                    @endif
+                                                @if(auth()->user()->hasRole('simpatizante') and !$conteudo->isOwner(auth()->user()))
+
                                                 @else
                                                     <a href="{{route('uploads.edit', $conteudo->id)}}" type="button"
                                                        class="btn btn-primary">@lang('common.edit')</a>
+                                                    <button type="button" class="btn btn-danger" data-toggle="modal"
+                                                            data-target="#modal-delete-user-{{$conteudo->id}}" wfd-id="264">
+                                                        @lang('common.delete')
+                                                    </button>
                                                 @endif
-                                                @endrole
-                                                @role('admin')
-                                                <button type="button" class="btn btn-danger" data-toggle="modal"
-                                                        data-target="#modal-delete-user-{{$conteudo->id}}" wfd-id="264">
-                                                    @lang('common.delete')
-                                                </button>
                                                 @endrole
                                             </td>
                                             @endrole
@@ -156,6 +138,9 @@
     </section>
     <!-- /.content -->
     @foreach($conteudos as $conteudo)
+        @if($conteudo->privado and (!auth()->check() or !auth()->user()->hasRole('admin') or !$conteudo->isOwner(auth()->user())))
+            @continue
+        @endif
         <div class="modal modal-danger fade" id="modal-delete-user-{{$conteudo->id}}" wfd-id="130">
             <div class="modal-dialog">
                 <div class="modal-content">

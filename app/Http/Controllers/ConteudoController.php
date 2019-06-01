@@ -275,6 +275,10 @@ class ConteudoController extends Controller
      */
     public function destroy(Conteudo $conteudo)
     {
+        if(auth()->user()->hasRole('simpatizante') and !$conteudo->isOwner(auth()->user())) {
+            abort(404);
+        }
+
         Storage::delete($conteudo->nome);
         if ($conteudo->forceDelete()) {
             return redirect()->back()->withSuccess('Conteúdo eliminado com sucesso!');

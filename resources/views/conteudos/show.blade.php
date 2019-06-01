@@ -12,7 +12,6 @@
             <li class="active"><i class="fa fa-youtube-square"></i> {{$conteudo->titulo}}</li>
         </ol>
     </section>
-
     <section class="content">
         <div class="row">
             <div class="col-md-3">
