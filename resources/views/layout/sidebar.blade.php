@@ -8,7 +8,7 @@
         <form action='{{route('search')}}' method="post" class="sidebar-form">
             @csrf
             <div class="input-group">
-                <input type="text" name="q" class="form-control" placeholder="@lang('common.search')">
+                <input type="text" name="q" class="form-control" placeholder="@lang('common.search')" required>
                 <span class="input-group-btn">
                 <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
                 </button>
