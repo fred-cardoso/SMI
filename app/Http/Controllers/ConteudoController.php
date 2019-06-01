@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Categoria;
 use App\Conteudo;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -72,7 +74,7 @@ class ConteudoController extends Controller
         $file = $request->file('file');
 
         $zipMimeTypes = ['application/zip', 'application/octet-stream', 'application/x-zip-compressed', 'multipart/x-zip'];
-        $contentMimeTypes = ['image/gif','image/jpeg','image/bmp','image/png','video/mp4','video/mov','video/avi','video/flv','video/wmv','audio/mpeg','audio/vnd.wav','audio/ogg'];
+        $contentMimeTypes = ['image/gif', 'image/jpeg', 'image/bmp', 'image/png', 'video/mp4', 'video/mov', 'video/avi', 'video/flv', 'video/wmv', 'audio/mpeg', 'audio/vnd.wav', 'audio/ogg'];
 
         //Check if is a ZIP file
         if (in_array($file->getMimeType(), $zipMimeTypes)) {
@@ -139,7 +141,7 @@ class ConteudoController extends Controller
                     $file_object = new File($unzipped_full_path . $file_name);
 
                     //Checks for valid meme types inside zip contents
-                    if(!in_array($file_object->getMimeType(), $contentMimeTypes)) {
+                    if (!in_array($file_object->getMimeType(), $contentMimeTypes)) {
                         return redirect()->back()->withErrors('Ficheiro com MIME Type ' . $file_object->getMimeType() . ' não suportado.');
                     }
 
@@ -172,7 +174,7 @@ class ConteudoController extends Controller
 
         $conteudo = new Conteudo();
 
-        if($request->private == null) {
+        if ($request->private == null) {
             $conteudo->privado = false;
         } else {
             $conteudo->privado = true;
@@ -201,11 +203,11 @@ class ConteudoController extends Controller
      */
     public function show(Conteudo $conteudo)
     {
-        if($conteudo->privado and !Auth::check()) {
+        if ($conteudo->privado and !Auth::check()) {
             abort(404);
         }
 
-        if($conteudo->privado and (!auth()->user()->hasRole('admin') or !$conteudo->user()->first()->id == auth()->user()->id))
+        if ($conteudo->privado and (!auth()->user()->hasRole('admin') or !$conteudo->user()->first()->id == auth()->user()->id))
             abort(404);
         return view('conteudos.show', compact('conteudo'));
     }
@@ -237,7 +239,7 @@ class ConteudoController extends Controller
             'category.*' => ['required', Rule::in($this->categories_ids)],
         ]);
 
-        if($request->private == null ) {
+        if ($request->private == null) {
             $conteudo->privado = false;
         } else {
             $conteudo->privado = true;
@@ -271,5 +273,69 @@ class ConteudoController extends Controller
         } else {
             return redirect()->back()->withErrors('Ocorreu um erro!');
         }
+    }
+
+    /**
+     * Receives the request so it can mass process multiple content selection operation
+     *
+     * ATTENTION! This method is dangerous if not properly escaped since the route is not role protected
+     */
+    public function massChange(Request $request)
+    {
+        $validatedData = $request->validate([
+            'action' => 'required|string|in:download,delete,visibility_private,visibility_public',
+            'selected' => 'required',
+            'selected.*' => 'exists:conteudos,id',
+        ]);
+
+        if ($validatedData['action'] == "delete" && !Auth::user()->hasRole('admin')) {
+            abort(404);
+        }
+
+        if (($validatedData['action'] == "visibility_private" or $validatedData['action'] == "visibility_public") && (!Auth::user()->hasRole('admin') and !Auth::user()->hasRole('simpatizante'))) {
+            abort(404);
+        }
+
+        $conteudos = Conteudo::findMany($validatedData['selected']);
+
+        if ($validatedData['action'] == "download") {
+
+            if (!Storage::exists('download')) {
+                Storage::makeDirectory('download');
+            }
+
+            $zip = new ZipArchive;
+            $storage_path = storage_path() . '\app\\';
+            $file_name = $storage_path . 'download\\' . Carbon::now()->timestamp . '.zip';
+
+            if ($zip->open($file_name, ZipArchive::CREATE) === TRUE) {
+                foreach ($conteudos as $conteudo) {
+                    $zip->addFile($storage_path . $conteudo->nome, preg_replace('/[^a-zA-Z0-9-_\.]/', '', Str::lower($conteudo->titulo)) . '.' . explode('.', $conteudo->nome)[1]);
+                }
+                $zip->close();
+                return response()->download($file_name);
+            } else {
+                return redirect()->back()->withErrors('Ocorreu um erro!');
+            }
+        }
+
+        foreach ($conteudos as $conteudo) {
+            if ($validatedData['action'] == "visibility_private") {
+                $conteudo->privado = 1;
+                $conteudo->save();
+            }
+            if ($validatedData['action'] == "visibility_public") {
+                $conteudo->privado = 0;
+                $conteudo->save();
+            }
+            if ($validatedData['action'] == "delete") {
+                Storage::delete($conteudo->nome);
+                if (!$conteudo->forceDelete()) {
+                    return redirect()->back()->withErrors('Ocorreu um erro!');
+                }
+            }
+        }
+
+        return redirect()->back()->withSuccess('Alterações efectuadas com sucesso!');
     }
 }

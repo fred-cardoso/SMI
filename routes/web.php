@@ -60,6 +60,11 @@ Route::group(['middleware' => ['auth', 'verified', 'role:user']], function () {
     Route::post('users/{categoria}/subscribeCat', 'UserController@subscribeCategoria')->where(['categoria' => '[0-9]+'])->name('cat.subscribe');
 
     Route::post('categorias/{categoria}/subscribe', 'UserController@subscribeCategoria')->where(['categoria' => '[0-9]+']);
+
+    /**
+     * Dangerous route! User input needs to be validated in controller to avoid vulneratiblities
+     */
+    Route::post('uploads/batch', 'ConteudoController@massChange')->name('uploads.batch');
     /**
      * Routes for "Simpatizante"
      */

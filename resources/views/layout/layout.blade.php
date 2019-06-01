@@ -51,5 +51,6 @@
 <script src="{{URL::to('/')}}/dist/js/pages/dashboard.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="{{URL::to('/')}}/dist/js/demo.js"></script>
+@yield('scripts')
 </body>
 </html>
