@@ -95,12 +95,12 @@ class ConteudoController extends Controller
                 $files_paths = Storage::files($unzipped_path);
 
                 if (sizeof($files_paths) <= 0) {
-                    return redirect()->back()->withErrors('Não pode enviar um ficheiro ZIP vazio.');
+                    return redirect()->back()->withErrors(__('controllers.empty_zip'));
                 }
 
                 //Checks if meta.xml exists and replaces \ with / in path (Storage::files vs default)
                 if (!in_array(str_replace('\\', '/', $unzipped_path) . '/meta.xml', $files_paths)) {
-                    return redirect()->back()->withErrors('Não pode enviar um ficheiro .zip sem um ficheiro meta.xml!');
+                    return redirect()->back()->withErrors(__('controllers.empty_meta'));
                 }
 
                 $xml = new DOMDocument();
@@ -109,7 +109,7 @@ class ConteudoController extends Controller
                 try {
                     $xml->schemaValidate($storage_path . '\public\\zip_files.xsd');
                 } catch (\Exception $exception) {
-                    return redirect()->back()->withErrors('Falhou a validação do ficheiro meta.xml com o seguinte erro: ' . $exception->getMessage());
+                    return redirect()->back()->withErrors(__('controllers.error_XML') . $exception->getMessage());
                 }
 
                 $xml_files = $xml->getElementsByTagName('file');
@@ -127,7 +127,7 @@ class ConteudoController extends Controller
 
                         //Checks for valid categories names
                         if (!in_array($file_category, $this->categories_names)) {
-                            return redirect()->back()->withErrors('A categoria ' . $file_category . ' não existe no sistema.');
+                            return redirect()->back()->withErrors(__('controllers.no_category') . $file_category);
                         }
 
                         array_push($file_categories, $file_category);
@@ -135,14 +135,14 @@ class ConteudoController extends Controller
 
                     //Checks for missing files in zip but declared in meta.xml
                     if (!in_array(str_replace('\\', '/', $unzipped_path) . $file_name, $files_paths)) {
-                        return redirect()->back()->withErrors('Ficheiro ' . $file_name . ' em falta no ficheiro ZIP.');
+                        return redirect()->back()->withErrors(__('controllers.missing_file') . $file_name);
                     }
 
                     $file_object = new File($unzipped_full_path . $file_name);
 
                     //Checks for valid meme types inside zip contents
                     if (!in_array($file_object->getMimeType(), $contentMimeTypes)) {
-                        return redirect()->back()->withErrors('Ficheiro com MIME Type ' . $file_object->getMimeType() . ' não suportado.');
+                        return redirect()->back()->withErrors(__('controllers.mime_type') . $file_object->getMimeType());
                     }
 
                     $path_to_store = Storage::putFile('files', $file_object);
@@ -163,9 +163,9 @@ class ConteudoController extends Controller
 
                 Storage::deleteDirectory($unzipped_path);
 
-                return redirect()->back()->withSuccess('ZIP importado com sucesso!');
+                return redirect()->back()->withSuccess(__('controllers.zip_import_sucess'));
             } else {
-                return redirect()->back()->withErrors('Ocorreu um erro na descompressão do ficheiro .zip');
+                return redirect()->back()->withErrors(__('controllers.error_occured'));
             }
         }
 
@@ -271,7 +271,8 @@ class ConteudoController extends Controller
         if ($conteudo->forceDelete()) {
             return redirect()->back()->withSuccess('Conteúdo eliminado com sucesso!');
         } else {
-            return redirect()->back()->withErrors('Ocorreu um erro!');
+            return redirect()->back()->withErrors(__('controllers.error_occured'));
+
         }
     }
 
@@ -315,7 +316,7 @@ class ConteudoController extends Controller
                 $zip->close();
                 return response()->download($file_name);
             } else {
-                return redirect()->back()->withErrors('Ocorreu um erro!');
+                return redirect()->back()->withErrors(__('controllers.error_occured'));
             }
         }
 
@@ -331,7 +332,7 @@ class ConteudoController extends Controller
             if ($validatedData['action'] == "delete") {
                 Storage::delete($conteudo->nome);
                 if (!$conteudo->forceDelete()) {
-                    return redirect()->back()->withErrors('Ocorreu um erro!');
+                    return redirect()->back()->withErrors(__('controllers.error_occured'));
                 }
             }
         }

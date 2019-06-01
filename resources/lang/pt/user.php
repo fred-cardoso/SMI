@@ -19,7 +19,7 @@ return [
     'profile' =>'Perfil',
     'about' =>'Sobre',
     'content_sent' =>' Nº de Conteúdos Enviados',
-    'registry_date' =>'Data de Registro',
+    'registry_date' =>'Data de Registo',
     'pw' => 'Password Atual',
 
 

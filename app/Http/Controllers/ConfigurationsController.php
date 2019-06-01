@@ -102,7 +102,7 @@ class ConfigurationsController extends Controller
         $this ->set_env('db_username',$request->db_username);
         $this ->set_env('db_password',$request->db_password);
 
-        return redirect()->back()->withSucess("Configurações salvas com sucesso.");
+        return redirect()->back()->withSucess(__('controllers.config_save'));
     }
 
     public function putPermanentEnv($key, $value)

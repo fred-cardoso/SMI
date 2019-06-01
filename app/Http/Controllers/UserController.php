@@ -71,7 +71,7 @@ class UserController extends Controller
         $user_role = Role::where('name', $request->group)->first();
         $user->roles()->attach($user_role);
 
-        return redirect()->back()->withSuccess('Utilizador registado com sucesso!');
+        return redirect()->back()->withSuccess(__('controllers.register_user'));
     }
 
     /**
@@ -142,9 +142,9 @@ class UserController extends Controller
         $user->roles()->attach($user_role);
 
         if ($user->save()) {
-            return redirect()->back()->withSuccess('Utilizador atualizado com sucesso!');
+            return redirect()->back()->withSuccess(__('controllers.user_update'));
         } else {
-            return redirect()->back()->withErrors('Ocorreu um erro!');
+            return redirect()->back()->withErrors(__('controllers.error_occured'));
         }
     }
 
@@ -152,7 +152,7 @@ class UserController extends Controller
     {
 
         if (!Hash::check($request->current_password, $user->password)) {
-            return redirect()->back()->withErrors('Password atual não está correcta.');
+            return redirect()->back()->withErrors(__(''));
         }
 
         $validatedData = null;
@@ -184,7 +184,7 @@ class UserController extends Controller
         $user->name = $validatedData['name'];
         $user->save();
 
-        return redirect()->back()->withSuccess('Atualizou o seu perfil com sucesso!');
+        return redirect()->back()->withSuccess(__('controllers.update_profile'));
     }
 
     /**
@@ -196,9 +196,9 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         if ($user->forceDelete()) {
-            return redirect()->back()->withSuccess('Utilizador eliminado com sucesso!');
+            return redirect()->back()->withSuccess(__('controllers.delete_user'));
         } else {
-            return redirect()->back()->withErrors('Ocorreu um erro!');
+            return redirect()->back()->withErrors(__('controllers.error_occured'));
         }
     }
 
@@ -237,6 +237,6 @@ class UserController extends Controller
         }
 
 
-        return redirect()->back()->withSuccess('Subscrito com sucesso!');
+        return redirect()->back()->withSuccess(__('controllers.subscribe'));
     }
 }
