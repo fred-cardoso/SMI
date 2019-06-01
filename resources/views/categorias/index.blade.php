@@ -53,9 +53,16 @@
 
                                                 ?>
 
-                                                @role('admin')
-                                                <a href="{{route('cat.edit', $cat->id)}}" type="button"
-                                                   class="btn btn-primary">@lang("common.edit")</a>
+                                                @role('simpatizante')
+                                                @if(auth()->user()->hasRole('simpatizante'))
+                                                    @if($cat->secundaria)
+                                                        <a href="{{route('cat.edit', $cat->id)}}" type="button"
+                                                           class="btn btn-primary">@lang("common.edit")</a>
+                                                    @endif
+                                                @else
+                                                    <a href="{{route('cat.edit', $cat->id)}}" type="button"
+                                                       class="btn btn-primary">@lang("common.edit")</a>
+                                                @endif
                                                 @endrole
                                             </form>
                                     </td>
