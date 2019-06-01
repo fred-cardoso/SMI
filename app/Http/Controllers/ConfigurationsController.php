@@ -87,6 +87,23 @@ class ConfigurationsController extends Controller
 
     public function update(Request $request)
     {
+        $request->validate([
+            'mail_driver' => 'required|string|in:smtp',
+            'mail_host' => 'required|string',
+            'mail_port' => 'required|numeric',
+            'mail_username' => 'required|string',
+            'mail_password' => 'required|string',
+            'mail_encryption' => 'required|string|in:ssl,tls',
+            'mail_from_address' => 'required|string|email',
+
+            'db_connection' => 'required|string|in:mysql,pgsql,sqlist,sqlsrv',
+            'db_host' => 'required|string',
+            'db_port' => 'required|numeric',
+            'db_database' => 'required|string',
+            'db_username' => 'required|string',
+            'db_password' => 'required|string',
+        ]);
+
         $this ->set_env("MAIL_DRIVER",$request->mail_driver);
         $this->set_env("MAIL_HOST",$request->mail_host);
         $this ->set_env('MAIL_PORT',$request->mail_port);

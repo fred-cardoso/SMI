@@ -13,6 +13,9 @@ use Illuminate\Support\Facades\Storage;
 |
 */
 
+Route::get('install', 'InstallController@install')->name('install');
+Route::post('install', 'InstallController@store');
+
 Auth::routes(['verify' => true]);
 
 Route::get('/', 'ConteudoController@home')->name('home');
