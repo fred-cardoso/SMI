@@ -28,7 +28,7 @@
                             <tr>
                                 <th>@lang("common.id")</th>
                                 <th>@lang("common.name")</th>
-                                <th>@lang("categorias.secondary")</th>
+                                <th>@lang("categorias.type")</th>
                                 @role('simpatizante')
                                 <th>@lang("common.actions")</th>
                                 @endrole
@@ -47,6 +47,22 @@
                                         <td>
                                             <form action="{{route("cat.subscribe", $cat->id)}}" method="POST">
                                                 @csrf
+
+
+                                                @role('simpatizante')
+                                                @if(auth()->user()->hasRole('simpatizante') and !$cat->secundaria)
+                                                @else
+                                                    <a href="{{route('cat.edit', $cat->id)}}" type="button"
+                                                       class="btn btn-primary">@lang("common.edit")</a>
+                                                    </button>
+                                                @endif
+                                                @endrole
+                                                @role('admin')
+                                                <button type="button" class="btn btn-danger" data-toggle="modal"
+                                                        data-target="#modal-delete-cat-{{$cat->id}}" wfd-id="264">
+                                                    @lang('common.delete')
+                                                </button>
+                                                @endrole
                                                 <?php $userAuth = Auth::User()->id;
                                                 $database = DB::table("user_categoria")->get();
                                                 $checkIfSubscribed = sizeof($database->where('categoria_id', $cat->id)->where('user_id', Auth::user()->id));
@@ -58,25 +74,6 @@
                                                 }
 
                                                 ?>
-
-                                                @role('simpatizante')
-                                                @if(auth()->user()->hasRole('simpatizante') and !$cat->secundaria)
-                                                @else
-                                                        <a href="{{route('cat.edit', $cat->id)}}" type="button"
-                                                           class="btn btn-primary">@lang("common.edit")</a>
-                                                        <button type="button" class="btn btn-danger" data-toggle="modal"
-                                                                data-target="#modal-delete-category-{{$cat->id}}"
-                                                                wfd-id="264">
-                                                            @lang('common.delete')
-                                                        </button>
-                                                    @endif
-                                                    @endrole
-                                                    @role('admin')
-                                                    <button type="button" class="btn btn-danger" data-toggle="modal"
-                                                            data-target="#modal-delete-cat-{{$cat->id}}" wfd-id="264">
-                                                        @lang('common.delete')
-                                                    </button>
-                                                    @endrole
                                             </form>
                                         </td>
                                     @endauth
@@ -87,7 +84,7 @@
                             <tr>
                                 <th>@lang("common.id")</th>
                                 <th>@lang("common.name")</th>
-                                <th>@lang("categorias.secondary")</th>
+                                <th>@lang("categorias.type")</th>
                                 @role('simpatizante')
                                 <th>@lang("common.actions")</th>
                                 @endrole

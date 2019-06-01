@@ -32,6 +32,10 @@ return [
     'list_content' => 'Listagem de Conteúdos',
     'perm_delete' =>'Pretende eliminar permanentemente o conteúdo',
     'delete_content' => 'Eliminar conteúdo',
+    'select_option' => 'Selecione uma opção',
+    'download' => 'Transferir conteúdo',
+    'set_public' =>'Colocar a público',
+    'set_private' =>'Colocar a privado'
 
 
 ];
