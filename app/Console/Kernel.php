@@ -32,7 +32,7 @@ class Kernel extends ConsoleKernel
         //          ->hourly();
         $schedule->call(new SendDailyDigest())->daily();
         $schedule->call(new ClearDownloadsDirectory())->everyThirtyMinutes();
-        $schedule->call(new ClearUsersNotVerified())->everyMinute();
+        $schedule->call(new ClearUsersNotVerified())->daily();
     }
 
     /**
