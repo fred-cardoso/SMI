@@ -16,7 +16,7 @@
     <section class="content">
         <div class="row">
             <div class="col-xs-12">
-                @extends('layout.result)
+                @include('layout.result')
                 <form role="form" action="{{route('user.edit', $user->id)}}" method="POST">
                     @csrf
                     <div class="box">

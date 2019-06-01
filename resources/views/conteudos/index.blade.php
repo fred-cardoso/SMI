@@ -15,7 +15,7 @@
     <section class="content">
         <div class="row">
             <div class="col-xs-12" id="main_div">
-                @extends('layout.result)
+                @include('layout.result')
                 @auth
                     <form action="{{route('uploads.batch')}}" method="POST" id="mass_action_form">
                         @csrf

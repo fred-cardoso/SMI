@@ -15,7 +15,7 @@
     <section class="content">
         <div class="row">
             <div class="col-xs-12">
-                @extends('layout.result)
+                @include('layout.result')
                 <div class="callout callout-warning">
                     <h4>@lang("common.warning")</h4>
 
