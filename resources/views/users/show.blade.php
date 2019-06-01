@@ -27,7 +27,7 @@
                         <h3 class="profile-username text-center">{{$user->name}}</h3>
 
                         <p class="text-muted text-center">{{$user->roles()->first()->name}}</p>
-
+<!--
                         @auth
                             @if(!\Request::is('profile') and !\Request::is('users/' . Auth::user()->id))
                                 <form action="{{route('user.subscribe', $user->id)}}" method="POST">
@@ -48,6 +48,7 @@
                                 </form>
                             @endif
                         @endauth
+                        -->
                     </div>
                     <!-- /.box-body -->
                 </div>
