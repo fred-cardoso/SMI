@@ -103,7 +103,7 @@
                         <h4 class="modal-title">Alerta!</h4>
                     </div>
                     <div class="modal-body">
-                        <p>Pretende eliminar o utilizador <b>{{$user->name}}</b> permanentemente?</p>
+                        <p>@lang('user.perm_delete')<b>{{$user->name}}</b> ?</p>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-outline pull-left" data-dismiss="modal" wfd-id="251">
@@ -111,7 +111,7 @@
                         </button>
                         <form action="{{route('user.delete', $user->id)}}" method="POST">
                             @csrf
-                            <input type="submit" class="btn btn-outline" wfd-id="250" value="Eliminar Utilizador"/>
+                            <input type="submit" class="btn btn-outline" wfd-id="250" value="{{@__('common.delete')}}"/>
                         </form>
                     </div>
                 </div>

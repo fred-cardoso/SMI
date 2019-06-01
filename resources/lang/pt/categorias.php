@@ -26,6 +26,8 @@ return [
     'edit_cat' => 'Editar Categoria',
     'list_cat' => 'Listar Categorias',
     'subed_cat' => 'Categorias Subscritas',
+    'perm_delete' =>'Tem a certeza que pretende eliminar a categoria: ',
+    'type' => 'Tipo',
 
 
 

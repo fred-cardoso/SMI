@@ -39,9 +39,11 @@
                                 <tr>
                                     <td>{{$cat->id}}</td>
                                     <td><a href="{{route('categorias.show', $cat->id)}}">{{$cat->nome}}</a></td>
-                                    <td><span class="label label-{{$cat->secundaria == 1 ? 'info' : 'primary'}}">{{$cat->secundaria == 1 ? 'Secundária' : 'Principal'}}</span></td>
+                                    <td>
+                                        <span class="label label-{{$cat->secundaria == 1 ? 'info' : 'primary'}}">{{$cat->secundaria == 1 ? 'Secundária' : 'Principal'}}</span>
+                                    </td>
 
-                                        @auth
+                                    @auth
                                         <td>
                                             <form action="{{route("cat.subscribe", $cat->id)}}" method="POST">
                                                 @csrf
@@ -59,15 +61,21 @@
 
                                                 @role('simpatizante')
                                                 @if(auth()->user()->hasRole('simpatizante') and !$cat->secundaria)
-
                                                 @else
                                                     <a href="{{route('cat.edit', $cat->id)}}" type="button"
                                                        class="btn btn-primary">@lang("common.edit")</a>
                                                     <button type="button" class="btn btn-danger" data-toggle="modal"
-                                                            data-target="#modal-delete-category-{{$cat->id}}" wfd-id="264">
+                                                            data-target="#modal-delete-category-{{$cat->id}}"
+                                                            wfd-id="264">
                                                         @lang('common.delete')
                                                     </button>
                                                 @endif
+                                                @endrole
+                                                @role('admin')
+                                                <button type="button" class="btn btn-danger" data-toggle="modal"
+                                                        data-target="#modal-delete-cat-{{$cat->id}}" wfd-id="264">
+                                                    @lang('common.delete')
+                                                </button>
                                                 @endrole
                                             </form>
                                         </td>

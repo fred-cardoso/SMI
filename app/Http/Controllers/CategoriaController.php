@@ -56,10 +56,10 @@ class CategoriaController extends Controller
 
         $resultado = $categoria->save();
 
-        if ($resultado) {
-            return redirect()->route('categorias')->withSuccess('Categoria criada com sucesso!');
+        if($resultado) {
+            return redirect()->route('categorias')->withSuccess(__('controllers.cat_create'));
         } else {
-            return redirect()->back()->withErrors('Ocorreu um erro!');
+            return redirect()->back()->withErrors(__('controllers.error_occured'));
         }
     }
 
@@ -122,10 +122,10 @@ class CategoriaController extends Controller
             }
         }
 
-        if ($categoria->save()) {
-            return redirect()->back()->withSuccess('Categoria atualizada com sucesso!');
+        if($categoria->save()) {
+            return redirect()->back()->withSuccess(__('controllers.cat_update'));
         } else {
-            return redirect()->back()->withErrors('Ocorreu um erro!');
+            return redirect()->back()->withErrors(__('controllers.error_occured'));
         }
     }
 
@@ -141,10 +141,10 @@ class CategoriaController extends Controller
             abort(404);
         }
 
-        if ($categoria->forceDelete()) {
-            return redirect()->back()->withSuccess('Categoria eliminada com sucesso!');
+        if($categoria->forceDelete()) {
+            return redirect()->back()->withSuccess(__('controllers.cat_delete'));
         } else {
-            return redirect()->back()->withErrors('Ocorreu um erro!');
+            return redirect()->back()->withErrors(__('controllers.error_occured'));
         }
     }
 }
