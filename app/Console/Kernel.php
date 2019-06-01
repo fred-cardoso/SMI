@@ -2,6 +2,8 @@
 
 namespace App\Console;
 
+use App\Tasks\ClearDownloadsDirectory;
+use App\Tasks\ClearUsersNotVerified;
 use App\Tasks\SendDailyDigest;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
@@ -29,9 +31,8 @@ class Kernel extends ConsoleKernel
         // $schedule->command('inspire')
         //          ->hourly();
         $schedule->call(new SendDailyDigest())->daily();
-        $schedule->call(function () {
-            Storage::deleteDirectory('download');
-        })->everyThirtyMinutes();
+        $schedule->call(new ClearDownloadsDirectory())->everyThirtyMinutes();
+        $schedule->call(new ClearUsersNotVerified())->daily();
     }
 
     /**
