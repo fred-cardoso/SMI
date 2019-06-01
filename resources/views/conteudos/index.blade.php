@@ -108,14 +108,14 @@
                                         <label>With Selected</label>
                                         <select class="form-control" id="action_selection" name="action"
                                                 onchange="massAction()">
-                                            <option value="">Select an option</option>
-                                            <option value="download">Download</option>
+                                            <option value="">@lang('conteudos.select_option')</option>
+                                            <option value="download">@lang('conteudos.download')</option>
                                             @role('admin')
                                             <option value="delete">@lang('common.delete')</option>
                                             @endrole
                                             @role('simpatizante')
-                                            <option value="visibility_public">Set Public</option>
-                                            <option value="visibility_private">Set Private</option>
+                                            <option value="visibility_public">@lang('conteudos.set_public')</option>
+                                            <option value="visibility_private">@lang('conteudos.set_private')</option>
                                             @endrole
                                         </select>
                                     @endauth

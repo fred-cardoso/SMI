@@ -8,7 +8,7 @@
             <small>Bem vindo!</small>
         </h1>
         <ol class="breadcrumb">
-            <li><i class="fa fa-dashboard"></i> Página Inicial</li>
+            <li><i class="fa fa-home"></i> Página Inicial</li>
         </ol>
     </section>
 
@@ -33,11 +33,11 @@
                                             href="{{route('uploads.show', $conteudo->id)}}">{{$conteudo->titulo}}</a></h3>
                             </div>
                             <div class="box-body">
-                                <strong><i class="fa fa-map-marker margin-r-5"></i> @lang('common.author')</strong>
+                                <strong><i class="fa fa-user margin-r-5"></i> @lang('common.author')</strong>
                                 <p class="text-muted"><a
                                             href="{{route('user', $conteudo->user()->first()->id)}}">{{$conteudo->user()->first()->name}}</a>
                                 </p>
-                                <strong><i class="fa fa-pencil margin-r-5"></i> @lang('categorias.categories')</strong>
+                                <strong><i class="fa fa-book margin-r-5"></i> @lang('categorias.categories')</strong>
                                 <p>
                                     @foreach($conteudo->category()->get() as $categoria)
                                         <span class="label label-{{$categoria->secundaria == 1 ? 'info' : 'primary'}}">{{$categoria->nome}}</span>
@@ -45,7 +45,7 @@
 
                                 </p>
                                 <hr>
-                                <strong><i class="fa fa-file-text-o margin-r-5"></i> @lang('common.creation_date')</strong>
+                                <strong><i class="fa fa-calendar margin-r-5"></i> @lang('common.creation_date')</strong>
                                 <p>{{$conteudo->created_at}}</p>
                             </div>
                         </div>
@@ -104,11 +104,11 @@
                                             href="{{route('uploads.show', $conteudo->id)}}">{{$conteudo->titulo}}</a></h3>
                             </div>
                             <div class="box-body">
-                                <strong><i class="fa fa-map-marker margin-r-5"></i> @lang('common.author')</strong>
+                                <strong><i class="fa fa-user margin-r-5"></i> @lang('common.author')</strong>
                                 <p class="text-muted"><a
                                             href="{{route('user', $conteudo->user()->first()->id)}}">{{$conteudo->user()->first()->name}}</a>
                                 </p>
-                                <strong><i class="fa fa-pencil margin-r-5"></i> @lang('categorias.categories')</strong>
+                                <strong><i class="fa fa-book margin-r-5"></i> @lang('categorias.categories')</strong>
                                 <p>
                                     @foreach($conteudo->category()->get() as $categoria)
                                         <span class="label label-{{$categoria->secundaria == 1 ? 'info' : 'primary'}}">{{$categoria->nome}}</span>
@@ -116,7 +116,7 @@
 
                                 </p>
                                 <hr>
-                                <strong><i class="fa fa-file-text-o margin-r-5"></i> @lang('common.creation_date')</strong>
+                                <strong><i class="fa fa-calendar margin-r-5"></i> @lang('common.creation_date')</strong>
                                 <p>{{$conteudo->created_at}}</p>
                             </div>
                         </div>
