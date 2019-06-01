@@ -34,8 +34,9 @@ return [
     'delete' => 'Delete',
     'last_modified' => ' Last modification',
     'role'=> 'Role',
-    'activity' =>'Activity'
-
+    'activity' =>'Activity',
+    'private' => 'Private',
+    'public' =>'Public',
 
 
 

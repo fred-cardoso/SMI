@@ -61,7 +61,7 @@
                                             <td>{{$conteudo->created_at}}</td>
                                             @role('admin')
                                             <td>
-                                                <span class="label label-{{$conteudo->privado == 1 ? 'danger' : 'success'}}">{{$conteudo->privado == 1 ? 'Privado' : 'Público'}}</span>
+                                                <span class="label label-{{$conteudo->privado == 1 ? 'danger' : 'success'}}">{{$conteudo->privado == 1 ? __('common.private') : __('common.public')}}</span>
                                             </td>
                                             @endrole
                                             @role('simpatizante')

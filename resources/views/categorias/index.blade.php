@@ -62,21 +62,21 @@
                                                 @role('simpatizante')
                                                 @if(auth()->user()->hasRole('simpatizante') and !$cat->secundaria)
                                                 @else
-                                                    <a href="{{route('cat.edit', $cat->id)}}" type="button"
-                                                       class="btn btn-primary">@lang("common.edit")</a>
+                                                        <a href="{{route('cat.edit', $cat->id)}}" type="button"
+                                                           class="btn btn-primary">@lang("common.edit")</a>
+                                                        <button type="button" class="btn btn-danger" data-toggle="modal"
+                                                                data-target="#modal-delete-category-{{$cat->id}}"
+                                                                wfd-id="264">
+                                                            @lang('common.delete')
+                                                        </button>
+                                                    @endif
+                                                    @endrole
+                                                    @role('admin')
                                                     <button type="button" class="btn btn-danger" data-toggle="modal"
-                                                            data-target="#modal-delete-category-{{$cat->id}}"
-                                                            wfd-id="264">
+                                                            data-target="#modal-delete-cat-{{$cat->id}}" wfd-id="264">
                                                         @lang('common.delete')
                                                     </button>
-                                                @endif
-                                                @endrole
-                                                @role('admin')
-                                                <button type="button" class="btn btn-danger" data-toggle="modal"
-                                                        data-target="#modal-delete-cat-{{$cat->id}}" wfd-id="264">
-                                                    @lang('common.delete')
-                                                </button>
-                                                @endrole
+                                                    @endrole
                                             </form>
                                         </td>
                                     @endauth
@@ -116,16 +116,15 @@
                         <h4 class="modal-title">@lang('common.warning')</h4>
                     </div>
                     <div class="modal-body">
-                        <p>@lang('conteudos.perm_delete') <b>{{$categoria->titulo}}</b> ? </p>
+                        <p>@lang('categorias.perm_delete')<b>{{$cat->nome}}</b> ?</p>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-outline pull-left" data-dismiss="modal" wfd-id="251">
-                            @lang('categorias.cancel')
+                            Cancelar
                         </button>
-                        <form action="{{route('categorias.delete', $categoria->id)}}" method="POST">
+                        <form action="{{route('cat.delete', $cat->id)}}" method="POST">
                             @csrf
-                            <input type="submit" class="btn btn-outline" wfd-id="250"
-                                   value="@lang("conteudos.delete_content")">
+                            <input type="submit" class="btn btn-outline" wfd-id="250" value="{{@__('common.delete')}}"/>
                         </form>
                     </div>
                 </div>

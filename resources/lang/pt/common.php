@@ -34,7 +34,9 @@ return [
     'delete' => 'Eliminar',
     'last_modified' => 'Ultima modificação',
     'role' =>'Papel',
-    'activity' =>'Actividade'
+    'activity' =>'Actividade',
+    'private' => 'Privado',
+    'public' =>'Publico',
 
 
 ];
