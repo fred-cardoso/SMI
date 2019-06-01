@@ -28,23 +28,7 @@ class RolesServiceProvider extends ServiceProvider
     {
         //Blade directives
         Blade::directive('role', function ($role) {
-            $role = str_replace("'", "", $role);
-
-            $roleBD = Role::where('slug', $role)->first();
-
-            $value = "false";
-
-            if (auth()->check()) {
-                try {
-                    if ($roleBD->id >= auth()->user()->roles()->first()->id) {
-                        $value = "true";
-                    }
-                } catch (\Exception $exception) {
-                    //Catch unrecognized $role variable
-                }
-            }
-
-            return "<?php if(auth()->check() && {$value}) : ?>";
+            return "<?php if(auth()->check() && auth()->user()->hasAccess({$role})) : ?>";
         });
         Blade::directive('endrole', function () {
             return "<?php endif; ?>";

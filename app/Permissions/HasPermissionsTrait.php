@@ -17,4 +17,18 @@ trait HasPermissionsTrait{
         }
         return false;
     }
+
+    public function hasAccess($role) {
+        $role = str_replace("'", "", $role);
+
+        try {
+            if (auth()->user()->roles()->first()->id <= Role::where('slug', $role)->first()->id) {
+                return true;
+            }
+        } catch (\Exception $exception) {
+            //Catch unrecognized $role variable
+        }
+
+        return false;
+    }
 }
