@@ -32,37 +32,41 @@ class InstallController extends Controller
         $permissions['storage_logs'] = is_writable(storage_path() . '\\logs') ? true : false;
         $permissions['storage_framework'] = is_writable(storage_path() . '\\framework') ? true : false;
 
-        if(in_array(false, $requirements)) {
+        if (in_array(false, $requirements)) {
             $this->valid = false;
         }
 
         return view('install.index', compact(['requirements', 'permissions']))->with('valid', $this->valid);
     }
 
-    public function store(Request $request) {
-        if(!$this->valid) {
+    public function store(Request $request)
+    {
+        if (!$this->valid) {
             return $this->install();
         }
-
-        Artisan::call('key:generate');
 
         $config_controller = new ConfigurationsController();
 
         $response = $config_controller->update($request);
 
-        if(!$response->getStatusCode() == 302) {
-            return redirect()->back()->withErrors('Ocorreu um erro!');
+        if (!$response->getStatusCode() == 302) {
+            return redirect()->back()->withErrors('Ocorreu um erro!')->withInput();
         }
 
-        if(!$this->checkDBConnection())
-            return redirect()->back()->withErrors('Ocorreu um erro ao ligar à base de dados!');
+        if (!$this->checkDBConnection()) {
+            return redirect()->back()->withErrors('Ocorreu um erro ao ligar à base de dados!')->withInput();
+        }
+
+        Artisan::call('migrate:fresh');
+        Artisan::call('key:generate');
 
         Storage::put('installed', '');
 
-        return route('home');
+        return redirect()->route('home');
     }
 
-    public function checkDBConnection() {
+    public function checkDBConnection()
+    {
         try {
             DB::connection()->getPdo();
             return true;

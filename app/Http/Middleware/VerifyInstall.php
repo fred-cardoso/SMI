@@ -16,14 +16,14 @@ class VerifyInstall
      */
     public function handle($request, Closure $next)
     {
-        if(File::exists(storage_path() . '\app\\' . 'installed')) {
-            return $next($request);
+        if(!File::exists(storage_path() . '\app\\' . 'installed') and $request->path() !== 'install') {
+            return redirect()->to('install');
         }
 
-        if($request->path() === 'install') {
-            return $next($request);
+        if(File::exists(storage_path() . '\app\\' . 'installed') and $request->path() === 'install') {
+            return redirect()->route('home');
         }
 
-        return redirect()->to('install');
+        return $next($request);
     }
 }

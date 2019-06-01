@@ -101,7 +101,7 @@
             @csrf
 
             <div class="form-group has-feedback">
-                <input type="text" name="db_host" class="form-control" placeholder="Endereço do Servidor" value="{{old('db_host')}}" required>
+                <input type="text" name="app_url" class="form-control" placeholder="Endereço da Aplicação (http://nome.com)" value="{{old('app_url')}}" required>
                 <span class="fa fa-server form-control-feedback"></span>
             </div>
 
@@ -133,7 +133,7 @@
                 <span class="fa fa-user form-control-feedback"></span>
             </div>
             <div class="form-group has-feedback">
-                <input type="password" name="db_password" class="form-control" placeholder="Password SQL" value="{{old('db_password')}}" required>
+                <input type="password" name="db_password" class="form-control" placeholder="Password SQL" required>
                 <span class="fa fa-lock form-control-feedback"></span>
             </div>
 
@@ -158,7 +158,7 @@
                 <span class="fa fa-user form-control-feedback"></span>
             </div>
             <div class="form-group has-feedback">
-                <input type="password" name="mail_password" class="form-control" placeholder="Password SMTP" value="{{old('mail_password')}}" required>
+                <input type="password" name="mail_password" class="form-control" placeholder="Password SMTP" required>
                 <span class="fa fa-lock form-control-feedback"></span>
             </div>
             <div class="form-group">
