@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class InstallController extends Controller
@@ -53,8 +54,20 @@ class InstallController extends Controller
             return redirect()->back()->withErrors('Ocorreu um erro!');
         }
 
+        if(!$this->checkDBConnection())
+            return redirect()->back()->withErrors('Ocorreu um erro ao ligar à base de dados!');
+
         Storage::put('installed', '');
 
         return route('home');
+    }
+
+    public function checkDBConnection() {
+        try {
+            DB::connection()->getPdo();
+            return true;
+        } catch (\Exception $e) {
+            return false;
+        }
     }
 }
