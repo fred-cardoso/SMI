@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-@include('layout.head')
+@extends('layout.head')
 @section('title', __('auth.register'))
 <body class="hold-transition register-page">
 <div class="register-box">
