@@ -35,7 +35,11 @@ return [
     'select_option' => 'Selecione uma opção',
     'download' => 'Transferir conteúdo',
     'set_public' =>'Colocar a público',
-    'set_private' =>'Colocar a privado'
+    'set_private' =>'Colocar a privado',
+    'select_act' => 'Ao Selecionar',
+    'no_content' =>' Sem conteúdo!',
+    'no_cnt_msg' =>'Ainda não foi introduzido qualquer conteúdo que pertença à categoria ',
+
 
 
 ];

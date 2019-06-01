@@ -1,5 +1,5 @@
 @extends('layout.layout')
-@section('title', 'Verificação de Email')
+@section('title', __('auth.email_veri'))
 @section('content')
     <section class="content">
         @if (session('status'))

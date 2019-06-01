@@ -35,4 +35,5 @@ return [
     'verification_1' => 'Before you can continue, please verify your inbox, if you do not receive our e-mail,',
     'verification_2' => 'Click here to re-send',
     'logout' => 'Log out',
+    'email_veri' =>'Email verification',
 ];

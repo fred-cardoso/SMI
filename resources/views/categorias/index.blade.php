@@ -1,5 +1,5 @@
 @extends('layout.layout')
-@section('title', 'Mostrar Categorias')
+@section('title', __('categorias.categories'))
 @section('content')
 
     <section class="content-header">
@@ -40,7 +40,7 @@
                                     <td>{{$cat->id}}</td>
                                     <td><a href="{{route('categorias.show', $cat->id)}}">{{$cat->nome}}</a></td>
                                     <td>
-                                        <span class="label label-{{$cat->secundaria == 1 ? 'info' : 'primary'}}">{{$cat->secundaria == 1 ? 'Secundária' : 'Principal'}}</span>
+                                        <span class="label label-{{$cat->secundaria == 1 ? 'info' : 'primary'}}">{{$cat->secundaria == 1 ?  __('categorias.secondary') : __('categorias.main')}}</span>
                                     </td>
 
                                     @auth

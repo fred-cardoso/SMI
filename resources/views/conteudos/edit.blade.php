@@ -1,5 +1,5 @@
 @extends('layout.layout')
-@section('title', 'Editar ' . $conteudo->titulo)
+@section('title', __('categories.edit') . $conteudo->titulo)
 @section('content')
     <section class="content-header">
         <h1>

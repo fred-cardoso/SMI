@@ -28,6 +28,8 @@ return [
     'subed_cat' => 'Categorias Subscritas',
     'perm_delete' =>'Tem a certeza que pretende eliminar a categoria: ',
     'type' => 'Tipo',
+    'main' => 'Principal',
+
 
 
 

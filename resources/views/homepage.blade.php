@@ -1,14 +1,13 @@
 @extends('layout.layout')
-@section('title', 'Página Inicial')
+@section('title', __('categorias.home_page'))
 @section('content')
     <!-- Content Header (Page header) -->
     <section class="content-header">
-        <h1>
-            Página Inicial
-            <small>Bem vindo!</small>
+        <h1>@lang('categorias.home_page')
+            <small>@lang('common.welcome')</small>
         </h1>
         <ol class="breadcrumb">
-            <li><i class="fa fa-home"></i> Página Inicial</li>
+            <li><i class="fa fa-home"></i>@lang('categorias.home_page')</li>
         </ol>
     </section>
 

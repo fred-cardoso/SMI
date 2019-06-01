@@ -34,6 +34,8 @@ return [
     'verification_1' => '  Antes de continuar, por favor verifique o seu email. Se não recebeu o email, ',
     'verification_2' =>'clique aqui para voltar a enviar',
     'logout' => 'Sair',
+    'email_veri' =>'Verificação de E-mail',
+
 
 
 
