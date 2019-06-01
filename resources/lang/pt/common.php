@@ -38,6 +38,11 @@ return [
     'private' => 'Privado',
     'public' =>'Publico',
     'welcome' => 'Bem vindo!',
+    'follow' =>'Seguir',
+    'unfollow' =>'Deixar de seguir',
+    'search' =>'Procurar...',
+    'search_failed' =>'Não foi encontrado conteúdos para a sua pesquisa!',
+    'search_rs' => 'Resultados da pesquisa',
 
 
 ];

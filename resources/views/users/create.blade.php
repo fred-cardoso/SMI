@@ -1,5 +1,5 @@
 @extends('layout.layout')
-@section('title', 'Criar Utilizador')
+@section('title', __('user.create'))
 @section('content')
     <section class="content-header">
         <h1>

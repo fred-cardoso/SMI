@@ -35,6 +35,8 @@ return [
     'verification_2' =>'clique aqui para voltar a enviar',
     'logout' => 'Sair',
     'email_veri' =>'Verificação de E-mail',
+    'sucess' =>'Sucesso',
+
 
 
 

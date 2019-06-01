@@ -37,7 +37,12 @@ return [
     'activity' =>'Activity',
     'private' => 'Private',
     'public' =>'Public',
-    'welcome' =>'Welcome!!'
+    'welcome' =>'Welcome!!',
+    'follow' =>'Follow',
+    'unfollow' =>'Unfollow',
+    'search' =>'Search...',
+    'search_failed' =>"We're sorry but we were unable to find matches for your search.",
+    'search_rs' =>'Search Result',
 
 
 
