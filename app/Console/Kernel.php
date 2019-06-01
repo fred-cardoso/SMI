@@ -5,6 +5,7 @@ namespace App\Console;
 use App\Tasks\SendDailyDigest;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use Illuminate\Support\Facades\Storage;
 
 class Kernel extends ConsoleKernel
 {
@@ -28,6 +29,9 @@ class Kernel extends ConsoleKernel
         // $schedule->command('inspire')
         //          ->hourly();
         $schedule->call(new SendDailyDigest())->daily();
+        $schedule->call(function () {
+            Storage::deleteDirectory('download');
+        })->everyThirtyMinutes();
     }
 
     /**
