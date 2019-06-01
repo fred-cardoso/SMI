@@ -16,7 +16,7 @@
     <section class="content">
         <div class="row">
             <div class="col-xs-12">
-                @extends('layout.result)
+                @extends('layout.result')
                 <form role="form" action="{{route('uploads.edit', $conteudo->id)}}" method="POST"
                       enctype="multipart/form-data">
                     @csrf

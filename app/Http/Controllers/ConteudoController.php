@@ -169,6 +169,19 @@ class ConteudoController extends Controller
             }
         }
 
+        dd($file);
+
+        //TinyPNG
+        if($file->getMimeType()[0] == "image") {
+            $result = Tinify::fromBuffer($source_data);
+
+            /** To save as File **/
+            $result->toFile('\path\to\save');
+
+            /** To get image as data **/
+            $data = $result->toBuffer();
+        }
+
         //Inserção de conteúdo único
         $path = $file->store('files');
 
