@@ -39,7 +39,8 @@ return [
     'public' =>'Public',
     'welcome' =>'Welcome!!',
     'follow' =>'Follow',
-    'unfollow' =>'Unfollow'
+    'unfollow' =>'Unfollow',
+    'search' =>'Search...',
 
 
 

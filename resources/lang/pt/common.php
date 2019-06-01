@@ -39,7 +39,8 @@ return [
     'public' =>'Publico',
     'welcome' => 'Bem vindo!',
     'follow' =>'Seguir',
-    'unfollow' =>'Deixar de seguir'
+    'unfollow' =>'Deixar de seguir',
+    'search' =>'Procurar...'
 
 
 ];

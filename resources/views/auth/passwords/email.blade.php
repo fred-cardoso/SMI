@@ -16,7 +16,7 @@
                     @csrf
                     <div class="form-group row">
                         <label for="email"
-                               class="col-md-4 col-form-label text-md-right">@lang("email")</label>
+                               class="col-md-4 col-form-label text-md-right">@lang("auth.email")</label>
                         <div class="col-sm-12">
                             <input id="email" type="email"
                                    class="form-control @error('email') is-invalid @enderror" name="email"
@@ -32,7 +32,7 @@
                 </div>
                 <div class="box-footer">
                     <button type="submit" class="btn btn-primary">
-                       @lang("send_email_reco");
+                       @lang("auth.send_email_reco")
                     </button>
                 </div>
             </form>
