@@ -1,7 +1,6 @@
 <?php
 namespace App\Permissions;
 
-use App\Permissions;
 use App\Role;
 
 trait HasPermissionsTrait{

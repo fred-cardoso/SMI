@@ -3,9 +3,12 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Traits\ConteudoUserTrait;
 
 class Conteudo extends Model
 {
+    use ConteudoUserTrait;
+
     protected $fillable = [
         'titulo','tipo','nome','descricao','privado','user_id'
     ];
