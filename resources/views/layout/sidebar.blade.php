@@ -29,12 +29,14 @@
 
                 </a>
                 <ul class="treeview-menu">
-                    <li class="{{ request()->url() == route('uploads') ? 'active' : '' }}"><a href="{{route('uploads')}}"><i
+                    <li class="{{ request()->url() == route('uploads') ? 'active' : '' }}"><a
+                                href="{{route('uploads')}}"><i
                                     class="fa fa-circle-o"></i>@lang('conteudos.list_content')</a></li>
                     @role('simpatizante')
 
                     <li class="{{ request()->url() == route('upload') ? 'active' : '' }}"><a
-                                href="{{route('upload')}}"><i class="fa fa-circle-o"></i>@lang('conteudos.upload_content')</a>
+                                href="{{route('upload')}}"><i
+                                    class="fa fa-circle-o"></i>@lang('conteudos.upload_content')</a>
                     </li>
                     @endrole
 
@@ -71,44 +73,51 @@
                 </a>
                 <ul class="treeview-menu">
                     <li class="{{ request()->url() == route('categorias') ? 'active' : '' }}"><a
-                                href="{{route('categorias')}}"><i class="fa fa-circle-o"></i>@lang('categorias.list_cat') </a></li>
+                                href="{{route('categorias')}}"><i
+                                    class="fa fa-circle-o"></i>@lang('categorias.list_cat') </a></li>
                     @auth
                         @if(auth()->user()->categoria()->count())
-                        <li class="treeview">
-                            <a href="#"><i class="fa fa-circle-o"></i>@lang('categorias.subed_cat')
-                                <span class="pull-right-container">
+                            <li class="treeview">
+                                <a href="#"><i class="fa fa-circle-o"></i>@lang('categorias.subed_cat')
+                                    <span class="pull-right-container">
       <i class="fa fa-angle-left pull-right"></i>
     </span>
-                            </a>
+                                </a>
 
-                            <ul class="treeview-menu">
-                                <?php
-                                $user_id = auth()->user()->id;
-                                $categoria = auth()->user()->categoria();
-                                $counter = $categoria->count();
-                                $catFinder = 1;
-                                for ($x = 0; $x < $counter;) {
+                                <ul class="treeview-menu">
+                                    <?php
+                                    $user_id = auth()->user()->id;
                                     $categoria = auth()->user()->categoria();
-                                    $putCategoria = $categoria->where('categoria_id', $catFinder)->where('user_id', $user_id)->get();
-                                    if ($putCategoria->isEmpty()) {
-                                    } else {
-                                        $cat_name = $putCategoria->first()->nome;
-                                        $cat_id = $putCategoria->first()->id;
-                                        echo '<li><a href="/categorias/' . $cat_id . '"><i class="fa fa-book"></i> <span>' . $cat_name . '</span></a></li>';
-                                        $x++;
+                                    $counter = $categoria->count();
+                                    $catFinder = 1;
+                                    for ($x = 0; $x < $counter;) {
+                                        $categoria = auth()->user()->categoria();
+                                        $putCategoria = $categoria->where('categoria_id', $catFinder)->where('user_id', $user_id)->get();
+                                        if ($putCategoria->isEmpty()) {
+                                        } else {
+                                            $cat_name = $putCategoria->first()->nome;
+                                            $cat_id = $putCategoria->first()->id;
+                                            echo '<li><a href="/categorias/' . $cat_id . '"><i class="fa fa-book"></i> <span>' . $cat_name . '</span></a></li>';
+                                            $x++;
+                                        }
+                                        $catFinder += 1;
                                     }
-                                    $catFinder += 1;
-                                }
-                                ?>
-                            </ul>
+                                    ?>
+                                </ul>
 
-                        </li>
+                            </li>
                         @endif
                         @role('simpatizante')
                         <li class="{{ request()->url() == route('cat.create') ? 'active' : '' }}"><a
-                                    href="{{route('cat.create')}}"><i class="fa fa-circle-o"></i>@lang('categorias.create_cat')</a>
+                                    href="{{route('cat.create')}}"><i
+                                        class="fa fa-circle-o"></i>@lang('categorias.create_cat')</a>
                         </li>
                         @endrole
+                        @if(request()->is('categorias/'))
+                            <li class="active"><a
+                                        href="#"><i class="fa fa-book"></i>Ver com o fred</a>
+                            </li>
+                        @endif
 
                     @endauth
                 </ul>
@@ -120,7 +129,8 @@
             <li class="{{ request()->is('configurations/edit') ? 'active' : '' }}"><a href="{{route('config')}}"><i
                             class="fa fa-circle-o text-red"></i>
                     <span>@lang('common.config_system')</span></a></li>
-            <li class=""><a href="#"><i class="fa fa-circle-o text-aqua"></i><span>@lang('outlayout.ban')</span></a></li>
+            <li class=""><a href="#"><i class="fa fa-circle-o text-aqua"></i><span>@lang('outlayout.ban')</span></a>
+            </li>
             @endrole
             <!--
            <li class="treeview">

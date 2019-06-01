@@ -37,11 +37,11 @@
                                     $checkIfSubscribed = sizeof($database->where('subscribed_id', $userAuth && 'user_id', $user->id));
 
                                     if ($checkIfSubscribed == 0) {
-                                        echo '<input type="submit" class="btn btn-primary btn-block" value="Seguir">';
+                                        echo '<input type="submit" class="btn btn-primary btn-block" value="'.__('common.follow').'">';
 
 
                                     } else {
-                                        echo '<input type="submit" class="btn btn-warning btn-block" value="Parar de Seguir">';
+                                        echo '<input type="submit" class="btn btn-warning btn-block" value="'.__('common.unfollow').'">';
                                     }
 
                                     ?>
@@ -119,7 +119,7 @@
                                         <a href="{{route('uploads.show', $conteudo->id)}}"><span class="username"
                                                                                                  style="margin-left: 0">{{$conteudo->titulo}}</span></a>
                                         <span class="description" style="margin-left: 0">
-                                            <span class="label label-{{$conteudo->privado == 1 ? 'danger' : 'success'}}">{{$conteudo->privado == 1 ? 'Privado' : 'Público'}}</span>
+                                            <span class="label label-{{$conteudo->privado == 1 ? 'danger' : 'success'}}">{{$conteudo->privado == 1 ? __('common.private') : __('common.public')}}</span>
                                             &nbsp;{{$conteudo->created_at}}
                                         </span>
                                     </div>

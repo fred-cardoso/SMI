@@ -37,7 +37,9 @@ return [
     'activity' =>'Activity',
     'private' => 'Private',
     'public' =>'Public',
-    'welcome' =>'Welcome!!'
+    'welcome' =>'Welcome!!',
+    'follow' =>'Follow',
+    'unfollow' =>'Unfollow'
 
 
 

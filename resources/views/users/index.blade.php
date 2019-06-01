@@ -1,5 +1,5 @@
 @extends('layout.layout')
-@section('title', 'Utilizadores')
+@section('title', __('categorias.users'))
 @section('content')
     <section class="content-header">
         <h1>

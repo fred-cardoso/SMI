@@ -38,6 +38,8 @@ return [
     'private' => 'Privado',
     'public' =>'Publico',
     'welcome' => 'Bem vindo!',
+    'follow' =>'Seguir',
+    'unfollow' =>'Deixar de seguir'
 
 
 ];
