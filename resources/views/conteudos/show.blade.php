@@ -9,7 +9,13 @@
         <ol class="breadcrumb">
             <li><a href="{{route('home')}}"><i class="fa fa-home"></i>@lang('categorias.home_page')</a></li>
             <li><a href="{{route('uploads')}}"><i class="fa fa-television"></i> @lang('conteudos.content')</a></li>
-            <li class="active"><i class="fa fa-youtube-square"></i> {{$conteudo->titulo}}</li>
+            @if($conteudo->tipo == 'audio')
+                <li><a href="{{route('uploads')}}"><i class="fa fa-music"></i> {{$conteudo->titulo}}</a></li>
+            @elseif($conteudo->tipo == 'video')
+                <li><a href="{{route('uploads')}}"><i class="fa fa-youtube"></i> {{$conteudo->titulo}}</a></li>
+            @else
+                <li><a href="{{route('uploads')}}"><i class="fa fa-image"></i> {{$conteudo->titulo}} </a></li>
+            @endif
         </ol>
     </section>
 
