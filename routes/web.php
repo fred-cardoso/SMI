@@ -80,7 +80,7 @@ Route::group(['middleware' => ['auth', 'verified', 'role:user']], function () {
         Route::get('uploads/{conteudo}/edit', 'ConteudoController@edit')->where(['conteudo' => '[0-9]+'])->name('uploads.edit');
         Route::post('uploads/{conteudo}/edit', 'ConteudoController@update')->where(['conteudo' => '[0-9]+']);
 
-        Route::post('categorias/{categoria}/delete', 'CategoriaController@destroy')->where(['categoria' => '[0-9]+']);
+        Route::post('categorias/{categoria}/delete', 'CategoriaController@destroy')->where(['categoria' => '[0-9]+'])->name('cat.delete');
         /**
          * Routes for admin
          */
