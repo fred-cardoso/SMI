@@ -33,7 +33,7 @@
             $counter = 0;
         @endphp
         @foreach($conteudos as $conteudo)
-            @if($conteudo->privado and (!auth()->check() or !auth()->user()->hasRole('admin') or !$conteudo->isOwner(auth()->user())))
+                @if($conteudo->privado and (!auth()->check() or (!auth()->user()->hasRole('admin') and !$conteudo->isOwner(auth()->user()))))
                 @continue
             @endif
             @php
