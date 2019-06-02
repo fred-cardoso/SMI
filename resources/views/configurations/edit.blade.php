@@ -34,61 +34,73 @@
                             <!-- text input -->
                             <div class="form-group">
                                 <label>APP_URL</label>
-                                <input type="text" name="app_url" value="{{$config['app_url'] ?? ''}}" required>
+                                <input class="form-control" type="text" name="app_url" value="{{$config['app_url'] ?? ''}}" required>
                             </div>
-                            <br><br><br>
+                            <hr>
+                            <h4>Email Configurations</h4>
+                            <hr>
                             <div class="form-group">
                                 <label>MAIL_DRIVER</label>
-                                <input type="text" name="mail_driver" value="{{$config['mail_driver'] ?? ''}}" required>
+                                <select class="form-control" name="mail_driver" readonly>
+                                    <option value="smtp">SMTP</option>
+                                </select>
                             </div>
                             <div class="form-group">
                                 <label>MAIL_HOST</label>
-                                <input type="text" name="mail_host" value="{{$config['mail_host']  ?? ''}}" required>
+                                <input class="form-control" type="text" name="mail_host" value="{{$config['mail_host']  ?? ''}}" required>
                             </div>
                             <div class="form-group">
                                 <label>MAIL_PORT</label>
-                                <input type="number" name="mail_port" value="{{$config['mail_port']  ?? '' }}" required>
+                                <input class="form-control" type="number" name="mail_port" value="{{$config['mail_port']  ?? '' }}" required>
                             </div>
                             <div class="form-group">
                                 <label>MAIL_USERNAME</label>
-                                <input type="text" name="mail_username" value="{{$config['mail_username']  ?? ''}}" required>
+                                <input class="form-control" type="text" name="mail_username" value="{{$config['mail_username']  ?? ''}}" required>
                             </div>
                             <div class="form-group">
                                 <label>MAIL_PASSWORD</label>
-                                <input type="text" name="mail_password" value="{{$config['mail_password']  ?? ''}}" required>
+                                <input class="form-control" type="text" name="mail_password" value="{{$config['mail_password']  ?? ''}}" required>
                             </div>
                             <div class="form-group">
                                 <label>MAIL_ENCRYPTION</label>
-                                <input type="text" name="mail_encryption" value="{{$config['mail_encryption']  ?? ''}}" required>
+                                <input class="form-control" type="text" name="mail_encryption" value="{{$config['mail_encryption']  ?? ''}}" required>
                             </div>
                             <div class="form-group">
                                 <label>MAIL_FROM_ADDRESS</label>
-                                <input type="text" name="mail_from_address" value="{{$config['mail_from_address'] ?? ''}}" required>
+                                <input class="form-control" type="email" name="mail_from_address" value="{{$config['mail_from_address'] ?? ''}}" required>
                             </div>
-                            </br></br></br>
+                            <hr>
+                            <h4>Database Configurations</h4>
+                            <hr>
                             <div class="form-group">
                                 <label>DB_CONNECTION</label>
-                                <input type="text" name="db_connection" value="{{$config['db_connection']  ?? ''}}" required>
+                                <select class="form-control" name="db_connection">
+                                    <option value="mysql">MySQL</option>
+                                    <option value="pgsql">PostreSQL</option>
+                                    <option value="sqlite">SQLite</option>
+                                    <option value="sqlsrv">SQL Server</option>
+                                </select>
                             </div>
+
                             <div class="form-group">
                                 <label>DB_HOST</label>
-                                <input type="text" name="db_host" value="{{$config['db_host'] ?? ''}}" required>
+                                <input class="form-control" type="text" name="db_host" value="{{$config['db_host']}}" required>
                             </div>
                             <div class="form-group">
                                 <label>DB_PORT</label>
-                                <input type="number" name="db_port" value="{{$config['db_port'] ?? ''}}" required>
+                                <input class="form-control" type="number" name="db_port" value="{{$config['db_port']}}" required>
                             </div>
                             <div class="form-group">
                                 <label>DB_DATABSE</label>
-                                <input type="text" name="db_database" value="{{$config['db_database'] ?? ''}}" required>
+                                <input class="form-control" type="text" name="db_database" value="{{$config['db_database']}}" required>
                             </div>
                             <div class="form-group">
                                 <label>DB_USERNAME</label>
-                                <input type="text" name="db_username" value="{{$config['db_username'] ?? ''}}" required>
+                                <input class="form-control" type="text" name="db_username" value="{{$config['db_username']}}" required>
                             </div>
                             <div class="form-group">
                                 <label>DB_PASSWORD</label>
-                                <input type="text" name="db_password" value="{{$config['db_password'] ?? ''}}" required>
+                                <input class="form-control" type="text" name="db_password" value="{{$config['db_password']}}" required>
                             </div>
                         </div>
                         <!-- /.box-body -->

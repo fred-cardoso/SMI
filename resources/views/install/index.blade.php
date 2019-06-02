@@ -111,9 +111,9 @@
             <div class="form-group">
                 <select name="db_connection" class="form-control">
                     <option value="mysql">MySQL</option>
-                    <option value="posrtgresql">PostreSQL</option>
+                    <option value="pgsql">PostreSQL</option>
                     <option value="sqlite">SQLite</option>
-                    <option value="sqlserver">SQL Server</option>
+                    <option value="sqlsrv">SQL Server</option>
                 </select>
             </div>
             <div class="form-group has-feedback">
