@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Categoria;
 use App\Conteudo;
 use Illuminate\Http\Request;
 
@@ -18,10 +19,15 @@ class SearchController extends Controller
             'q' => ['required', 'string', 'max:255']
         ]);
         $validation =$validatedData['q'];
-        $pesquisa = Conteudo::where('titulo', 'LIKE', '%'.$validation.'%')->orWhere('descricao', 'LIKE', '%'.$validation.'%')->get();
+        $conteudos = Conteudo::where('titulo', 'LIKE', '%'.$validation.'%')->orWhere('descricao', 'LIKE', '%'.$validation.'%')->get();
+        $categorias = Categoria::where('nome', 'LIKE', '%'.$validation.'%')->get();
+
+
+        //dd($categorias);
+        //dd($pesquisa);
 
 
         //dd($pesquisa);
-        return view('search.index', compact('pesquisa'));
+        return view('search.index', compact('conteudos'),compact("categorias"));
     }
 }

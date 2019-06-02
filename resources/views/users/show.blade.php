@@ -21,34 +21,36 @@
                 <!-- Profile Image -->
                 <div class="box box-primary">
                     <div class="box-body box-profile">
-                        <img class="profile-user-img img-responsive img-circle" src="https://www.bsn.eu/wp-content/uploads/2016/12/user-icon-image-placeholder-300-grey.jpg"
+                        <img class="profile-user-img img-responsive img-circle"
+                             src="https://www.bsn.eu/wp-content/uploads/2016/12/user-icon-image-placeholder-300-grey.jpg"
                              alt="User profile picture">
 
                         <h3 class="profile-username text-center">{{$user->name}}</h3>
 
                         <p class="text-muted text-center">{{$user->roles()->first()->name}}</p>
-<!--
-                        @auth
-                            @if(!\Request::is('profile') and !\Request::is('users/' . Auth::user()->id))
-                                <form action="{{route('user.subscribe', $user->id)}}" method="POST">
-                                    @csrf
-                                    <?php $userAuth = Auth::User()->id;
-                                    $database = DB::table("user_user")->get();
-                                    $checkIfSubscribed = sizeof($database->where('subscribed_id', $userAuth && 'user_id', $user->id));
+                        @if(false)
+                            @auth
+                                @if(!\Request::is('profile') and !\Request::is('users/' . Auth::user()->id))
+                                    <form action="{{route('user.subscribe', $user->id)}}" method="POST">
+                                        @csrf
+                                        <?php $userAuth = Auth::User()->id;
+                                        $database = DB::table("user_user")->get();
+                                        $checkIfSubscribed = sizeof($database->where('subscribed_id', $userAuth && 'user_id', $user->id));
 
-                                    if ($checkIfSubscribed == 0) {
-                                        echo '<input type="submit" class="btn btn-primary btn-block" value="'.__('common.follow').'">';
+                                        if ($checkIfSubscribed == 0) {
+                                            echo '<input type="submit" class="btn btn-primary btn-block" value="' . __('common.follow') . '">';
 
 
-                                    } else {
-                                        echo '<input type="submit" class="btn btn-warning btn-block" value="'.__('common.unfollow').'">';
-                                    }
+                                        } else {
+                                            echo '<input type="submit" class="btn btn-warning btn-block" value="' . __('common.unfollow') . '">';
+                                        }
 
-                                    ?>
-                                </form>
-                            @endif
-                        @endauth
-                        -->
+                                        ?>
+                                    </form>
+                                @endif
+                            @endauth
+                        @endif
+
                     </div>
                     <!-- /.box-body -->
                 </div>
@@ -111,7 +113,7 @@
                                 <!-- /.post -->
                             @endif
                             @foreach($conteudos as $conteudo)
-                                    @if($conteudo->privado and (!auth()->check() or (!auth()->user()->hasRole('admin') and !$conteudo->isOwner(auth()->user()))))
+                                @if($conteudo->privado and (!auth()->check() or (!auth()->user()->hasRole('admin') and !$conteudo->isOwner(auth()->user()))))
                                     @continue
                                 @endif
                             <!-- Post -->
