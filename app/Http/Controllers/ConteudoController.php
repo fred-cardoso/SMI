@@ -279,7 +279,7 @@ class ConteudoController extends Controller
             $conteudo->category()->attach($categoria);
         }
 
-        return redirect()->back()->withSuccess("Conteúdo editado com sucesso!");
+        return redirect()->back()->withSuccess(__('conteudos.edit_suc'));
     }
 
     /**
@@ -296,7 +296,7 @@ class ConteudoController extends Controller
 
         Storage::delete($conteudo->nome);
         if ($conteudo->forceDelete()) {
-            return redirect()->back()->withSuccess('Conteúdo eliminado com sucesso!');
+            return redirect()->back()->withSuccess(__('conteudos.delete_suc'));
         } else {
             return redirect()->back()->withErrors(__('controllers.error_occured'));
 
@@ -372,6 +372,6 @@ class ConteudoController extends Controller
             }
         }
 
-        return redirect()->back()->withSuccess('Alterações efectuadas com sucesso!');
+        return redirect()->back()->withSuccess(__('conteudos.update_suc'));
     }
 }

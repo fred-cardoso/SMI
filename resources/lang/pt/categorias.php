@@ -29,6 +29,8 @@ return [
     'perm_delete' =>'Tem a certeza que pretende eliminar a categoria: ',
     'type' => 'Tipo',
     'main' => 'Principal',
+    'sub' =>'Subscreveu com êxito à categoria.',
+    'unsub' =>'Retirou a sua subscrição com exito.',
 
 
 

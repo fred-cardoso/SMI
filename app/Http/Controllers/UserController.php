@@ -211,10 +211,12 @@ class UserController extends Controller
         $cat_id = $subed_cat->id;
         if ($request->sub == "Unsubscribe") {
             $user->categoria()->detach(['categoria_id' => $cat_id]);
+            $subbed = __('categorias.unsub');
         } else {
             $user->categoria()->attach(['categoria_id' => ['categoria_id' => $cat_id]]);
+            $subbed = __('categorias.sub');
         }
 
-        return redirect()->back()->withSuccess(__('controllers.subscribe'));
+        return redirect()->back()->withSuccess($subbed);
     }
 }

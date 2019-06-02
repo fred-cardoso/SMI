@@ -39,6 +39,10 @@ return [
     'select_act' => 'Ao Selecionar',
     'no_content' =>' Sem conteúdo!',
     'no_cnt_msg' =>'Ainda não foi introduzido qualquer conteúdo que pertença à categoria ',
+    'edit_suc' =>'Conteúdo editado com sucesso',
+    'delete_suc' =>'Conteúdo eliminado com sucesso',
+    'update_suc' =>'Alterações efectuadas com sucesso!',
+
 
 
 

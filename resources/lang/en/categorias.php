@@ -30,6 +30,8 @@ return [
     'perm_delete' =>'Are you sure you want to permanently delete the category: ',
     'type' => 'Type',
     'main' => 'Main',
+    'sub' =>'Category sucessfully subscribed.',
+    'unsub' =>'Category sucessfully unsubscribed.',
 
 
 

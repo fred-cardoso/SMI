@@ -36,7 +36,11 @@ return [
     'set_private' => 'Set to private',
     'select_act' => 'With Selected',
     'no_content' => "There's no content!",
-    'no_cnt_msg' => 'There are no content available that belong to the following category: '
+    'no_cnt_msg' => 'There are no content available that belong to the following category: ',
+    'edit_suc' =>'Content sucessfully edited',
+    'delete_suc' =>'Content sucessfully deleted',
+    'update_suc' =>'Content sucessfully updated',
+
 
 
 ];
