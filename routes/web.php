@@ -60,7 +60,6 @@ Route::group(['middleware' => ['auth', 'verified', 'role:user']], function () {
         return $controller->updateProfile(Auth::user(), request());
     })->name('profile_edit');
 
-    Route::post('users/{user}/subscribe', 'UserController@subscribeUser')->where(['user' => '[0-9]+'])->name('user.subscribe');
     Route::post('users/{categoria}/subscribeCat', 'UserController@subscribeCategoria')->where(['categoria' => '[0-9]+'])->name('cat.subscribe');
 
     Route::post('categorias/{categoria}/subscribe', 'UserController@subscribeCategoria')->where(['categoria' => '[0-9]+'])->name('categorias.delete');

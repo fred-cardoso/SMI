@@ -28,7 +28,9 @@
                                         @auth
                                             <th style="width: 10px"></th>
                                         @endauth
-                                        <th>@lang('common.id')</th>
+                                        @if((auth()->check() and auth()->user()->hasRole('admin')) or (auth()->check() and $conteudo->isOwner(auth()->user())))
+                                            <th>@lang('common.id')</th>
+                                        @endif
                                         <th>@lang('conteudos.title')</th>
                                         <th>@lang('common.author')</th>
                                         <th>@lang('common.creation_date')</th>
@@ -57,11 +59,11 @@
                                             @continue
                                         @endif
                                         <tr>
-                                            <td>
-                                                @if((auth()->check() and auth()->user()->hasRole('admin')) or (auth()->check() and $conteudo->isOwner(auth()->user())))
+                                            @if((auth()->check() and auth()->user()->hasRole('admin')) or (auth()->check() and $conteudo->isOwner(auth()->user())))
+                                                <td>
                                                     <input type="checkbox" name="selected[]" value="{{$conteudo->id}}">
-                                                @endif
-                                            </td>
+                                                </td>
+                                            @endif
                                             <td>{{$conteudo->id}}</td>
                                             <td>
                                                 <a href="{{route('uploads.show', $conteudo->id)}}">{{$conteudo->titulo}}</a>
@@ -100,7 +102,9 @@
                                         @auth
                                             <th></th>
                                         @endauth
-                                        <th>@lang('common.id')</th>
+                                        @if((auth()->check() and auth()->user()->hasRole('admin')) or (auth()->check() and $conteudo->isOwner(auth()->user())))
+                                            <th>@lang('common.id')</th>
+                                        @endif
                                         <th>@lang('conteudos.title')</th>
                                         <th>@lang('common.author')</th>
                                         <th>@lang('common.creation_date')</th>

@@ -66,13 +66,12 @@
                                                     <a href="{{route('cat.edit', $cat->id)}}" type="button"
                                                        class="btn btn-primary">@lang("common.edit")</a>
                                                     </button>
+                                                    <button type="button" class="btn btn-danger" data-toggle="modal"
+                                                            data-target="#modal-delete-category-{{$cat->id}}"
+                                                            wfd-id="264">
+                                                        @lang('common.delete')
+                                                    </button>
                                                 @endif
-                                                @endrole
-                                                @role('admin')
-                                                <button type="button" class="btn btn-danger" data-toggle="modal"
-                                                        data-target="#modal-delete-cat-{{$cat->id}}" wfd-id="264">
-                                                    @lang('common.delete')
-                                                </button>
                                                 @endrole
                                                 <?php $userAuth = Auth::User()->id;
                                                 $database = DB::table("user_categoria")->get();
@@ -124,13 +123,13 @@
                         <h4 class="modal-title">@lang('common.warning')</h4>
                     </div>
                     <div class="modal-body">
-                        <p>@lang('categorias.perm_delete')<b>{{$cat->nome}}</b> ?</p>
+                        <p>@lang('categorias.perm_delete')<b>{{$categoria->nome}}</b> ?</p>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-outline pull-left" data-dismiss="modal" wfd-id="251">
                             Cancelar
                         </button>
-                        <form action="{{route('cat.delete', $cat->id)}}" method="POST">
+                        <form action="{{route('cat.delete', $categoria->id)}}" method="POST">
                             @csrf
                             <input type="submit" class="btn btn-outline" wfd-id="250" value="{{@__('common.delete')}}"/>
                         </form>
