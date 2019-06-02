@@ -35,14 +35,14 @@ Route::get('uploads/media/{path}', function ($path) {
     $file = null;
 
     try {
-        $file = Storage::get("files/" . $path);
+        $file = Storage::get("files" . DIRECTORY_SEPARATOR . $path);
     } catch (Exception $exception) {
         abort(404);
     }
 
-    $filename = storage_path() . "files/" . $path;
+    $filename = storage_path() . "files" . DIRECTORY_SEPARATOR . $path;
     $headers = array(
-        'Content-type' => Storage::mimeType("files/" . $path),
+        'Content-type' => Storage::mimeType("files" . DIRECTORY_SEPARATOR . $path),
         'Content-Disposition' => 'inline; filename="' . $filename . '"'
     );
     return Response::make($file, 200, $headers);

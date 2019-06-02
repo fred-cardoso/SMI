@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Role;
+use App\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
 class InstallController extends Controller
@@ -28,9 +32,9 @@ class InstallController extends Controller
         $permissions = array();
 
         $permissions['storage'] = is_writable(storage_path()) ? true : false;
-        $permissions['storage_app'] = is_writable(storage_path() . '\\app') ? true : false;
-        $permissions['storage_logs'] = is_writable(storage_path() . '\\logs') ? true : false;
-        $permissions['storage_framework'] = is_writable(storage_path() . '\\framework') ? true : false;
+        $permissions['storage_app'] = is_writable(storage_path() . DIRECTORY_SEPARATOR .'app') ? true : false;
+        $permissions['storage_logs'] = is_writable(storage_path() . DIRECTORY_SEPARATOR . 'logs') ? true : false;
+        $permissions['storage_framework'] = is_writable(storage_path() . DIRECTORY_SEPARATOR . 'framework') ? true : false;
 
         if (in_array(false, $requirements)) {
             $this->valid = false;
@@ -45,6 +49,12 @@ class InstallController extends Controller
             return $this->install();
         }
 
+        $validatedData = $request->validate([
+            'name' => 'required|string',
+            'email' => 'required|email',
+            'password' => 'required|string|confirmed|min:8',
+        ]);
+
         $config_controller = new ConfigurationsController();
 
         $response = $config_controller->update($request);
@@ -57,8 +67,20 @@ class InstallController extends Controller
             return redirect()->back()->withErrors('Ocorreu um erro ao ligar à base de dados!')->withInput();
         }
 
-        Artisan::call('migrate:fresh');
+        Artisan::call('migrate:fresh --seed');
         Artisan::call('key:generate');
+
+        $user = User::create([
+            'name' => $validatedData['name'],
+            'email' => $validatedData['email'],
+            'password' => Hash::make($validatedData['password']),
+        ]);
+
+        $user->email_verified_at = Carbon::now();
+        $user->save();
+
+        $user_role = Role::where('slug', 'admin')->first();
+        $user->roles()->attach($user_role);
 
         Storage::put('installed', '');
 

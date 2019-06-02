@@ -57,10 +57,11 @@
                                             @continue
                                         @endif
                                         <tr>
-                                            @auth
-                                                <td><input type="checkbox" name="selected[]" value="{{$conteudo->id}}">
-                                                </td>
-                                            @endauth
+                                            <td>
+                                                @if((auth()->check() and auth()->user()->hasRole('admin')) or (auth()->check() and $conteudo->isOwner(auth()->user())))
+                                                    <input type="checkbox" name="selected[]" value="{{$conteudo->id}}">
+                                                @endif
+                                            </td>
                                             <td>{{$conteudo->id}}</td>
                                             <td>
                                                 <a href="{{route('uploads.show', $conteudo->id)}}">{{$conteudo->titulo}}</a>
@@ -149,7 +150,7 @@
     </section>
     <!-- /.content -->
     @foreach($conteudos as $conteudo)
-        @if($conteudo->privado and (!auth()->check() or !auth()->user()->hasRole('admin') or !$conteudo->isOwner(auth()->user())))
+        @if($conteudo->privado and (!auth()->check() or (!auth()->user()->hasRole('admin') and !$conteudo->isOwner(auth()->user()))))
             @continue
         @endif
         <div class="modal modal-danger fade" id="modal-delete-user-{{$conteudo->id}}" wfd-id="130">

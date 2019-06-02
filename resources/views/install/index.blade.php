@@ -104,7 +104,7 @@
                 <input type="text" name="app_url" class="form-control" placeholder="Endereço da Aplicação (http://nome.com)" value="{{old('app_url')}}" required>
                 <span class="fa fa-server form-control-feedback"></span>
             </div>
-
+            <hr>
             <h4 class="text-center">Configuração da Base de Dados</h4>
             <hr>
 
@@ -136,7 +136,7 @@
                 <input type="password" name="db_password" class="form-control" placeholder="Password SQL" required>
                 <span class="fa fa-lock form-control-feedback"></span>
             </div>
-
+            <hr>
             <h4 class="text-center">Configuração do Email</h4>
             <hr>
 
@@ -172,6 +172,27 @@
                        placeholder="Email Remetente (email@website.com)" value="{{old('mail_from_address')}}">
                 <span class="fa fa-at form-control-feedback"></span>
             </div>
+            <hr>
+            <h4 class="text-center">Configuração do Administrador</h4>
+            <hr>
+
+            <div class="form-group has-feedback">
+                <input type="text" name="name" class="form-control" placeholder="Nome" value="{{old('name')}}" required>
+                <span class="fa fa-user form-control-feedback"></span>
+            </div>
+            <div class="form-group has-feedback">
+                <input type="email" name="email" class="form-control" placeholder="Email" value="{{old('email')}}" required>
+                <span class="fa fa-at form-control-feedback"></span>
+            </div>
+            <div class="form-group has-feedback">
+                <input type="password" name="password" class="form-control" placeholder="Password" required>
+                <span class="fa fa-lock form-control-feedback"></span>
+            </div>
+            <div class="form-group has-feedback">
+                <input type="password" name="password_confirmation" class="form-control" placeholder="Password Confirmation" required>
+                <span class="fa fa-lock form-control-feedback"></span>
+            </div>
+            <hr>
             <div class="row">
                 <div class="col-md-12">
                     <button type="submit"

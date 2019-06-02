@@ -36,6 +36,6 @@ return [
     'verification_2' => 'Click here to re-send',
     'logout' => 'Log out',
     'email_veri' =>'Email verification',
-    'sucess' => 'Sucess',
+    'success' => 'Success',
 
 ];
