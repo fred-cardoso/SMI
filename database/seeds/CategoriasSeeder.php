@@ -28,7 +28,7 @@ class CategoriasSeeder extends Seeder
         $categoria->save();
 
         $categoria = new Categoria();
-        $categoria->nome = "Gatos";
+        $categoria->nome = "Rock";
         $categoria->secundaria ="1";
         $categoria->save();
 

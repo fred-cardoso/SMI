@@ -19,7 +19,7 @@ return [
     'profile' =>'Profile',
     'about' =>'About',
     'content_sent' => 'Number of published content',
-    'registry_date' =>'Registry date',
+    'registry_date' =>'Registration date',
     'pw' => 'Current password',
     'perm_delete' => 'Are you sure you want to permanently delete the follwing user: '
 

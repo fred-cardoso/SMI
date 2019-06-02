@@ -81,12 +81,12 @@ class ConteudoController extends Controller
         //Check if is a ZIP file
         if (in_array($file->getMimeType(), $zipMimeTypes)) {
             $path = $file->store('zipped');
-            $storage_path = storage_path() . '\app\\';
+            $storage_path = storage_path() . DIRECTORY_SEPARATOR .'app' . DIRECTORY_SEPARATOR;
             $zip = new ZipArchive;
             $res = $zip->open($storage_path . $path);
             if ($res === TRUE) {
-                $unzipped_full_path = $storage_path . 'unzipped\\' . $file->getFilename();
-                $unzipped_path = 'unzipped\\' . $file->getFilename();
+                $unzipped_full_path = $storage_path . 'unzipped' . DIRECTORY_SEPARATOR . $file->getFilename();
+                $unzipped_path = 'unzipped' . DIRECTORY_SEPARATOR . $file->getFilename();
 
                 $zip->extractTo($unzipped_full_path);
                 $zip->close();
@@ -101,7 +101,7 @@ class ConteudoController extends Controller
                 }
 
                 //Checks if meta.xml exists and replaces \ with / in path (Storage::files vs default)
-                if (!in_array(str_replace('\\', '/', $unzipped_path) . '/meta.xml', $files_paths)) {
+                if (!in_array($unzipped_path . DIRECTORY_SEPARATOR . 'meta.xml', $files_paths)) {
                     return redirect()->back()->withErrors(__('controllers.empty_meta'));
                 }
 
@@ -109,7 +109,7 @@ class ConteudoController extends Controller
                 $xml->loadXML(Storage::get($unzipped_path . '\meta.xml'), LIBXML_NOBLANKS);
 
                 try {
-                    $xml->schemaValidate($storage_path . '\public\\zip_files.xsd');
+                    $xml->schemaValidate($storage_path . DIRECTORY_SEPARATOR . 'public' . DIRECTORY_SEPARATOR . 'zip_files.xsd');
                 } catch (\Exception $exception) {
                     return redirect()->back()->withErrors(__('controllers.error_XML') . $exception->getMessage());
                 }
@@ -136,7 +136,7 @@ class ConteudoController extends Controller
                     }
 
                     //Checks for missing files in zip but declared in meta.xml
-                    if (!in_array(str_replace('\\', '/', $unzipped_path) . $file_name, $files_paths)) {
+                    if (!in_array($unzipped_path . $file_name, $files_paths)) {
                         return redirect()->back()->withErrors(__('controllers.missing_file') . $file_name);
                     }
 
@@ -153,7 +153,7 @@ class ConteudoController extends Controller
                     $conteudo->titulo = $file_title;
                     $conteudo->descricao = $file_description;
                     $conteudo->nome = $path_to_store;
-                    $conteudo->tipo = explode('/', $file_object->getMimeType())[0];
+                    $conteudo->tipo = explode(DIRECTORY_SEPARATOR, $file_object->getMimeType())[0];
                     $conteudo->user()->associate(Auth::user());
                     $conteudo->save();
 
@@ -171,14 +171,19 @@ class ConteudoController extends Controller
             }
         }
 
+        $path = null;
+
         //TinyPNG
-        if(explode('/',$file->getMimeType())[0] === "image") {
+        if(explode('/', $file->getMimeType())[0] === "image") {
             $result = Tinify::fromBuffer($file->get());
 
-            $filename = uniqid().$file->getExtension();
-            Storage::put('files'.$filename,$result->toBuffer());
+            $filename = uniqid(). '.' . $file->getClientOriginalExtension();
 
-            $path = 'files' . $filename;
+            Storage::put('files'. DIRECTORY_SEPARATOR . $filename,$result->toBuffer());
+
+            $path = 'files' . DIRECTORY_SEPARATOR . $filename;
+        } else {
+            $path = $file->store('files');
         }
 
         $conteudo = new Conteudo();
@@ -192,7 +197,7 @@ class ConteudoController extends Controller
         $conteudo->titulo = $validatedData['title'];
         $conteudo->descricao = $validatedData['description'];
         $conteudo->nome = $path;
-        $conteudo->tipo = explode('/', $request->file()['file']->getMimeType())[0];
+        $conteudo->tipo = explode(DIRECTORY_SEPARATOR, $request->file()['file']->getMimeType())[0];
         $conteudo->user()->associate(Auth::user());
         $conteudo->save();
 
@@ -216,8 +221,9 @@ class ConteudoController extends Controller
             abort(404);
         }
 
-        if ($conteudo->privado and (!auth()->user()->hasRole('admin') or !$conteudo->user()->first()->id == auth()->user()->id))
+        if ($conteudo->privado and (!auth()->user()->hasRole('admin') and !$conteudo->isOwner(auth()->user())))
             abort(404);
+
         return view('conteudos.show', compact('conteudo'));
     }
 
@@ -335,8 +341,8 @@ class ConteudoController extends Controller
             }
 
             $zip = new ZipArchive;
-            $storage_path = storage_path() . '\app\\';
-            $file_name = $storage_path . 'download\\' . Carbon::now()->timestamp . '.zip';
+            $storage_path = storage_path() . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR;
+            $file_name = $storage_path . 'download' . DIRECTORY_SEPARATOR . Carbon::now()->timestamp . '.zip';
 
             if ($zip->open($file_name, ZipArchive::CREATE) === TRUE) {
                 foreach ($conteudos as $conteudo) {

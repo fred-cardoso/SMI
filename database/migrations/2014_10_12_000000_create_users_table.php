@@ -21,9 +21,6 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
-
-            //FOREIGN KEY CONSTRAINTS
-            $table->foreign('grupos')->references('id')->on('grupos')->onDelete('cascade');
         });
     }
 

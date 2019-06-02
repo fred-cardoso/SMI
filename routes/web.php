@@ -13,6 +13,9 @@ use Illuminate\Support\Facades\Storage;
 |
 */
 
+Route::get('install', 'InstallController@install')->name('install');
+Route::post('install', 'InstallController@store');
+
 Auth::routes(['verify' => true]);
 
 Route::get('/', 'ConteudoController@home')->name('home');
@@ -32,14 +35,14 @@ Route::get('uploads/media/{path}', function ($path) {
     $file = null;
 
     try {
-        $file = Storage::get("files/" . $path);
+        $file = Storage::get("files" . DIRECTORY_SEPARATOR . $path);
     } catch (Exception $exception) {
         abort(404);
     }
 
-    $filename = storage_path() . "files/" . $path;
+    $filename = storage_path() . "files" . DIRECTORY_SEPARATOR . $path;
     $headers = array(
-        'Content-type' => Storage::mimeType("files/" . $path),
+        'Content-type' => Storage::mimeType("files" . DIRECTORY_SEPARATOR . $path),
         'Content-Disposition' => 'inline; filename="' . $filename . '"'
     );
     return Response::make($file, 200, $headers);
@@ -57,7 +60,6 @@ Route::group(['middleware' => ['auth', 'verified', 'role:user']], function () {
         return $controller->updateProfile(Auth::user(), request());
     })->name('profile_edit');
 
-    Route::post('users/{user}/subscribe', 'UserController@subscribeUser')->where(['user' => '[0-9]+'])->name('user.subscribe');
     Route::post('users/{categoria}/subscribeCat', 'UserController@subscribeCategoria')->where(['categoria' => '[0-9]+'])->name('cat.subscribe');
 
     Route::post('categorias/{categoria}/subscribe', 'UserController@subscribeCategoria')->where(['categoria' => '[0-9]+'])->name('categorias.delete');

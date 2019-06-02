@@ -14,21 +14,21 @@ class UserTableSeeder extends Seeder
      */
     public function run()
     {
-        $admin = Role::where('slug','admin')->first();
+        $simp = Role::where('slug','simpatizante')->first();
         $user = Role::where('slug', 'user')->first();
 
         $admin = new User();
-        $admin->name = 'Frederico Cardoso';
-        $admin->email = 'fredecardoso@fakemail.com';
+        $admin->name = 'José António';
+        $admin->email = 'jantonio@exemplo.com';
         $admin->password = bcrypt('secret');
         $admin->email_verified_at = Carbon::now();
         $admin->save();
-        $admin->roles()->attach($admin);
+        $admin->roles()->attach($simp);
 
 
         $utilizador = new User();
-        $utilizador->name = 'Frederico Cardoso';
-        $utilizador->email = 'fredecardoso@wishmail.com';
+        $utilizador->name = 'João Miguel';
+        $utilizador->email = 'jm@email.com';
         $utilizador->password = bcrypt('secret');
         $utilizador->email_verified_at = Carbon::now();
         $utilizador->save();

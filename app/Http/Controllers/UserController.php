@@ -84,10 +84,10 @@ class UserController extends Controller
     {
         $conteudos = $user->contents()->get()->filter(function ($item) {
             if ($item->privado) {
-                if(!Auth::check()) {
+                if (!Auth::check()) {
                     return;
                 }
-                if(Auth::user()->hasRole('admin') or ($item->user()->first()->id == Auth::user()->id)) {
+                if (Auth::user()->hasRole('admin') or ($item->user()->first()->id == Auth::user()->id)) {
                     return $item;
                 }
             }
@@ -202,28 +202,7 @@ class UserController extends Controller
         }
     }
 
-    public function subscribeUser(Request $request)
-    {
-        $user = Auth::user();
-
-        $subed_user = User::find($request->user);
-
-        $subed_id = $subed_user->id;
-        //dd($user->user()->syncWithoutDetaching([['subscribed_id' => $subed_id]]));
-        if ($request->sub == "Unsubscribe") {
-            ;
-            // $user->user()->detach(['subed_id' =>[]]);
-        } else {
-            $user->user()->attach(['lmao' => ['subscribed_id' => $subed_id]]);
-        }
-
-
-        return redirect()->back()->withSuccess('Subscrito com sucesso!');
-    }
-
-
-    public
-    function subscribeCategoria(Request $request)
+    public function subscribeCategoria(Request $request)
     {
         $user = Auth::user();
 
@@ -235,7 +214,6 @@ class UserController extends Controller
         } else {
             $user->categoria()->attach(['categoria_id' => ['categoria_id' => $cat_id]]);
         }
-
 
         return redirect()->back()->withSuccess(__('controllers.subscribe'));
     }

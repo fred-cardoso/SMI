@@ -28,7 +28,9 @@
                                         @auth
                                             <th style="width: 10px"></th>
                                         @endauth
-                                        <th>@lang('common.id')</th>
+                                        @if((auth()->check() and auth()->user()->hasRole('admin')) or (auth()->check() and $conteudo->isOwner(auth()->user())))
+                                            <th>@lang('common.id')</th>
+                                        @endif
                                         <th>@lang('conteudos.title')</th>
                                         <th>@lang('common.author')</th>
                                         <th>@lang('common.creation_date')</th>
@@ -41,16 +43,27 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-
+                                    @if($conteudos->count() == 0)
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="box box-primary">
+                                                    <div class="box-body">
+                                                        Ainda sem conteúdos!
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endif
                                     @foreach($conteudos as $conteudo)
                                         @if($conteudo->privado and (!auth()->check() or (!auth()->user()->hasRole('admin') and !$conteudo->isOwner(auth()->user()))))
                                             @continue
                                         @endif
                                         <tr>
-                                            @auth
-                                                <td><input type="checkbox" name="selected[]" value="{{$conteudo->id}}">
+                                            @if((auth()->check() and auth()->user()->hasRole('admin')) or (auth()->check() and $conteudo->isOwner(auth()->user())))
+                                                <td>
+                                                    <input type="checkbox" name="selected[]" value="{{$conteudo->id}}">
                                                 </td>
-                                            @endauth
+                                            @endif
                                             <td>{{$conteudo->id}}</td>
                                             <td>
                                                 <a href="{{route('uploads.show', $conteudo->id)}}">{{$conteudo->titulo}}</a>
@@ -73,7 +86,8 @@
                                                     <a href="{{route('uploads.edit', $conteudo->id)}}" type="button"
                                                        class="btn btn-primary">@lang('common.edit')</a>
                                                     <button type="button" class="btn btn-danger" data-toggle="modal"
-                                                            data-target="#modal-delete-user-{{$conteudo->id}}" wfd-id="264">
+                                                            data-target="#modal-delete-user-{{$conteudo->id}}"
+                                                            wfd-id="264">
                                                         @lang('common.delete')
                                                     </button>
                                                 @endif
@@ -88,7 +102,9 @@
                                         @auth
                                             <th></th>
                                         @endauth
-                                        <th>@lang('common.id')</th>
+                                        @if((auth()->check() and auth()->user()->hasRole('admin')) or (auth()->check() and $conteudo->isOwner(auth()->user())))
+                                            <th>@lang('common.id')</th>
+                                        @endif
                                         <th>@lang('conteudos.title')</th>
                                         <th>@lang('common.author')</th>
                                         <th>@lang('common.creation_date')</th>
@@ -138,7 +154,7 @@
     </section>
     <!-- /.content -->
     @foreach($conteudos as $conteudo)
-        @if($conteudo->privado and (!auth()->check() or !auth()->user()->hasRole('admin') or !$conteudo->isOwner(auth()->user())))
+        @if($conteudo->privado and (!auth()->check() or (!auth()->user()->hasRole('admin') and !$conteudo->isOwner(auth()->user()))))
             @continue
         @endif
         <div class="modal modal-danger fade" id="modal-delete-user-{{$conteudo->id}}" wfd-id="130">

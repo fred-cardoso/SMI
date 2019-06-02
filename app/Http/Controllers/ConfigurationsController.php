@@ -70,8 +70,7 @@ class ConfigurationsController extends Controller
         $config['db_username'] =getenv('db_username');
         $config['db_password'] = getenv('db_password');
 
-        //dd($config["x"]);
-        //dd($config);
+        $config['app_url'] = getenv('app_url');
 
         return view('configurations.edit', compact('config'));
     }
@@ -87,6 +86,25 @@ class ConfigurationsController extends Controller
 
     public function update(Request $request)
     {
+        $request->validate([
+            'mail_driver' => 'required|string|in:smtp',
+            'mail_host' => 'required|string',
+            'mail_port' => 'required|numeric',
+            'mail_username' => 'required|string',
+            'mail_password' => 'required|string',
+            'mail_encryption' => 'required|string|in:ssl,tls',
+            'mail_from_address' => 'required|string|email',
+
+            'db_connection' => 'required|string|in:mysql,pgsql,sqlist,sqlsrv',
+            'db_host' => 'required|string',
+            'db_port' => 'required|numeric',
+            'db_database' => 'required|string',
+            'db_username' => 'required|string',
+            'db_password' => 'required|string',
+
+            'app_url' => 'required|url',
+        ]);
+
         $this ->set_env("MAIL_DRIVER",$request->mail_driver);
         $this->set_env("MAIL_HOST",$request->mail_host);
         $this ->set_env('MAIL_PORT',$request->mail_port);
@@ -101,6 +119,8 @@ class ConfigurationsController extends Controller
         $this ->set_env('db_database',$request->db_database);
         $this ->set_env('db_username',$request->db_username);
         $this ->set_env('db_password',$request->db_password);
+
+        $this ->set_env('app_url',$request->app_url);
 
         return redirect()->back()->withSucess(__('controllers.config_save'));
     }
