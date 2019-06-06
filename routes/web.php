@@ -95,6 +95,8 @@ Route::group(['middleware' => ['auth', 'verified', 'role:user']], function () {
             Route::post('users/{user}/edit', 'UserController@update')->where(['user' => '[0-9]+']);
             Route::post('users/{user}/delete', 'UserController@destroy')->where(['user' => '[0-9]+'])->name('user.delete');
 
+            Route::get('users/banned', 'UserController@indexBanned')->name('users.banned');
+
             Route::get('configurations/edit', 'ConfigurationsController@edit')->name('config');
             Route::post('configurations/edit', 'ConfigurationsController@update');
         });
