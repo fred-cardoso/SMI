@@ -37,5 +37,6 @@ return [
     'logout' => 'Log out',
     'email_veri' =>'Email verification',
     'success' => 'Success',
+    'banned_user' => 'Account banned!',
 
 ];

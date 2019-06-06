@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -35,5 +36,27 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    /**
+     * Overrides default login method
+     */
+    public function login(Request $request)
+    {
+        $credentials = $request->only('email', 'password');
+        $remember = $request->get('remember') == 'on' ? true : false;
+
+        if (\Auth::attempt($credentials, $remember)) {
+            $banned = \Auth::user()->banned;
+
+            if ($banned) {
+                \Auth::logout();
+                return redirect()->back()->withErrors(__('auth.banned_user'));
+            }
+        } else {
+            $this->sendFailedLoginResponse($request);
+        }
+
+        return $this->sendLoginResponse($request);
     }
 }
