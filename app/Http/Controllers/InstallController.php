@@ -68,6 +68,7 @@ class InstallController extends Controller
         }
 
         Artisan::call('migrate:fresh --seed');
+        Artisan::call('storage:link');
         Artisan::call('key:generate');
 
         $user = User::create([
