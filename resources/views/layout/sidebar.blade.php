@@ -319,11 +319,7 @@
         ajax.setRequestHeader("x-csrf-token", "fetch");
         ajax.setRequestHeader("Accept", "application/json");
         ajax.setRequestHeader("Content-Type", "application/json; charset=utf-8");
-        var tableRows = search_response.getElementsByTagName('a');
-        var rowCount = tableRows.length;x
-        for(var x = 0; x<rowCount; x++){
-            search_response.removeChild(tableRows[0]);
-        }
+
         //console.log(search_response.childNodes);
 
 // Envia a requisição
@@ -332,6 +328,11 @@
 
 // Cria um evento para receber o retorno.
         ajax.onreadystatechange = function () {
+            var tableRows = search_response.getElementsByTagName('a');
+            var rowCount = tableRows.length;x
+            for(var x = 0; x<rowCount; x++){
+                search_response.removeChild(tableRows[0]);
+            }
 
             // Caso o state seja 4 e o http.status for 200, é porque a requisiçõe deu certo.
             if (ajax.readyState == 4 && ajax.status == 200) {
@@ -339,6 +340,7 @@
                 var data = ajax.responseText;
                 var obj = JSON.parse(data);
                 obj.forEach(function (element) {
+
                     if (element == "Sem Sugestao") {
 
                     } else {
