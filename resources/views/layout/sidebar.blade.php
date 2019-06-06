@@ -5,10 +5,11 @@
         <!-- Sidebar user panel -->
         <!-- search form -->
 
-        <form action='{{route('search')}}' method="post" class="sidebar-form">
+        <form action='{{route('search')}}' method="post" class="sidebar-form" oninput="ajax_search()">
             @csrf
             <div class="input-group">
-                <input type="text" name="q" class="form-control" placeholder="@lang('common.search')" required>
+                <input type="text" id='search' name="q" class="form-control" placeholder="@lang('common.search')"
+                       required>
                 <span class="input-group-btn">
                 <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
                 </button>
@@ -47,7 +48,7 @@
 
             <li class="{{ request()->is('users/*') || request()->is('users') ? 'active treeview' : 'treeview' }}">
                 <a href="#">
-                    <i class="fa fa-user"></i> <span>@lang('categorias.users')</span>
+                    <i class="fa fa-user"></i> <span id="change_me">@lang('categorias.users')</span>
                     <span class="pull-right-container">
   <i class="fa fa-angle-left pull-right"></i>
 </span>
@@ -304,3 +305,35 @@
     </section>
     <!-- /.sidebar -->
 </aside>
+
+<script>
+    function ajax_search() {
+        var x = document.getElementById("search").value;
+        // Exemplo de requisição GET
+        var ajax = new XMLHttpRequest();
+
+// Seta tipo de requisição e URL com os parâmetros
+        ajax.open("GET", "/search2/"+x, true);
+        ajax.setRequestHeader("x-csrf-token", "fetch");
+        ajax.setRequestHeader("Accept", "application/json");
+        ajax.setRequestHeader("Content-Type", "application/json; charset=utf-8");
+
+// Envia a requisição
+        ajax.send();
+
+// Cria um evento para receber o retorno.
+        ajax.onreadystatechange = function () {
+
+            // Caso o state seja 4 e o http.status for 200, é porque a requisiçõe deu certo.
+            if (ajax.readyState == 4 && ajax.status == 200) {
+
+                var data = ajax.responseText;
+                var obj = JSON.parse(data);
+                obj.forEach(function (element) {
+                    console.log(element);
+                    
+                })
+            }
+        }
+    }
+</script>
