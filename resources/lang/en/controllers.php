@@ -18,6 +18,7 @@ return [
     'cat_update' =>' Category has been sucessfully updated',
     'config_save' => 'Configurations sucessfully saved',
     'register_user' => 'User has been sucessfully registered',
+    'user_update' => 'User updated sucessfully!',
     'pw_error' =>'Current password is incorrect.',
     'update_profile' =>'Profile sucessfully updated.',
     'delete_user' =>'User sucessfully deleted.',

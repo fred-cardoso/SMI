@@ -16,7 +16,7 @@ return [
     'failed' => 'These credentials do not match our records.',
     'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
     'password_recovery' => 'Password Recovery',
-    'send_email_reco' => 'Send Recuperation Email',
+    'send_email_reco' => 'Send Recovery Email',
     'email' => 'Email',
     'change_pw' => 'Change password',
     'pw' => 'Password',

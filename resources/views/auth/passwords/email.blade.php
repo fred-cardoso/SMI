@@ -37,8 +37,6 @@
                 </div>
             </form>
         </div>
-        <!-- /.box-body -->
-        </div>
         <!-- /.box -->
     </section>
 @endsection

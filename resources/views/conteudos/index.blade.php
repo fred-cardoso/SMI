@@ -86,7 +86,7 @@
                                                     <a href="{{route('uploads.edit', $conteudo->id)}}" type="button"
                                                        class="btn btn-primary">@lang('common.edit')</a>
                                                     <button type="button" class="btn btn-danger" data-toggle="modal"
-                                                            data-target="#modal-delete-user-{{$conteudo->id}}"
+                                                            data-target="#modal-delete-content-{{$conteudo->id}}"
                                                             wfd-id="264">
                                                         @lang('common.delete')
                                                     </button>
@@ -155,7 +155,7 @@
         @if($conteudo->privado and (!auth()->check() or (!auth()->user()->hasRole('admin') and !$conteudo->isOwner(auth()->user()))))
             @continue
         @endif
-        <div class="modal modal-danger fade" id="modal-delete-user-{{$conteudo->id}}" wfd-id="130">
+        <div class="modal modal-danger fade" id="modal-delete-content-{{$conteudo->id}}" wfd-id="130">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">

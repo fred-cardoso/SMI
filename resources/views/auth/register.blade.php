@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-@extends('layout.head')
-@section('title', __('auth.register'))
+@include('layout.head', ['title' => __('auth.register')])
 <body class="hold-transition register-page">
 <div class="register-box">
     <div class="register-logo">
@@ -68,10 +67,6 @@
 </div>
 <!-- /.register-box -->
 
-<!-- jQuery 3 -->
-<script src="{{URL::to('/')}}/bower_components/jquery/dist/jquery.min.js"></script>
-<!-- Bootstrap 3.3.7 -->
-<script src="{{URL::to('/')}}/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- iCheck -->
 <script src="{{URL::to('/')}}/plugins/iCheck/icheck.min.js"></script>
 <script src='https://www.google.com/recaptcha/api.js'></script>

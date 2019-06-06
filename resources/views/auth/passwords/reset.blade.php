@@ -4,7 +4,7 @@
     <section class="content">
         <div class="box">
             <div class="box-header with-border">
-                <h3 class="box-title">@lang("auth.password_recovery")"</h3>
+                <h3 class="box-title">@lang("auth.password_recovery")</h3>
             </div>
             <form method="POST" action="{{ route('password.update') }}" class="form-horizontal">
                 <div class="box-body">
@@ -59,8 +59,6 @@
                     </button>
                 </div>
             </form>
-        </div>
-        <!-- /.box-body -->
         </div>
         <!-- /.box -->
     </section>
