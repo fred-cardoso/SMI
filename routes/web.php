@@ -16,6 +16,9 @@ use Illuminate\Support\Facades\Storage;
 Route::get('install', 'InstallController@install')->name('install');
 Route::post('install', 'InstallController@store');
 
+Route::post('search2', 'SearchController@search');
+Route::get('search2/{search}', 'SearchController@search');
+
 Auth::routes(['verify' => true]);
 
 Route::get('/', 'ConteudoController@home')->name('home');
@@ -29,6 +32,7 @@ Route::get('categorias/{categoria}', 'CategoriaController@show')->where(['catego
 Route::get('users', 'UserController@index')->name('users');
 Route::get('users/{user}', 'UserController@show')->where(['user' => '[0-9]+'])->name('user');
 Route::post('search','SearchController@show')->name('search');
+
 
 Route::get('uploads/media/{path}', function ($path) {
 
