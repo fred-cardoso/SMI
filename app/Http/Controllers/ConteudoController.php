@@ -81,7 +81,7 @@ class ConteudoController extends Controller
         //Check if is a ZIP file
         if (in_array($file->getMimeType(), $zipMimeTypes)) {
             $path = $file->store('zipped');
-            $storage_path = storage_path() . DIRECTORY_SEPARATOR .'app' . DIRECTORY_SEPARATOR;
+            $storage_path = storage_path() . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR;
             $zip = new ZipArchive;
             $res = $zip->open($storage_path . $path);
             if ($res === TRUE) {
@@ -174,12 +174,12 @@ class ConteudoController extends Controller
         $path = null;
 
         //TinyPNG
-        if(explode('/', $file->getMimeType())[0] === "image") {
+        if (explode('/', $file->getMimeType())[0] === "image") {
             $result = Tinify::fromBuffer($file->get());
 
-            $filename = uniqid(). '.' . $file->getClientOriginalExtension();
+            $filename = uniqid() . '.' . $file->getClientOriginalExtension();
 
-            Storage::put('files'. DIRECTORY_SEPARATOR . $filename,$result->toBuffer());
+            Storage::put('files' . DIRECTORY_SEPARATOR . $filename, $result->toBuffer());
 
             $path = 'files' . DIRECTORY_SEPARATOR . $filename;
         } else {
@@ -201,9 +201,11 @@ class ConteudoController extends Controller
         $conteudo->user()->associate(Auth::user());
         $conteudo->save();
 
-        foreach ($validatedData['category'] as $id) {
-            $categoria = Categoria::where('id', $id)->first();
-            $conteudo->category()->attach($categoria);
+        if (isset($validatedData['category'])) {
+            foreach ($validatedData['category'] as $id) {
+                $categoria = Categoria::where('id', $id)->first();
+                $conteudo->category()->attach($categoria);
+            }
         }
 
         return redirect()->route('uploads.show', $conteudo->id);
@@ -235,7 +237,7 @@ class ConteudoController extends Controller
      */
     public function edit(Conteudo $conteudo)
     {
-        if(auth()->user()->hasRole('simpatizante') and !$conteudo->isOwner(auth()->user())) {
+        if (auth()->user()->hasRole('simpatizante') and !$conteudo->isOwner(auth()->user())) {
             abort(404);
         }
 
@@ -252,7 +254,7 @@ class ConteudoController extends Controller
      */
     public function update(Request $request, Conteudo $conteudo)
     {
-        if(auth()->user()->hasRole('simpatizante') and !$conteudo->isOwner(auth()->user())) {
+        if (auth()->user()->hasRole('simpatizante') and !$conteudo->isOwner(auth()->user())) {
             abort(404);
         }
 
@@ -290,7 +292,7 @@ class ConteudoController extends Controller
      */
     public function destroy(Conteudo $conteudo)
     {
-        if(auth()->user()->hasRole('simpatizante') and !$conteudo->isOwner(auth()->user())) {
+        if (auth()->user()->hasRole('simpatizante') and !$conteudo->isOwner(auth()->user())) {
             abort(404);
         }
 
@@ -326,9 +328,9 @@ class ConteudoController extends Controller
 
         $conteudos = Conteudo::findMany($validatedData['selected']);
 
-        if(auth()->user()->hasRole('simpatizante')) {
-            foreach($conteudos as $conteudo) {
-                if(!$conteudo->isOwner(auth()->user())) {
+        if (auth()->user()->hasRole('simpatizante')) {
+            foreach ($conteudos as $conteudo) {
+                if (!$conteudo->isOwner(auth()->user())) {
                     abort(404);
                 }
             }
