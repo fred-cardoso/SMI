@@ -7,7 +7,7 @@
 
         <form action='{{route('search')}}' method="post" class="sidebar-form" oninput="ajax_search()">
             @csrf
-            <div class="input-group">
+            <div class="input-group" id="searchBox">
                 <input type="text" id='search' name="q" class="form-control" placeholder="@lang('common.search')"
                        required>
                 <span class="input-group-btn">
@@ -132,7 +132,8 @@
             <li class="{{request()->is('configurations/edit') ? 'active' : '' }}"><a href="{{route('config')}}"><i
                             class="fa fa-circle-o text-red"></i>
                     <span>@lang('common.config_system')</span></a></li>
-            <li class="{{Request::routeIs('users.banned') ? 'active' : '' }}"><a href="{{route('users.banned')}}"><i class="fa fa-circle-o text-aqua"></i><span>@lang('outlayout.ban')</span></a>
+            <li class="{{Request::routeIs('users.banned') ? 'active' : '' }}"><a href="{{route('users.banned')}}"><i
+                            class="fa fa-circle-o text-aqua"></i><span>@lang('outlayout.ban')</span></a>
             </li>
             @endrole
             <!--
@@ -308,18 +309,26 @@
 
 <script>
     function ajax_search() {
-        var x = document.getElementById("search").value;
+        var search_request = document.getElementById("search").value;
+        var search_response = document.getElementById("searchBox");
         // Exemplo de requisição GET
         var ajax = new XMLHttpRequest();
 
 // Seta tipo de requisição e URL com os parâmetros
-        ajax.open("GET", "/search2/"+x, true);
+        ajax.open("GET", "/search2/" + search_request, true);
         ajax.setRequestHeader("x-csrf-token", "fetch");
         ajax.setRequestHeader("Accept", "application/json");
         ajax.setRequestHeader("Content-Type", "application/json; charset=utf-8");
+        var tableRows = search_response.getElementsByTagName('a');
+        var rowCount = tableRows.length;x
+        for(var x = 0; x<rowCount; x++){
+            search_response.removeChild(tableRows[0]);
+        }
+        //console.log(search_response.childNodes);
 
 // Envia a requisição
         ajax.send();
+
 
 // Cria um evento para receber o retorno.
         ajax.onreadystatechange = function () {
@@ -330,10 +339,22 @@
                 var data = ajax.responseText;
                 var obj = JSON.parse(data);
                 obj.forEach(function (element) {
-                    console.log(element);
-                    
-                })
+                    if (element == "Sem Sugestao") {
+
+                    } else {
+                        var resultado = htmlToElement(element);
+                        search_response.appendChild(resultado);
+                    }
+                });
             }
         }
+
+    }
+
+    function htmlToElement(html) {
+        var template = document.createElement('template');
+        html = html.trim(); // Never return a text node of whitespace as the result
+        template.innerHTML = html;
+        return template.content.firstChild;
     }
 </script>

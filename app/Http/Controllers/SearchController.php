@@ -41,7 +41,7 @@ class SearchController extends Controller
         $x = array();
         $indice = 0;
         foreach ($conteudos as $conteudo) {
-            $x[$indice] = $conteudo->titulo;
+            $x[$indice] = '<a href="/uploads/'.$conteudo->id.'">'.$conteudo->titulo."</a>";
             $indice++;
         }
 
@@ -49,7 +49,7 @@ class SearchController extends Controller
             return $x;
 
         } else {
-            $x[0] = "Sem Sugestão";
+            $x[0] = "Sem Sugestao";
             return($x);
         }
     }
