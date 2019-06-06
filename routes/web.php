@@ -33,7 +33,6 @@ Route::get('users', 'UserController@index')->name('users');
 Route::get('users/{user}', 'UserController@show')->where(['user' => '[0-9]+'])->name('user');
 Route::post('search','SearchController@show')->name('search');
 
-
 Route::get('uploads/media/{path}', function ($path) {
 
     $file = null;
@@ -100,6 +99,8 @@ Route::group(['middleware' => ['auth', 'verified', 'role:user']], function () {
             Route::post('users/{user}/delete', 'UserController@destroy')->where(['user' => '[0-9]+'])->name('user.delete');
 
             Route::get('users/banned', 'UserController@indexBanned')->name('users.banned');
+            Route::post('users/ban/{user}', 'UserController@banUser')->where(['user' => '[0-9]+'])->name('users.ban');
+            Route::post('users/unban/{user}', 'UserController@unbanUser')->where(['user' => '[0-9]+'])->name('users.unban');
 
             Route::get('configurations/edit', 'ConfigurationsController@edit')->name('config');
             Route::post('configurations/edit', 'ConfigurationsController@update');

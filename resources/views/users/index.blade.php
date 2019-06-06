@@ -14,66 +14,76 @@
     <!-- Main content -->
     <section class="content">
         <div class="row">
-            <div class="col-xs-12">
+            <div class="col-md-12">
+                @include('layout.result')
                 <div class="box">
                     <div class="box-header">
                         <h3 class="box-title">@lang('categorias.users')</h3>
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
-                        <table id="example2" class="table table-bordered table-striped">
-                            <thead>
-                            <tr>
-                                <th>@lang('common.id')</th>
-                                <th>@lang('common.name')</th>
-                                <th>@lang('common.role')</th>
-                                <th>@lang('common.actions')</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            @if($users->count() == 0)
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="box box-primary">
-                                            <div class="box-body">
-                                                Ainda sem utilizadores!
-                                            </div>
+                        @if($users->count() == 0)
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="box box-primary">
+                                        <div class="box-body">
+                                            Ainda sem utilizadores!
                                         </div>
                                     </div>
                                 </div>
-                            @endif
-                            @foreach($users as $user)
+                            </div>
+                        @else
+                            <table id="example2" class="table table-bordered table-striped">
+                                <thead>
                                 <tr>
-                                    <td>{{$user->id}}</td>
-                                    <td><a href="{{route('user', $user->id)}}">{{$user->name}}</a></td>
-                                    <td>{{$user->roles()->first()->name}}</td>
-                                    <td>
-                                        @auth
-                                            @csrf
-                                            @role('admin')
-                                            <a href="{{route('user.edit', $user->id)}}" type="button"
-                                               class="btn btn-primary">@lang('common.edit')</a>
-                                            @if(auth()->user()->id != $user->id)
-                                                <button type="button" class="btn btn-danger" data-toggle="modal"
-                                                        data-target="#modal-delete-user-{{$user->id}}" wfd-id="264">
-                                                    @lang('common.delete')
-                                                </button>
-                                            @endif
-                                            @endrole
-                                    </td>
-                                    @endauth
+                                    <th>@lang('common.id')</th>
+                                    <th>@lang('common.name')</th>
+                                    <th>@lang('common.role')</th>
+                                    <th>@lang('common.actions')</th>
                                 </tr>
-                            @endforeach
-                            </tbody>
-                            <tfoot>
-                            <tr>
-                                <th>@lang('common.id')</th>
-                                <th>@lang('common.name')</th>
-                                <th>@lang('common.role')</th>
-                                <th>@lang('common.actions')</th>
-                            </tr>
-                            </tfoot>
-                        </table>
+                                </thead>
+                                <tbody>
+                                @foreach($users as $user)
+                                    <tr>
+                                        <td>{{$user->id}}</td>
+                                        <td><a href="{{route('user', $user->id)}}">{{$user->name}}</a></td>
+                                        <td>{{$user->roles()->first()->name}}</td>
+                                        <form action="{{$user->banned == 1 ? route('users.unban', $user->id) : route('users.ban', $user->id)}}"
+                                              method="POST">
+                                            <td>
+                                                @auth
+                                                    @role('admin')
+                                                    <a href="{{route('user.edit', $user->id)}}" type="button"
+                                                       class="btn btn-primary">@lang('common.edit')</a>
+                                                    @if(auth()->user()->id != $user->id)
+                                                        <button type="button" class="btn btn-danger" data-toggle="modal"
+                                                                data-target="#modal-delete-user-{{$user->id}}"
+                                                                wfd-id="264">
+                                                            @lang('common.delete')
+                                                        </button>
+                                                        <input type="submit"
+                                                               class="btn btn-{{$user->banned == 1 ? 'success' : 'warning'}}"
+                                                               wfd-id="264"
+                                                               value="{{$user->banned == 1 ? __('user.unban') : __('user.ban')}}">
+                                                    @endif
+                                                    @csrf
+                                                    @endrole
+                                            </td>
+                                        </form>
+                                        @endauth
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                                <tfoot>
+                                <tr>
+                                    <th>@lang('common.id')</th>
+                                    <th>@lang('common.name')</th>
+                                    <th>@lang('common.role')</th>
+                                    <th>@lang('common.actions')</th>
+                                </tr>
+                                </tfoot>
+                            </table>
+                        @endif
                     </div>
                     <!-- /.box-body -->
                 </div>

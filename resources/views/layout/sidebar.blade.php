@@ -129,10 +129,10 @@
             @role('admin')
             <li class="header">@lang('outlayout.admin')</li>
 
-            <li class="{{ request()->is('configurations/edit') ? 'active' : '' }}"><a href="{{route('config')}}"><i
+            <li class="{{request()->is('configurations/edit') ? 'active' : '' }}"><a href="{{route('config')}}"><i
                             class="fa fa-circle-o text-red"></i>
                     <span>@lang('common.config_system')</span></a></li>
-            <li class=""><a href="{{route('users.banned')}}"><i class="fa fa-circle-o text-aqua"></i><span>@lang('outlayout.ban')</span></a>
+            <li class="{{Request::routeIs('users.banned') ? 'active' : '' }}"><a href="{{route('users.banned')}}"><i class="fa fa-circle-o text-aqua"></i><span>@lang('outlayout.ban')</span></a>
             </li>
             @endrole
             <!--

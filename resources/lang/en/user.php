@@ -21,7 +21,9 @@ return [
     'content_sent' => 'Number of published content',
     'registry_date' =>'Registration date',
     'pw' => 'Current password',
-    'perm_delete' => 'Are you sure you want to permanently delete the follwing user: '
+    'perm_delete' => 'Are you sure you want to permanently delete the follwing user: ',
+    'ban' => 'Ban',
+    'unban' => 'Unban',
 
 
 
