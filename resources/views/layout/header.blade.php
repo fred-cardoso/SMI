@@ -250,6 +250,7 @@
                 @guest
                     <li>
                         <a href="{{route('login')}}">
+                            <i class="fa fa-user"></i>
                             <!--<img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image">-->
                             <span class="hidden-xs">@lang('auth.begin_session')</span>
                         </a>

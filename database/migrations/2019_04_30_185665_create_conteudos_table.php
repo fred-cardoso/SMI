@@ -25,8 +25,6 @@ class CreateConteudosTable extends Migration
 
             #FOREIGN KEYS
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-
-
         });
     }
 

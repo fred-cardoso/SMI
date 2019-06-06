@@ -8,7 +8,7 @@
         </h1>
         <ol class="breadcrumb">
             <li><a href="{{route("home")}}"><i class="fa fa-home"></i> @lang('categorias.home_page')</a></li>
-            <li class="active"> <i class="fa fa-users"></i> @lang('categorias.users')</li>
+            <li class="active"><i class="fa fa-users"></i> @lang('categorias.users')</li>
         </ol>
     </section>
     <!-- Main content -->
@@ -49,33 +49,17 @@
                                     <td>{{$user->roles()->first()->name}}</td>
                                     <td>
                                         @auth
-                                           <!-- <form action="{{route('user.subscribe', $user->id)}}" method="POST">
-                                               @csrf
-                                                <?php $userAuth = Auth::User()->id;
-                                                $database = DB::table("user_user")->get();
-                                                $checkIfSubscribed = sizeof($database->where('subscribed_id', $user->id)->where('user_id', $userAuth));
-                                                if ($checkIfSubscribed == 0) {
-                                                    echo '<input class="btn btn-secondary" name="sub"type="submit" value="Subscribe">';
-
-
-                                                } else {
-                                                    echo '<input class="btn btn-warning" name="sub" type="submit" value="Unsubscribe">';
-                                                }
-
-                                                ?>
--->
-                                                @role('admin')
-                                                <a href="{{route('user.edit', $user->id)}}" type="button"
-                                                   class="btn btn-primary">@lang('common.edit')</a>
-                                                @if(auth()->user()->id != $user->id)
-                                                    <button type="button" class="btn btn-danger" data-toggle="modal"
-                                                            data-target="#modal-delete-user-{{$user->id}}" wfd-id="264">
-                                                        @lang('common.delete')
-                                                    </button>
-                                                @endif
-
-                                                @endrole
-                                            <!--</form>-->
+                                            @csrf
+                                            @role('admin')
+                                            <a href="{{route('user.edit', $user->id)}}" type="button"
+                                               class="btn btn-primary">@lang('common.edit')</a>
+                                            @if(auth()->user()->id != $user->id)
+                                                <button type="button" class="btn btn-danger" data-toggle="modal"
+                                                        data-target="#modal-delete-user-{{$user->id}}" wfd-id="264">
+                                                    @lang('common.delete')
+                                                </button>
+                                            @endif
+                                            @endrole
                                     </td>
                                     @endauth
                                 </tr>

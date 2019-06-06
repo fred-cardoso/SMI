@@ -21,7 +21,6 @@ class CreateConteudosCategoriasTable extends Migration
             $table->foreign('conteudo_id')->references('id')->on('conteudos')->onDelete('cascade');
             $table->foreign('categoria_id')->references('id')->on('categorias')->onDelete('cascade');
 
-
             //SETTING THE PRIMARY KEYS
             $table->primary(['conteudo_id','categoria_id']);
         });
