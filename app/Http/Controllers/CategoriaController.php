@@ -38,7 +38,7 @@ class CategoriaController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'nomeCat' => 'required|string',
+            'nomeCat' => 'required|string|unique:categorias,nome',
         ]);
 
         $categoria = new Categoria();
