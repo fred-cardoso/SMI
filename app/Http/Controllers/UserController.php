@@ -8,13 +8,14 @@ use App\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of the users.
      *
      * @return \Illuminate\Http\Response
      */
@@ -22,6 +23,17 @@ class UserController extends Controller
     {
         $users = User::all();
         return view('users.index', compact('users'));
+    }
+
+    /**
+     * Display a listing of banned users.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function indexBanned()
+    {
+        $users = User::where('banned', '1')->get();
+        return view('users.banned', compact('users'));
     }
 
     /**
@@ -177,7 +189,6 @@ class UserController extends Controller
             $user->email_verified_at = null;
 
             //Sends a event for email verification listeners
-            //TODO: Change email template
             event(new Registered($user));
         }
 
@@ -195,6 +206,14 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
+        $conteudos = $user->contents()->get();
+
+        //Delete user contents from disk
+        foreach($conteudos as $conteudo) {
+            Storage::delete($conteudo->nome);
+            $conteudo->forceDelete();
+        }
+
         if ($user->forceDelete()) {
             return redirect()->back()->withSuccess(__('controllers.delete_user'));
         } else {
@@ -218,5 +237,19 @@ class UserController extends Controller
         }
 
         return redirect()->back()->withSuccess($subbed);
+    }
+
+    public function unbanUser(User $user) {
+        $user->banned = false;
+        $user->save();
+
+        return redirect()->back()->withSuccess(__('controllers.user_update'));
+    }
+
+    public function banUser(User $user) {
+        $user->banned = true;
+        $user->save();
+
+        return redirect()->back()->withSuccess(__('controllers.user_update'));
     }
 }
