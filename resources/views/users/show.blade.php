@@ -14,10 +14,8 @@
     </section>
     <!-- Main content -->
     <section class="content">
-
         <div class="row">
             <div class="col-md-3">
-
                 <!-- Profile Image -->
                 <div class="box box-primary">
                     <div class="box-body box-profile">
@@ -157,12 +155,14 @@
                                     </div>
 
                                     <ul class="list-inline">
-                                        <li><a href="#" class="link-black text-sm"><i
-                                                        class="fa fa-share margin-r-5"></i>
+                                        <li>
+                                            <a href="https://www.facebook.com/sharer/sharer.php?u={{urlencode(route('uploads.show', $conteudo->id))}}"
+                                               class="link-black text-sm" target="_blank"><i
+                                                        class="fa fa-facebook-f margin-r-5"></i>
                                                 Partilhar</a></li>
-                                        <!--<li><a href="#" class="link-black text-sm"><i
-                                                        class="fa fa-thumbs-o-up margin-r-5"></i> Like</a>
-                                        </li>-->
+                                        <li><a class="twitter-share-button"
+                                               href="https://twitter.com/intent/tweet?text={{urlencode('Adorei este conteúdo!')}}&url={{route('uploads.show', $conteudo->id)}}">Tweet</a>
+                                        </li>
                                     </ul>
                                 </div>
                                 <!-- /.post -->
@@ -250,4 +250,22 @@
 
     </section>
     <!-- /.content -->
+@endsection
+@section('scripts')
+    <script>window.twttr = (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0],
+                t = window.twttr || {};
+            if (d.getElementById(id)) return t;
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "https://platform.twitter.com/widgets.js";
+            fjs.parentNode.insertBefore(js, fjs);
+
+            t._e = [];
+            t.ready = function (f) {
+                t._e.push(f);
+            };
+
+            return t;
+        }(document, "script", "twitter-wjs"));</script>
 @endsection

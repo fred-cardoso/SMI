@@ -58,6 +58,15 @@
                                 <hr>
                                 <strong><i class="fa fa-calendar margin-r-5"></i> @lang('common.creation_date')</strong>
                                 <p>{{$conteudo->created_at}}</p>
+                                <hr>
+                                <strong><i class="fa fa-thumbs-up margin-r-5"></i> Gostou do conteúdo?</strong>
+                                <p>
+                                    <a href="https://www.facebook.com/sharer/sharer.php?u={{urlencode(route('uploads.show', $conteudo->id))}}"
+                                       class="link-black text-sm" target="_blank"><i
+                                                class="fa fa-facebook-f margin-r-5"></i>Partilhar</a>
+                                    <a class="twitter-share-button"
+                                       href="https://twitter.com/intent/tweet?text={{urlencode('Adorei este conteúdo!')}}&url={{route('uploads.show', $conteudo->id)}}">Tweet</a>
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -130,6 +139,15 @@
                                 <hr>
                                 <strong><i class="fa fa-calendar margin-r-5"></i> @lang('common.creation_date')</strong>
                                 <p>{{$conteudo->created_at}}</p>
+                                <hr>
+                                <strong><i class="fa fa-thumbs-up margin-r-5"></i> Gostou do conteúdo?</strong>
+                                <p>
+                                    <a href="https://www.facebook.com/sharer/sharer.php?u={{urlencode(route('uploads.show', $conteudo->id))}}"
+                                       class="link-black text-sm" target="_blank"><i
+                                                class="fa fa-facebook-f margin-r-5"></i>Partilhar</a>
+                                    <a class="twitter-share-button"
+                                       href="https://twitter.com/intent/tweet?text={{urlencode('Adorei este conteúdo!')}}&url={{route('uploads.show', $conteudo->id)}}">Tweet</a>
+                                </p></p>
                             </div>
                         </div>
                     </div>
@@ -141,4 +159,22 @@
 
     </section>
     <!-- /.content -->
+@endsection
+@section('scripts')
+    <script>window.twttr = (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0],
+                t = window.twttr || {};
+            if (d.getElementById(id)) return t;
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "https://platform.twitter.com/widgets.js";
+            fjs.parentNode.insertBefore(js, fjs);
+
+            t._e = [];
+            t.ready = function (f) {
+                t._e.push(f);
+            };
+
+            return t;
+        }(document, "script", "twitter-wjs"));</script>
 @endsection
