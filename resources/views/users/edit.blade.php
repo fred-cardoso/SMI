@@ -15,7 +15,7 @@
     <!-- Main content -->
     <section class="content">
         <div class="row">
-            <div class="col-xs-12">
+            <div class="col-md-12">
                 @include('layout.result')
                 <form role="form" action="{{route('user.edit', $user->id)}}" method="POST">
                     @csrf

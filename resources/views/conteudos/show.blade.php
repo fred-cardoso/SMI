@@ -36,13 +36,13 @@
                         @auth
                             <hr>
                             <strong><i class="fa fa-map-marker margin-r-5"></i> @lang('common.visibility')</strong>
-                            <p class="text-muted"><span
-                                        class="label label-{{$conteudo->privado == 1 ? 'danger' : 'success'}}">{{$conteudo->privado == 1 ? 'Privado' : 'Público'}}</span>
+                            <p style="margin-top: 5px;">
+                                <span class="label label-{{$conteudo->privado == 1 ? 'danger' : 'success'}}">{{$conteudo->privado == 1 ? 'Privado' : 'Público'}}</span>
                             </p>
                         @endauth
                         <hr>
                         <strong><i class="fa fa-pencil margin-r-5"></i> @lang('categorias.categories')</strong>
-                        <p>
+                        <p style="margin-top: 5px;">
                             @foreach($conteudo->category()->get() as $categoria)
                                 <span class="label label-{{$categoria->secundaria == 1 ? 'info' : 'primary'}}">{{$categoria->nome}}</span>
                             @endforeach
@@ -54,6 +54,18 @@
                         <hr>
                         <strong><i class="fa fa-file-text-o margin-r-5"></i>@lang('common.last_modified')</strong>
                         <p>{{$conteudo->updated_at}}</p>
+                        @if(auth()->check() and (auth()->user()->hasRole('admin') or $conteudo->isOwner(auth()->user())))
+                            <hr>
+                            <strong><i class="fa fa-pencil margin-r-5"></i> @lang('common.actions')</strong>
+                            <p><a href="{{route('uploads.edit', $conteudo->id)}}" type="button"
+                                  class="btn btn-primary">@lang('common.edit')</a>
+                                <button type="button" class="btn btn-danger" data-toggle="modal"
+                                        data-target="#modal-delete-content-{{$conteudo->id}}"
+                                        wfd-id="264">
+                                    @lang('common.delete')
+                                </button>
+                            </p>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -83,3 +95,29 @@
         </div>
     </section>
 @endsection
+<div class="modal modal-danger fade" id="modal-delete-content-{{$conteudo->id}}" wfd-id="130">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar" wfd-id="252">
+                    <span aria-hidden="true">×</span></button>
+                <h4 class="modal-title">@lang('common.warning')</h4>
+            </div>
+            <div class="modal-body">
+                <p>@lang('conteudos.perm_delete') <b>{{$conteudo->titulo}}</b> ? </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline pull-left" data-dismiss="modal" wfd-id="251">
+                    @lang('categorias.cancel')
+                </button>
+                <form action="{{route('uploads.delete', $conteudo->id)}}" method="POST">
+                    @csrf
+                    <input type="submit" class="btn btn-outline" wfd-id="250"
+                           value="@lang("conteudos.delete_content")">
+                </form>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
