@@ -41,8 +41,12 @@ class SearchController extends Controller
         $x = array();
         $indice = 0;
         foreach ($conteudos as $conteudo) {
-            $x[$indice] = '<a href="/uploads/'.$conteudo->id.'">'.$conteudo->titulo."</a>";
-            $indice++;
+            if ($indice > 5) {
+                break;
+            } else {
+                $x[$indice] = '<a class="dropdown-content"href="/uploads/' . $conteudo->id . '">' . $conteudo->titulo . "</a>";
+                $indice++;
+            }
         }
 
         if ($resposta->count() > 0) {
@@ -50,7 +54,7 @@ class SearchController extends Controller
 
         } else {
             $x[0] = "Sem Sugestao";
-            return($x);
+            return ($x);
         }
     }
 }

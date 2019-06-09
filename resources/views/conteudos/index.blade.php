@@ -46,7 +46,7 @@
                                             <div class="col-md-12">
                                                 <div class="box box-primary">
                                                     <div class="box-body">
-                                                        Ainda sem conteúdos!
+                                                        @lang('common.no_content')
                                                     </div>
                                                 </div>
                                             </div>
@@ -134,7 +134,15 @@
                                         </select>
                                     @endauth
                                 </div>
-                                <div class="col-sm-5"></div>
+                                <div id="prepareDownload" class="col-sm-2" style="display:none">
+                                    <label>Escolher preferencias</label><br>
+                                    <input type="checkbox" name="request_title">Com titulo<br>
+                                    <input type="checkbox" name="request_description">Com Descrição
+                                </div>
+                                <div class="col-sm-2" id="prepareDownloadbut" style="display:none">
+                                    <button type="button" onclick="submitform()" class="btn btn-success">Download
+                                    </button>
+                                </div>
                                 <div class="col-sm-5 text-right">
                                     {{$conteudos->links()}}
                                 </div>
@@ -180,6 +188,7 @@
                 <!-- /.modal-content -->
             </div>
             <!-- /.modal-dialog -->
+
         </div>
     @endforeach
 @endsection
@@ -195,14 +204,23 @@
                 }
 
                 if (selected_values == "delete") {
-                    alert('Deseja realmente apagar os ficheiros selecionados?');
+                    alert(@lang('common.delete_selected'));
                 }
+
 
                 let form = document.getElementById('mass_action_form');
                 let contents = document.getElementsByName('selected[]');
 
                 for ($i = 0; $i < contents.length; $i++) {
                     if (contents.item($i).checked) {
+                        if (selected_values == "download") {
+                            var request = document.getElementById("prepareDownload");
+                            var requestButton = document.getElementById("prepareDownloadbut");
+                            request.removeAttribute('style');
+                            requestButton.removeAttribute('style');
+                            return;
+                        }
+
                         form.submit();
                         selected.value = selected.options[0].value;
                         return;
@@ -217,12 +235,39 @@
                 }
 
                 let alert_div = document.createElement('template');
-                alert_div.innerHTML = '<div class="alert alert-danger" id="contents_alert">Tem de selecionar conteúdos primeiro!</div>';
+                alert_div.innerHTML = '<div class="alert alert-danger" id="contents_alert">@lang('common.select_first')</div>';
 
                 main_div.insertBefore(alert_div.content.childNodes[0], main_div.childNodes[0]);
 
                 selected.selectedIndex = 0;
             }
+        }
+
+        function submitform() {
+            let selected = document.getElementById('action_selection');
+            let form = document.getElementById('mass_action_form');
+            let contents = document.getElementsByName('selected[]');
+
+            for ($i = 0; $i < contents.length; $i++) {
+                if (contents.item($i).checked) {
+                    form.submit();
+                    selected.value = selected.options[0].value;
+                    return;
+                }
+            }
+            let main_div = document.getElementById('main_div');
+
+            let content_alert = document.getElementById('contents_alert');
+            if (content_alert != null) {
+                main_div.removeChild(content_alert);
+            }
+
+            let alert_div = document.createElement('template');
+            alert_div.innerHTML = '<div class="alert alert-danger" id="contents_alert">@lang('common.select_first')</div>';
+
+            main_div.insertBefore(alert_div.content.childNodes[0], main_div.childNodes[0]);
+
+            selected.selectedIndex = 0;
         }
     </script>
 @endsection

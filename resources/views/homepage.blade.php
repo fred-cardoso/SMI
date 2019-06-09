@@ -21,7 +21,7 @@
                 <div class="col-md-12">
                     <div class="box box-primary">
                         <div class="box-body">
-                            Ainda sem conteúdos!
+                            @lang('conteudos.no_content')
                         </div>
                     </div>
                 </div>
@@ -59,7 +59,7 @@
                                 <strong><i class="fa fa-calendar margin-r-5"></i> @lang('common.creation_date')</strong>
                                 <p>{{$conteudo->created_at}}</p>
                                 <hr>
-                                <strong><i class="fa fa-thumbs-up margin-r-5"></i> Gostou do conteúdo?</strong>
+                                <strong><i class="fa fa-thumbs-up margin-r-5"></i>@lang('conteudos.liked')</strong>
                                 <p>
                                     <a href="https://www.facebook.com/sharer/sharer.php?u={{urlencode(route('uploads.show', $conteudo->id))}}"
                                        class="link-black text-sm" target="_blank"><i
