@@ -333,6 +333,7 @@ class ConteudoController extends Controller
      */
     public function massChange(Request $request)
     {
+        
         $validatedData = $request->validate([
             'action' => 'required|string|in:download,delete,visibility_private,visibility_public',
             'selected' => 'required',
