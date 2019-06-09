@@ -3,6 +3,7 @@
 namespace App\Http;
 
 use App\Http\Middleware\CheckIfBanned;
+use App\Http\Middleware\LangChanger;
 use App\Http\Middleware\RoleMiddleware;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
@@ -39,6 +40,7 @@ class Kernel extends HttpKernel
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             CheckIfBanned::class,
+            LangChanger::class,
         ],
 
         'api' => [

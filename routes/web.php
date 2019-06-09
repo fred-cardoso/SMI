@@ -74,9 +74,16 @@ Route::group(['middleware' => ['auth', 'verified', 'role:user']], function () {
      */
     Route::post('uploads/batch', 'ConteudoController@massChange')->name('uploads.batch');
 
-    Route::get('locale/{locale}', function($locale) {
-        dump($locale);
-    })->where(['locale' => '[a-z]+'])->name('locale');
+    Route::get('locale/{loc}', function($loc) {
+        if($loc != 'en' and $loc != 'pt') {
+            return redirect()->route('home');
+        }
+
+        auth()->user()->lang = $loc;
+        auth()->user()->save();
+
+        return redirect()->back();
+    })->where(['loc' => '[a-z]+'])->name('locale');
     /**
      * Routes for "Simpatizante"
      */
