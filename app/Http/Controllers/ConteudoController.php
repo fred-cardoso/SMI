@@ -21,6 +21,7 @@ class ConteudoController extends Controller
 
     private $categories_ids = array();
     private $categories_names = array();
+    private $contentMimeTypes;
 
     public function __construct()
     {
@@ -28,6 +29,8 @@ class ConteudoController extends Controller
             array_push($this->categories_ids, $category->id);
             array_push($this->categories_names, $category->nome);
         }
+
+        $this->contentMimeTypes = ['image/gif', 'image/jpeg', 'image/bmp', 'image/png', 'video/mp4', 'video/mov', 'video/avi', 'video/flv', 'video/wmv', 'audio/mpeg', 'audio/vnd.wav', 'audio/ogg'];
     }
 
     public function home()
@@ -58,6 +61,12 @@ class ConteudoController extends Controller
         return view('conteudos.create', compact('categories'));
     }
 
+    public function createBulk()
+    {
+        $categories = Categoria::all();
+        return view('conteudos.createBulk');
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -74,102 +83,6 @@ class ConteudoController extends Controller
         ]);
 
         $file = $request->file('file');
-
-        $zipMimeTypes = ['application/zip', 'application/octet-stream', 'application/x-zip-compressed', 'multipart/x-zip'];
-        $contentMimeTypes = ['image/gif', 'image/jpeg', 'image/bmp', 'image/png', 'video/mp4', 'video/mov', 'video/avi', 'video/flv', 'video/wmv', 'audio/mpeg', 'audio/vnd.wav', 'audio/ogg'];
-
-        //Check if is a ZIP file
-        if (in_array($file->getMimeType(), $zipMimeTypes)) {
-            $path = $file->store('zipped');
-            $storage_path = storage_path() . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR;
-            $zip = new ZipArchive;
-            $res = $zip->open($storage_path . $path);
-            if ($res === TRUE) {
-                $unzipped_full_path = $storage_path . 'unzipped' . DIRECTORY_SEPARATOR . $file->getFilename();
-                $unzipped_path = 'unzipped' . DIRECTORY_SEPARATOR . $file->getFilename();
-
-                $zip->extractTo($unzipped_full_path);
-                $zip->close();
-
-                //Delete uploaded zip file
-                Storage::delete($path);
-
-                $files_paths = Storage::files($unzipped_path);
-
-                if (sizeof($files_paths) <= 0) {
-                    return redirect()->back()->withErrors(__('controllers.empty_zip'));
-                }
-
-                //Checks if meta.xml exists and replaces \ with / in path (Storage::files vs default)
-                if (!in_array($unzipped_path . DIRECTORY_SEPARATOR . 'meta.xml', $files_paths)) {
-                    return redirect()->back()->withErrors(__('controllers.empty_meta'));
-                }
-
-                $xml = new DOMDocument();
-                $xml->loadXML(Storage::get($unzipped_path . '\meta.xml'), LIBXML_NOBLANKS);
-
-                try {
-                    $xml->schemaValidate($storage_path . DIRECTORY_SEPARATOR . 'public' . DIRECTORY_SEPARATOR . 'zip_files.xsd');
-                } catch (\Exception $exception) {
-                    return redirect()->back()->withErrors(__('controllers.error_XML') . $exception->getMessage());
-                }
-
-                $xml_files = $xml->getElementsByTagName('file');
-
-                for ($i = 0; $i < $xml_files->count(); $i++) {
-                    $file_name = '/' . $xml_files->item($i)->attributes->getNamedItem('name')->nodeValue;
-                    $file_title = $xml_files->item($i)->attributes->getNamedItem('title')->nodeValue;
-                    $file_description = $xml_files->item($i)->childNodes->item(0)->nodeValue;
-
-                    $xml_categories = $xml_files->item($i)->childNodes->item(1)->childNodes;
-                    $file_categories = [];
-
-                    for ($x = 0; $x < $xml_categories->count(); $x++) {
-                        $file_category = $xml_categories->item($x)->attributes->getNamedItem('name')->nodeValue;
-
-                        //Checks for valid categories names
-                        if (!in_array($file_category, $this->categories_names)) {
-                            return redirect()->back()->withErrors(__('controllers.no_category') . $file_category);
-                        }
-
-                        array_push($file_categories, $file_category);
-                    }
-
-                    //Checks for missing files in zip but declared in meta.xml
-                    if (!in_array($unzipped_path . $file_name, $files_paths)) {
-                        return redirect()->back()->withErrors(__('controllers.missing_file') . $file_name);
-                    }
-
-                    $file_object = new File($unzipped_full_path . $file_name);
-
-                    //Checks for valid meme types inside zip contents
-                    if (!in_array($file_object->getMimeType(), $contentMimeTypes)) {
-                        return redirect()->back()->withErrors(__('controllers.mime_type') . $file_object->getMimeType());
-                    }
-
-                    $path_to_store = Storage::putFile('files', $file_object);
-
-                    $conteudo = new Conteudo();
-                    $conteudo->titulo = $file_title;
-                    $conteudo->descricao = $file_description;
-                    $conteudo->nome = $path_to_store;
-                    $conteudo->tipo = explode(DIRECTORY_SEPARATOR, $file_object->getMimeType())[0];
-                    $conteudo->user()->associate(Auth::user());
-                    $conteudo->save();
-
-                    foreach ($file_categories as $name) {
-                        $categoria = Categoria::where('nome', $name)->first();
-                        $conteudo->category()->attach($categoria);
-                    }
-                }
-
-                Storage::deleteDirectory($unzipped_path);
-
-                return redirect()->back()->withSuccess(__('controllers.zip_import_sucess'));
-            } else {
-                return redirect()->back()->withErrors(__('controllers.error_occured'));
-            }
-        }
 
         $path = null;
 
@@ -209,6 +122,114 @@ class ConteudoController extends Controller
         }
 
         return redirect()->route('uploads.show', $conteudo->id);
+    }
+
+    /**
+     * Same as store, but in bulk
+     */
+
+    public function storeBulk(Request $request)
+    {
+        $file = $request->file('file');
+
+        $zipMimeTypes = ['application/zip', 'application/octet-stream', 'application/x-zip-compressed', 'multipart/x-zip'];
+
+        //Check if is a ZIP file
+        if (!in_array($file->getMimeType(), $zipMimeTypes)) {
+            return redirect()->back()->withErrors('Ficheiro enviado não é válido!');
+        }
+
+        $path = $file->store('zipped');
+        $storage_path = storage_path() . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR;
+        $zip = new ZipArchive;
+        $res = $zip->open($storage_path . $path);
+        if ($res === TRUE) {
+            $unzipped_full_path = $storage_path . 'unzipped' . DIRECTORY_SEPARATOR . $file->getFilename();
+            $unzipped_path = 'unzipped' . DIRECTORY_SEPARATOR . $file->getFilename();
+
+            $zip->extractTo($unzipped_full_path);
+            $zip->close();
+
+            //Delete uploaded zip file
+            Storage::delete($path);
+
+            $files_paths = Storage::files($unzipped_path);
+
+            if (sizeof($files_paths) <= 0) {
+                return redirect()->back()->withErrors(__('controllers.empty_zip'));
+            }
+
+            //Checks if meta.xml exists and replaces \ with / in path (Storage::files vs default)
+            if (!in_array($unzipped_path . DIRECTORY_SEPARATOR . 'meta.xml', $files_paths)) {
+                return redirect()->back()->withErrors(__('controllers.empty_meta'));
+            }
+
+            $xml = new DOMDocument();
+            $xml->loadXML(Storage::get($unzipped_path . '\meta.xml'), LIBXML_NOBLANKS);
+
+            try {
+                $xml->schemaValidate($storage_path . DIRECTORY_SEPARATOR . 'public' . DIRECTORY_SEPARATOR . 'zip_files.xsd');
+            } catch (\Exception $exception) {
+                return redirect()->back()->withErrors(__('controllers.error_XML') . $exception->getMessage());
+            }
+
+            $xml_files = $xml->getElementsByTagName('file');
+
+            for ($i = 0; $i < $xml_files->count(); $i++) {
+                $file_name = '/' . $xml_files->item($i)->attributes->getNamedItem('name')->nodeValue;
+                $file_title = $xml_files->item($i)->attributes->getNamedItem('title')->nodeValue;
+                $file_privacy = $xml_files->item($i)->attributes->getNamedItem('privacy')->nodeValue ?? '';
+                $file_description = $xml_files->item($i)->childNodes->item(0)->nodeValue;
+
+                $xml_categories = $xml_files->item($i)->childNodes->item(1)->childNodes;
+                $file_categories = [];
+
+                for ($x = 0; $x < $xml_categories->count(); $x++) {
+                    $file_category = $xml_categories->item($x)->attributes->getNamedItem('name')->nodeValue;
+
+                    //Checks for valid categories names
+                    if (!in_array($file_category, $this->categories_names)) {
+                        return redirect()->back()->withErrors(__('controllers.no_category') . $file_category);
+                    }
+
+                    array_push($file_categories, $file_category);
+                }
+
+                //Checks for missing files in zip but declared in meta.xml
+                if (!in_array($unzipped_path . $file_name, $files_paths)) {
+                    return redirect()->back()->withErrors(__('controllers.missing_file') . $file_name);
+                }
+
+                $file_object = new File($unzipped_full_path . $file_name);
+
+                //Checks for valid meme types inside zip contents
+                if (!in_array($file_object->getMimeType(), $this->contentMimeTypes)) {
+                    return redirect()->back()->withErrors(__('controllers.mime_type') . $file_object->getMimeType());
+                }
+
+                $path_to_store = Storage::putFile('files', $file_object);
+
+                $conteudo = new Conteudo();
+                $conteudo->titulo = $file_title;
+                $conteudo->descricao = $file_description;
+                $conteudo->privado = $file_privacy === 'true' ? 1 : 0;
+                $conteudo->nome = $path_to_store;
+                $conteudo->tipo = explode(DIRECTORY_SEPARATOR, $file_object->getMimeType())[0];
+                $conteudo->user()->associate(Auth::user());
+                $conteudo->save();
+
+                foreach ($file_categories as $name) {
+                    $categoria = Categoria::where('nome', $name)->first();
+                    $conteudo->category()->attach($categoria);
+                }
+            }
+
+            Storage::deleteDirectory($unzipped_path);
+
+            return redirect()->back()->withSuccess(__('controllers.zip_import_sucess'));
+        } else {
+            return redirect()->back()->withErrors(__('controllers.error_occured'));
+        }
     }
 
     /**

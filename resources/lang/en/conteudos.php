@@ -18,10 +18,7 @@ return [
     'msg1' => ' To insert content in mass, you should send a ZIP file, this must contain a XML named',
     'msg2' => ' The',
     'msg3' => 'file, should be validated by this ',
-
     'meta' => ' meta',
-    'msg4' => 'In case of uploading a ZIP file, all the information will be referent to the ',
-    'msg5' => ' file, ignoring all the form data below',
     'content_new' => 'New content',
     'title' => 'Title',
     'description' => 'Description',
