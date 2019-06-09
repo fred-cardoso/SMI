@@ -217,10 +217,32 @@
                         </li>
                     </ul>
                 </li>
-            @auth
-                <!-- User Account: style can be found in dropdown.less -->
+                @auth
+                    <li class="dropdown">
+                        @if(auth()->user()->lang == 'pt')
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span
+                                        class="flag-icon flag-icon-pt"></span></a>
+                            <ul class="dropdown-menu" style="min-width: 20px; right:0; left:auto;">
+                                <li>
+                                    <a href="{{route('locale', 'en')}}">
+                                        <span class="flag-icon flag-icon-gb"></span></a>
+                                </li>
+                            </ul>
+                        @else
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span
+                                        class="flag-icon flag-icon-gb"></span></a>
+                            <ul class="dropdown-menu" style="min-width: 20px; right:0; left:auto;">
+                                <li>
+                                    <a href="{{route('locale', 'pt')}}">
+                                        <span class="flag-icon flag-icon-pt"></span></a>
+                                </li>
+                            </ul>
+                        @endif
+                    </li>
+                    <!-- User Account: style can be found in dropdown.less -->
                     <li class="dropdown user user-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa fa-user"></i>
                             <span class="hidden-xs">{{auth()->user()->name}}</span>
                         </a>
                         <ul class="dropdown-menu">
@@ -235,12 +257,14 @@
                             <!-- Menu Footer-->
                             <li class="user-footer">
                                 <div class="pull-left">
-                                    <a href="{{route('profile')}}" class="btn btn-default btn-flat">@lang('user.profile')</a>
+                                    <a href="{{route('profile')}}"
+                                       class="btn btn-default btn-flat">@lang('user.profile')</a>
                                 </div>
                                 <div class="pull-right">
                                     <form action="{{route('logout')}}" method="POST">
                                         @csrf
-                                        <button type="submit" class="btn btn-default btn-flat">@lang('auth.logout')</button>
+                                        <button type="submit"
+                                                class="btn btn-default btn-flat">@lang('auth.logout')</button>
                                     </form>
                                 </div>
                             </li>
