@@ -17,11 +17,6 @@
         <div class="row">
             <div class="col-xs-12">
                 @include('layout.result')
-                <div class="alert alert-info">
-                    <h4>@lang("common.info")</h4>
-                    <p>@lang("conteudos.msg1")<i>@lang("conteudos.meta")</i>.@lang("conteudos.msg2") <i>@lang("conteudos.meta")</i> @lang("conteudos.msg3")<a target="_blank" href="{{Storage::url('public/zip_files.xsd')}}">XSD</a>.</p>
-                    <p>@lang("conteudos.msg4")<i>@lang("conteudos.meta")</i> @lang("conteudos.msg5")</p>
-                </div>
                 <form role="form" action="{{route('upload')}}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="box">

@@ -3,8 +3,9 @@
         position: absolute;
         display: block;
     }
-    #searchBox{
-        width:90%;
+
+    #searchBox {
+        width: 90%;
     }
 
 
@@ -17,8 +18,9 @@
         width: 100%;
         background: #374850;
     }
-    #searchBox a:hover{
-        background:#0a0a0a;
+
+    #searchBox a:hover {
+        background: #0a0a0a;
     }
 
 </style><!-- Left side column. contains the logo and sidebar -->
@@ -63,10 +65,13 @@
                                 href="{{route('uploads')}}"><i
                                     class="fa fa-circle-o"></i>@lang('conteudos.list_content')</a></li>
                     @role('simpatizante')
-
                     <li class="{{ request()->url() == route('upload') ? 'active' : '' }}"><a
                                 href="{{route('upload')}}"><i
                                     class="fa fa-circle-o"></i>@lang('conteudos.upload_content')</a>
+                    </li>
+                    <li class="{{ request()->url() == route('upload.bulk') ? 'active' : '' }}"><a
+                                href="{{route('upload.bulk')}}"><i
+                                    class="fa fa-circle-o"></i>Enviar Conteúdos em Massa</a>
                     </li>
                     @endrole
 

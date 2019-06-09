@@ -94,7 +94,9 @@ Route::group(['middleware' => ['auth', 'verified', 'role:user']], function () {
         Route::post('categorias/{categoria}/edit', 'CategoriaController@update')->where(['categoria' => '[0-9]+']);
 
         Route::get('upload', 'ConteudoController@create')->name('upload');
+        Route::get('upload/bulk', 'ConteudoController@createBulk')->name('upload.bulk');
         Route::post('upload', 'ConteudoController@store');
+        Route::post('upload/bulk', 'ConteudoController@storeBulk');
         Route::get('uploads/{conteudo}/edit', 'ConteudoController@edit')->where(['conteudo' => '[0-9]+'])->name('uploads.edit');
         Route::post('uploads/{conteudo}/edit', 'ConteudoController@update')->where(['conteudo' => '[0-9]+']);
 
