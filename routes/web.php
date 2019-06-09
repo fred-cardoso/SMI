@@ -16,8 +16,8 @@ use Illuminate\Support\Facades\Storage;
 Route::get('install', 'InstallController@install')->name('install');
 Route::post('install', 'InstallController@store');
 
-Route::post('search2', 'SearchController@search');
-Route::get('search2/{search}', 'SearchController@search');
+Route::post('searchHelper', 'SearchController@search');
+Route::get('searchHelper/{search}', 'SearchController@search');
 
 Auth::routes(['verify' => true]);
 
