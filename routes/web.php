@@ -68,10 +68,15 @@ Route::group(['middleware' => ['auth', 'verified', 'role:user']], function () {
     Route::post('categorias/{categoria}/subscribe', 'UserController@subscribeCategoria')->where(['categoria' => '[0-9]+'])->name('categorias.delete');
 
     Route::post('uploads/{conteudo}/delete', 'ConteudoController@destroy')->where(['conteudo' => '[0-9]+'])->name('uploads.delete');
+
     /**
      * Dangerous route! User input needs to be validated in controller to avoid vulneratiblities
      */
     Route::post('uploads/batch', 'ConteudoController@massChange')->name('uploads.batch');
+
+    Route::get('locale/{locale}', function($locale) {
+        dump($locale);
+    })->where(['locale' => '[a-z]+'])->name('locale');
     /**
      * Routes for "Simpatizante"
      */
