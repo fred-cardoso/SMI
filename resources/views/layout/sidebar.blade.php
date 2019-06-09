@@ -1,4 +1,27 @@
-<!-- Left side column. contains the logo and sidebar -->
+<style>
+    .dropdown {
+        position: absolute;
+        display: block;
+    }
+    #searchBox{
+        width:90%;
+    }
+
+
+    .dropdown-content {
+        padding: 12px 16px;
+        text-decoration: none;
+        position: relative;
+        display: block;
+        z-index: 10;
+        width: 100%;
+        background: #374850;
+    }
+    #searchBox a:hover{
+        background:#0a0a0a;
+    }
+
+</style><!-- Left side column. contains the logo and sidebar -->
 <aside class="main-sidebar">
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
@@ -7,14 +30,18 @@
 
         <form action='{{route('search')}}' method="post" class="sidebar-form" oninput="ajax_search()">
             @csrf
-            <div class="input-group" id="searchBox">
+
+            <div class="input-group">
                 <input type="text" id='search' name="q" class="form-control" placeholder="@lang('common.search')"
                        required>
                 <span class="input-group-btn">
                 <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
                 </button>
+
               </span>
             </div>
+            <div class="dropdown" id="searchBox"></div>
+
         </form>
         <!-- /.search form -->
         <!-- sidebar menu: : style can be found in sidebar.less -->
@@ -314,8 +341,9 @@
         // Exemplo de requisição GET
         var ajax = new XMLHttpRequest();
 
+
 // Seta tipo de requisição e URL com os parâmetros
-        ajax.open("GET", "/search2/" + search_request, true);
+        ajax.open("GET", "/searchHelper/" + search_request, true);
         ajax.setRequestHeader("x-csrf-token", "fetch");
         ajax.setRequestHeader("Accept", "application/json");
         ajax.setRequestHeader("Content-Type", "application/json; charset=utf-8");
@@ -329,8 +357,8 @@
 // Cria um evento para receber o retorno.
         ajax.onreadystatechange = function () {
             var tableRows = search_response.getElementsByTagName('a');
-            var rowCount = tableRows.length;x
-            for(var x = 0; x<rowCount; x++){
+            var rowCount = tableRows.length;
+            for (var x = 0; x < rowCount; x++) {
                 search_response.removeChild(tableRows[0]);
             }
 
