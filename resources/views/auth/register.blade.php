@@ -55,11 +55,7 @@
             </div>
         </form>
 
-        <div class="social-auth-links text-center">
-            <p>- OU -</p>
-            <a href="#" class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-facebook"></i> @lang("auth.log_facebook")</a>
-            <a href="#" class="btn btn-block btn-social btn-google btn-flat"><i class="fa fa-google-plus"></i> @lang("auth.log_google_plus")</a>
-        </div>
+        <hr>
 
         <a href="{{route('login')}}" class="text-center">@lang("auth.have_acc")</a>
     </div>
