@@ -49,6 +49,7 @@ return [
     'version' => ' Version ',
     'rights_reserved' => ' All rights reserved ',
     'installation' =>'Installation',
-    'select_first' =>'Select something first'
+    'select_first' =>'Select something first',
+    'delete_selected' =>'"Are you sure you want to delete the selected items?"',
 
 ];

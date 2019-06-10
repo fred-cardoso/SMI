@@ -37,7 +37,7 @@
                                 <input class="form-control" type="text" name="app_url" value="{{$config['app_url'] ?? ''}}" required>
                             </div>
                             <hr>
-                            <h4>Email Configurations</h4>
+                            <h4>@lang('auth.email_config')</h4>
                             <hr>
                             <div class="form-group">
                                 <label>MAIL_DRIVER</label>
@@ -70,7 +70,7 @@
                                 <input class="form-control" type="email" name="mail_from_address" value="{{$config['mail_from_address'] ?? ''}}" required>
                             </div>
                             <hr>
-                            <h4>Database Configurations</h4>
+                            <h4>@lang('auth.db_config')</h4>
                             <hr>
                             <div class="form-group">
                                 <label>DB_CONNECTION</label>

@@ -113,7 +113,7 @@
                         </button>
                         <form action="{{route('user.delete', $user->id)}}" method="POST">
                             @csrf
-                            <input type="submit" class="btn btn-outline" wfd-id="250" value="{{@__('common.delete')}}"/>
+                            <input type="submit" class="btn btn-outline" wfd-id="250" value="{{__('common.delete')}}"/>
                         </form>
                     </div>
                 </div>

@@ -21,7 +21,10 @@ return [
     'content_sent' =>' Nº de Conteúdos Enviados',
     'registry_date' =>'Data de Registo',
     'pw' => 'Password Atual',
-    'perm_delete' =>'Tem a certeza que pertende eliminar o user: '
+    'perm_delete' =>'Tem a certeza que pertende eliminar o user: ',
+    'no_users' => 'Não existem utilizadores.',
+    'no_content' =>'Este utilizador não tem conteúdos publicados.',
+    'no_banned' => 'Não existem utilizadores banidos',
 
 
 

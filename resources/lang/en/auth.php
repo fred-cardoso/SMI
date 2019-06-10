@@ -39,8 +39,9 @@ return [
     'success' => 'Success',
     'banned_user' => 'Account banned!',
     'verification' =>'Requeriments verification',
-    'email_config' =>'Email configuration',
-    'admin_config' => 'Admin configuration',
+    'email_config' =>'Email configurations',
+    'admin_config' => 'Admin configurations',
+    'db_config' => 'Database configurations'
 
 
 

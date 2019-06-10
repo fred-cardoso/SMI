@@ -156,9 +156,9 @@
                                             <a href="https://www.facebook.com/sharer/sharer.php?u={{urlencode(route('uploads.show', $conteudo->id))}}"
                                                class="link-black text-sm" target="_blank"><i
                                                         class="fa fa-facebook-f margin-r-5"></i>
-                                                Partilhar</a></li>
+                                                @lang('conteudos.share')</a></li>
                                         <li><a class="twitter-share-button"
-                                               href="https://twitter.com/intent/tweet?text={{urlencode('Adorei este conteúdo!')}}&url={{route('uploads.show', $conteudo->id)}}">Tweet</a>
+                                               href="https://twitter.com/intent/tweet?text={{urlencode(__('conteudos.like_share'))}}&url={{route('uploads.show', $conteudo->id)}}">Tweet</a>
                                         </li>
                                     </ul>
                                 </div>

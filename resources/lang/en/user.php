@@ -24,6 +24,9 @@ return [
     'perm_delete' => 'Are you sure you want to permanently delete the follwing user: ',
     'ban' => 'Ban',
     'unban' => 'Unban',
+    'no_users' => 'There are no users.',
+    'no_content' =>'This user has no published content.',
+    'no_banned' => "There isn't a single banned user.",
 
 
 

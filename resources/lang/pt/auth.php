@@ -41,6 +41,8 @@ return [
     'verification' => 'Verificação de requisitos',
     'email_config' => 'Configuração do Email',
     'admin_config' => 'Configuração do Administrador',
+    'db_config' => 'Configuração da base de dados',
+
 
 
 ];
