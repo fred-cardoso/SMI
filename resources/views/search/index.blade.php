@@ -3,12 +3,12 @@
 @section('content')
     <section class="content-header">
         <h1>
-            @lang("common.search2")
+            @lang("common.search")
             <small>@lang("common.search_rs")</small>
         </h1>
         <ol class="breadcrumb">
             <li><a href="{{route("home")}}"><i class="fa fa-home"></i>@lang("categorias.home_page")</a></li>
-            <li class="active"><i class="fa fa-television"></i> @lang("common.search_2")</li>
+            <li class="active"><i class="fa fa-television"></i> @lang("common.search_rs")</li>
         </ol>
     </section>
     <!-- Main content -->
