@@ -38,5 +38,10 @@ return [
     'email_veri' =>'Email verification',
     'success' => 'Success',
     'banned_user' => 'Account banned!',
+    'verification' =>'Requeriments verification',
+    'email_config' =>'Email configuration',
+    'admin_config' => 'Admin configuration',
+
+
 
 ];

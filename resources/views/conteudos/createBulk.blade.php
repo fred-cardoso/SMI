@@ -1,15 +1,15 @@
 @extends('layout.layout')
-@section('title', __("conteudos.bulk"))
+@section('title', __("conteudos.mass_content"))
 @section('content')
     <section class="content-header">
         <h1>
             @lang("conteudos.content")
-            <small>@lang('conteudos.bulk')</small>
+            <small>@lang('conteudos.mass_content')</small>
         </h1>
         <ol class="breadcrumb">
             <li><a href="{{route('home')}}"><i class="fa fa-home"></i>@lang("categorias.home_page")</a></li>
             <li><a href="{{route('uploads')}}"><i class="fa fa-television"></i>@lang("conteudos.content")</a></li>
-            <li class="active"><i class="fa fa-upload"></i>@lang('conteudos.bulk')</li>
+            <li class="active"><i class="fa fa-upload"></i>@lang('conteudos.mass_content')</li>
         </ol>
     </section>
     <!-- Main content -->

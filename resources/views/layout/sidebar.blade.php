@@ -47,7 +47,7 @@
 
                     <li class="{{ Request::routeIs('upload.bulk') ? 'active' : '' }}"><a
                                 href="{{route('upload.bulk')}}"><i
-                                    class="fa fa-circle-o"></i>@lang('contents.mass_content')</a>
+                                    class="fa fa-circle-o"></i>@lang('conteudos.mass_content')</a>
                     </li>
                     @endrole
 

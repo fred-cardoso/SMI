@@ -43,8 +43,13 @@ return [
     'search' =>'Procurar...',
     'search_failed' =>'Não foi encontrado conteúdos para a sua pesquisa!',
     'search_rs' => 'Resultados da pesquisa',
-    'search2' =>'Pesquisa',
-    'cancel' =>'Cancelar'
+    'cancel' =>'Cancelar',
+    'tweet' =>'Tweet',
+    'version' =>' Versão ',
+    'rights_reserved' => 'Todos os direitos reservados',
+    'installation' => 'Instalação',
+    'select_first' => 'Selecione algo primeiro',
+
 
 
 ];

@@ -14,7 +14,7 @@ return [
     */
     'content' => 'Contents',
     'upload' => 'Upload',
-    'upload_content' => ' Upload Content',
+    'upload_content' => 'Upload Content',
     'msg1' => ' To insert content in mass, you should send a ZIP file, this must contain a XML named',
     'msg2' => ' The',
     'msg3' => 'file, should be validated by this ',
@@ -42,6 +42,8 @@ return [
     'like_share' =>' I loved this content',
     'no_perm_delete' =>'You have no permission to delete this content',
     'no_perm_change' =>'You have no permission to change this content',
+    'mass_content' => 'Upload in bulk',
+
 
 
 

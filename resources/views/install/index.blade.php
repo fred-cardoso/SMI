@@ -9,7 +9,7 @@
     </div>
     <!-- /.login-logo -->
     <div class="login-box-body">
-        <p class="login-box-msg">Instalação</p>
+        <p class="login-box-msg">@lang('common.installation')</p>
 
         @if ($errors->any())
             <div class="alert alert-danger alert-dismissible">
@@ -23,7 +23,7 @@
             </div>
             <hr>
         @endif
-        <h4 class="text-center">Verificação de requisitos</h4>
+        <h4 class="text-center">@lang('auth.verification')</h4>
         <hr>
 
         <div class="form-group has-feedback">
@@ -105,7 +105,7 @@
                 <span class="fa fa-server form-control-feedback"></span>
             </div>
             <hr>
-            <h4 class="text-center">Configuração da Base de Dados</h4>
+            <h4 class="text-center">@lang('common.config_system')</h4>
             <hr>
 
             <div class="form-group">
@@ -137,7 +137,7 @@
                 <span class="fa fa-lock form-control-feedback"></span>
             </div>
             <hr>
-            <h4 class="text-center">Configuração do Email</h4>
+            <h4 class="text-center">@lang('auth.email_config')</h4>
             <hr>
 
             <div class="form-group">
@@ -173,7 +173,7 @@
                 <span class="fa fa-at form-control-feedback"></span>
             </div>
             <hr>
-            <h4 class="text-center">Configuração do Administrador</h4>
+            <h4 class="text-center">@lang('auth.admin_config')</h4>
             <hr>
 
             <div class="form-group has-feedback">
@@ -196,7 +196,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <button type="submit"
-                            class="btn btn-primary btn-block btn-flat">Concluir
+                            class="btn btn-primary btn-block btn-flat">@lang('common.conclude')
                     </button>
                 </div>
                 <!-- /.col -->
