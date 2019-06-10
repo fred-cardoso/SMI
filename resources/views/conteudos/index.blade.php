@@ -136,7 +136,7 @@
                                 </div>
                                 <div id="prepareDownload" class="col-sm-2" style="display:none">
                                     <label>Escolher preferencias</label><br>
-                                    <input type="checkbox" name="request_title">Com titulo<br>
+                                    <input type="checkbox" name="request_category">Com Categoria<br>
                                     <input type="checkbox" name="request_description">Com Descrição
                                 </div>
                                 <div class="col-sm-2" id="prepareDownloadbut" style="display:none">
@@ -195,6 +195,8 @@
 @section('scripts')
     <script>
         function massAction() {
+            var request = document.getElementById("prepareDownload");
+            var requestButton = document.getElementById("prepareDownloadbut");
             let selected = document.getElementById('action_selection');
             let selected_values = selected.options[selected.selectedIndex].value;
             if (selected_values != null) {
@@ -214,11 +216,13 @@
                 for ($i = 0; $i < contents.length; $i++) {
                     if (contents.item($i).checked) {
                         if (selected_values == "download") {
-                            var request = document.getElementById("prepareDownload");
-                            var requestButton = document.getElementById("prepareDownloadbut");
+
                             request.removeAttribute('style');
                             requestButton.removeAttribute('style');
                             return;
+                        }else{
+                            request.setAttribute('display','none');
+                            requestButton.setAttribute('display','none');
                         }
 
                         form.submit();
