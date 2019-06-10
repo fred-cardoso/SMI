@@ -40,6 +40,9 @@ return [
     'liked' => 'Liked the content?',
     'share' => 'Share',
     'like_share' =>' I loved this content',
+    'no_perm_delete' =>'You have no permission to delete this content',
+    'no_perm_change' =>'You have no permission to change this content',
+
 
 
 

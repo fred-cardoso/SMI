@@ -154,7 +154,7 @@ class ConteudoController extends Controller
 
         //Check if is a ZIP file
         if (!in_array($file->getMimeType(), $zipMimeTypes)) {
-            return redirect()->back()->withErrors('Ficheiro enviado não é válido!');
+            return redirect()->back()->withErrors(__('controllers.file_not_valid'));
         }
 
         $path = $file->store('zipped');
@@ -294,7 +294,7 @@ class ConteudoController extends Controller
     public function update(Request $request, Conteudo $conteudo)
     {
         if (auth()->user()->hasRole('simpatizante') and !$conteudo->isOwner(auth()->user())) {
-            return redirect()->back()->withErrors('Não tem permissões para alterar os conteúdos seleccionados!');
+            return redirect()->back()->withErrors(__('conteudos.no_perm_change'));
         }
 
         $validatedData = $request->validate([
@@ -359,11 +359,11 @@ class ConteudoController extends Controller
         ]);
 
         if ($validatedData['action'] == "delete" && !Auth::user()->hasRole('admin')) {
-            return redirect()->back()->withErrors('Não tem permissões para eliminar os conteúdos seleccionados!');
+            return redirect()->back()->withErrors(__('conteudos.no_perm_delete'));
         }
 
         if (($validatedData['action'] == "visibility_private" or $validatedData['action'] == "visibility_public") && (!Auth::user()->hasRole('admin') and !Auth::user()->hasRole('simpatizante'))) {
-            return redirect()->back()->withErrors('Não tem permissões para alterar os conteúdos seleccionados!');
+            return redirect()->back()->withErrors(__('conteudos.no_perm_change'));
         }
 
         $conteudos = Conteudo::findMany($validatedData['selected']);
@@ -371,7 +371,7 @@ class ConteudoController extends Controller
         if (auth()->user()->hasRole('simpatizante')) {
             foreach ($conteudos as $conteudo) {
                 if (!$conteudo->isOwner(auth()->user())) {
-                    return redirect()->back()->withErrors('Não tem permissões para alterar os conteúdos seleccionados!');
+                    return redirect()->back()->withErrors(__('conteudos.no_perm_change'));
                 }
             }
         }

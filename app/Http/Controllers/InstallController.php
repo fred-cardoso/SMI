@@ -60,11 +60,11 @@ class InstallController extends Controller
         $response = $config_controller->update($request);
 
         if (!$response->getStatusCode() == 302) {
-            return redirect()->back()->withErrors('Ocorreu um erro!')->withInput();
+            return redirect()->back()->withErrors(__('controllers.error_occured'))->withInput();
         }
 
         if (!$this->checkDBConnection()) {
-            return redirect()->back()->withErrors('Ocorreu um erro ao ligar à base de dados!')->withInput();
+            return redirect()->back()->withErrors(__('controllers.error_occured_db'))->withInput();
         }
 
         Artisan::call('migrate:fresh --seed');

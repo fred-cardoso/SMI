@@ -30,7 +30,9 @@ return [
     'zip_import_sucess' =>'ZIP importado com sucesso!',
     'no_category' => 'No sistema não existe a categoria: ',
     'missing_file' => 'Falta, ao ficheiro ZIP o ficheiro',
-    'mime_type' =>'Não é suportado o ficheiro com MIME Type '
+    'mime_type' =>'Não é suportado o ficheiro com MIME Type ',
+    'file_not_valid' =>'Ficheiro não é válido',
+    'error_ocurred_db' =>'Ocorreu um erro ao ligar à base de dados!'
 
 
 

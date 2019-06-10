@@ -45,6 +45,8 @@ return [
     'liked' => 'Gostou do conteúdo?',
     'share' =>'Partilhar',
     'like_share' =>'Adorei este conteúdo',
+    'no_perm_delete' => 'Não tem permissões para eliminar os conteúdos seleccionados!',
+    'no_perm_change' => 'Não tem permissões para alterar os conteúdos seleccionados!',
 
 
 
