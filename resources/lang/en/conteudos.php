@@ -37,7 +37,10 @@ return [
     'edit_suc' =>'Content sucessfully edited',
     'delete_suc' =>'Content sucessfully deleted',
     'update_suc' =>'Content sucessfully updated',
-    'liked' => 'Liked the content',
+    'liked' => 'Liked the content?',
+    'share' => 'Share',
+    'like_share' =>' I loved this content',
+
 
 
 

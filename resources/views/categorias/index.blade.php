@@ -40,7 +40,7 @@
                                     <div class="col-md-12">
                                         <div class="box box-primary">
                                             <div class="box-body">
-                                                Ainda sem categorias!
+                                               @lang('categorias.no_cat')
                                             </div>
                                         </div>
                                     </div>
@@ -131,7 +131,7 @@
                         </button>
                         <form action="{{route('cat.delete', $categoria->id)}}" method="POST">
                             @csrf
-                            <input type="submit" class="btn btn-outline" wfd-id="250" value="{{@__('common.delete')}}"/>
+                            <input type="submit" class="btn btn-outline" wfd-id="250" value="{{__('common.delete')}}"/>
                         </form>
                     </div>
                 </div>

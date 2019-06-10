@@ -65,13 +65,13 @@
                                 </strong>
                                 <p>{{$conteudo->created_at}}</p>
                                 <hr>
-                                <strong><i class="fa fa-thumbs-up margin-r-5"></i> Gostou do conteúdo?</strong>
+                                <strong><i class="fa fa-thumbs-up margin-r-5"></i>@lang('conteudos.liked')</strong>
                                 <p>
                                     <a href="https://www.facebook.com/sharer/sharer.php?u={{urlencode(route('uploads.show', $conteudo->id))}}"
                                        class="link-black text-sm" target="_blank"><i
-                                                class="fa fa-facebook-f margin-r-5"></i>Partilhar</a>
+                                                class="fa fa-facebook-f margin-r-5"></i>@lang('conteudos.share')</a>
                                     <a class="twitter-share-button"
-                                       href="https://twitter.com/intent/tweet?text={{urlencode('Adorei este conteúdo!')}}&url={{route('uploads.show', $conteudo->id)}}">Tweet</a>
+                                       href="https://twitter.com/intent/tweet?text={{urlencode(__("conteudos.like_share"))}}&url={{route('uploads.show', $conteudo->id)}}">Tweet</a>
                                 </p>
                             </div>
                         </div>
@@ -147,13 +147,13 @@
                                 </strong>
                                 <p>{{$conteudo->created_at}}</p>
                                 <hr>
-                                <strong><i class="fa fa-thumbs-up margin-r-5"></i> Gostou do conteúdo?</strong>
+                                <strong><i class="fa fa-thumbs-up margin-r-5"></i> @lang('conteudos.liked')</strong>
                                 <p>
                                     <a href="https://www.facebook.com/sharer/sharer.php?u={{urlencode(route('uploads.show', $conteudo->id))}}"
                                        class="link-black text-sm" target="_blank"><i
-                                                class="fa fa-facebook-f margin-r-5"></i>Partilhar</a>
+                                                class="fa fa-facebook-f margin-r-5"></i>@lang('conteudos.share')</a>
                                     <a class="twitter-share-button"
-                                       href="https://twitter.com/intent/tweet?text={{urlencode('Adorei este conteúdo!')}}&url={{route('uploads.show', $conteudo->id)}}">Tweet</a>
+                                       href="https://twitter.com/intent/tweet?text={{urlencode(__("conteudos.like_share"))}}&url={{route('uploads.show', $conteudo->id)}}">@lang('conteudos.tweet')</a>
                                 </p>
                             </div>
                         </div>

@@ -30,4 +30,31 @@
     <!-- Google Font -->
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+
+    <style>
+        .dropdown {
+            position: absolute;
+            display: block;
+        }
+
+        #searchBox {
+            width: 90%;
+        }
+
+
+        .dropdown-content {
+            padding: 12px 16px;
+            text-decoration: none;
+            position: relative;
+            display: block;
+            z-index: 10;
+            width: 100%;
+            background: #374850;
+        }
+
+        #searchBox a:hover {
+            background: #0a0a0a;
+        }
+
+    </style>
 </head>

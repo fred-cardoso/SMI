@@ -1,11 +1,11 @@
 @extends('layout.layout')
-@section('title', __('categorias.create_cat')))
+@section('title', __('categorias.create_cat'))
 @section('content')
     <section class="content-header">
-        <h1>
+        <h2>
             @lang("categorias.categories")
             <small>@lang("categorias.create")</small>
-        </h1>
+        </h2>
         <ol class="breadcrumb">
             <li><a href="{{route("home")}}"><i class="fa fa-home"></i>@lang("categorias.home_page")</a></li>
             <li><a href="{{route("categorias")}}"><i class="fa fa-book"></i>@lang("categorias.categories")</a></li>

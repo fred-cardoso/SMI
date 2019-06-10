@@ -105,7 +105,7 @@
                             @if($conteudos->count() == 0)
                                 <div class="post">
                                     <div class="user-block">
-                                        <span class="username" style="margin-left: 0">Utilizador sem conteúdos!</span>
+                                        <span class="username" style="margin-left: 0">@lang('user.no_content')</span>
                                     </div>
                                 </div>
                                 <!-- /.post -->

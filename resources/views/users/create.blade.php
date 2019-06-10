@@ -55,7 +55,7 @@
                         </div>
                         <!-- /.box-body -->
                         <div class="box-footer">
-                            <button type="submit" class="btn btn-primary pull-right">Criar</button>
+                            <button type="submit" class="btn btn-primary pull-right">@lang('categorias.create')</button>
                         </div>
                         <!-- /.box-footer -->
                     </div>

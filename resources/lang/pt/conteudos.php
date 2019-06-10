@@ -42,6 +42,11 @@ return [
     'edit_suc' =>'Conteúdo editado com sucesso',
     'delete_suc' =>'Conteúdo eliminado com sucesso',
     'update_suc' =>'Alterações efectuadas com sucesso!',
+    'liked' => 'Gostou do conteúdo?',
+    'share' =>'Partilhar',
+    'like_share' =>'Adorei este conteúdo',
+
+
 
 
 

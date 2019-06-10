@@ -43,7 +43,8 @@ return [
     'search' =>'Procurar...',
     'search_failed' =>'Não foi encontrado conteúdos para a sua pesquisa!',
     'search_rs' => 'Resultados da pesquisa',
-    'search2' =>'Pesquisa'
+    'search2' =>'Pesquisa',
+    'cancel' =>'Cancelar'
 
 
 ];

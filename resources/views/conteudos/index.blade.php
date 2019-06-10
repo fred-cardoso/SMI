@@ -133,12 +133,12 @@
                                     @endauth
                                 </div>
                                 <div id="prepareDownload" class="col-sm-2" style="display:none">
-                                    <label>Escolher preferencias</label><br>
-                                    <input type="checkbox" name="request_category">Com Categoria<br>
-                                    <input type="checkbox" name="request_description">Com Descrição
+                                    <label>@lang('conteudos.choose_pref')</label><br>
+                                    <input type="checkbox" name="request_category">@lang('conteudos.request_cat')<br>
+                                    <input type="checkbox" name="request_description">@lang('conteudos.request_desc')
                                 </div>
                                 <div class="col-sm-2" id="prepareDownloadbut" style="display:none">
-                                    <button type="button" onclick="submitform()" class="btn btn-success">Download
+                                    <button type="button" onclick="submitform()" class="btn btn-success">@lang('conteudos.download')
                                     </button>
                                 </div>
                                 <div class="col-sm-5 text-right">

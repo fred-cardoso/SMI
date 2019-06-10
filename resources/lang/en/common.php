@@ -43,7 +43,8 @@ return [
     'search' =>'Search...',
     'search_failed' =>"We're sorry but we were unable to find matches for your search.",
     'search_rs' =>'Search Result',
-    'search' =>'Search'
+    'search' =>'Search',
+    'cancel' =>'Cancel'
 
 
 

@@ -27,7 +27,7 @@
                                 <div class="col-md-12">
                                     <div class="box box-primary">
                                         <div class="box-body">
-                                            Não existem utilizadores banidos!
+                                            @lang('user.no_banned')
                                         </div>
                                     </div>
                                 </div>
@@ -109,7 +109,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-outline pull-left" data-dismiss="modal" wfd-id="251">
-                            Cancelar
+                            @lang('common.cancel')
                         </button>
                         <form action="{{route('user.delete', $user->id)}}" method="POST">
                             @csrf

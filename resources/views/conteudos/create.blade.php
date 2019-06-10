@@ -4,7 +4,7 @@
     <section class="content-header">
         <h1>
             @lang("conteudos.content")
-            <small>Upload</small>
+            <small>@lang('conteudos.upload')</small>
         </h1>
         <ol class="breadcrumb">
             <li><a href="{{route('home')}}"><i class="fa fa-home"></i>@lang("categorias.home_page")</a></li>
