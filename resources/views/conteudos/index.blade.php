@@ -21,7 +21,7 @@
                         <div class="col-md-12">
                             <div class="box box-primary">
                                 <div class="box-body">
-                                    @lang('common.no_content')
+                                    @lang('conteudos.no_content')
                                 </div>
                             </div>
                         </div>
