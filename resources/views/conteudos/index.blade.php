@@ -202,6 +202,8 @@
             if (selected_values != null) {
 
                 if (selected_values == "") {
+                    request.style.display = "none";
+                    requestButton.style.display = "none";
                     return;
                 }
 
@@ -221,8 +223,9 @@
                             requestButton.removeAttribute('style');
                             return;
                         }else{
-                            request.setAttribute('display','none');
-                            requestButton.setAttribute('display','none');
+                            console.log("entrou");
+                            request.style.display = "none";
+                            requestButton.style.display = "none";
                         }
 
                         form.submit();
