@@ -26,7 +26,7 @@
 
             <li class="header">@lang('outlayout.main_nav')</li>
 
-            <li><a href="/"><i class="fa fa-home"></i> <span>@lang('categorias.home_page')</span></a></li>
+            <li><a href="{{route('home')}}"><i class="fa fa-home"></i> <span>@lang('categorias.home_page')</span></a></li>
             <li class="{{ request()->is('uploads/*') ||Request::routeIs('upload') || Request::routeIs('upload.bulk')|| Request::routeIs("uploads") ? 'active treeview' : 'treeview' }}">
                 <a href="#">
                     <i class="fa  fa-television"></i> <span>@lang('conteudos.content')</span>
