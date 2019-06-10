@@ -48,12 +48,13 @@ return [
     'tweet' => 'Tweet',
     'version' => ' Version ',
     'rights_reserved' => ' All rights reserved ',
-    'installation' =>'Installation',
-    'select_first' =>'Select something first',
-    'delete_selected' =>'"Are you sure you want to delete the selected items?"',
-    'conclude' =>'Conclude',
-    'thanks' =>'Obrigado!',
-    'email_recovery' => 'If you have problems clicking the button \":actionText\", copy and paste the url below \n".
-        \'to your browser: [:actionURL](:actionURL)\','
+    'installation' => 'Installation',
+    'select_first' => 'Select something first',
+    'delete_selected' => '"Are you sure you want to delete the selected items?"',
+    'conclude' => 'Conclude',
+    'thanks' => 'Thanks!',
+    'email_recovery' => 'If you have problems clicking the button ":actionText", copy and paste the url below to your browser: [:actionURL](:actionURL)',
+    'oops' =>'Oops!!',
+    'hello' => 'Hello!',
 
 ];
