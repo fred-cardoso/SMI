@@ -200,7 +200,11 @@
                 }
 
                 if (selected_values == "delete") {
-                    alert(@lang('common.delete_selected'));
+                    let result = confirm(@lang('common.delete_selected'));
+                    if(!result == true) {
+                        selected.value = selected.options[0].value;
+                        return;
+                    }
                 }
 
 
