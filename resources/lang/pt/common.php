@@ -51,6 +51,9 @@ return [
     'select_first' => 'Selecione algo primeiro',
     'delete_selected' =>'"Tem a certeza que quer eliminar os itens selecionados?"',
     'conclude' =>'Concluir',
+    'thanks' =>'Thanks!',
+    'email_recovery' =>"Se tem problemas em clicar no botão \":actionText\", copie e cole o URL abaixo\n".
+        'para o seu browser: [:actionURL](:actionURL)',
 
 
 

@@ -43,15 +43,14 @@
 @if (! empty($salutation))
 {{ $salutation }}
 @else
-@lang('Obrigado'),<br>{{ config('app.name') }}
+@lang('common.thanks'),<br>{{ config('app.name') }}
 @endif
 
 {{-- Subcopy --}}
 @isset($actionText)
 @slot('subcopy')
-@lang(
-    "Se tem problemas em clicar no botão \":actionText\", copie e cole o URL abaixo\n".
-    'para o seu browser: [:actionURL](:actionURL)',
+@lang('common.email_recovery',
+
     [
         'actionText' => $actionText,
         'actionURL' => $actionUrl,
