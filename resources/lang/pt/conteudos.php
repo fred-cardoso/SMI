@@ -48,6 +48,9 @@ return [
     'no_perm_delete' => 'Não tem permissões para eliminar os conteúdos seleccionados!',
     'no_perm_change' => 'Não tem permissões para alterar os conteúdos seleccionados!',
     'mass_content' => 'Submeter conteúdos em massa',
+    'request_cat' => 'Com Categoria(s)',
+    'request_desc' => 'Com descrição',
+    'choose_pref' => 'Escolha a sua preferência',
 
 
 ];
