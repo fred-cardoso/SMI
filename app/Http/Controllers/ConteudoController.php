@@ -55,7 +55,11 @@ class ConteudoController extends Controller
     {
         $conteudos = Conteudo::paginate(8);
 
-
+        foreach($conteudos as $key => $conteudo) {
+            if ($conteudo->privado and (!auth()->check() or (!auth()->user()->hasRole('admin') and !$conteudo->isOwner(auth()->user())))) {
+                $conteudos->forget($key);
+            }
+        }
 
         return view('conteudos.index', compact('conteudos'));
     }
