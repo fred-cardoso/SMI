@@ -43,6 +43,9 @@ return [
     'no_perm_delete' =>'You have no permission to delete this content',
     'no_perm_change' =>'You have no permission to change this content',
     'mass_content' => 'Upload in bulk',
+    'request_cat' => 'With Category(ies)',
+    'request_desc' => 'With Description',
+    'choose_pref' => 'Choose your preference',
 
 
 
