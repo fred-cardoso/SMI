@@ -2,10 +2,10 @@
 @section('title', __('categorias.create_cat'))
 @section('content')
     <section class="content-header">
-        <h2>
+        <h1>
             @lang("categorias.categories")
             <small>@lang("categorias.create")</small>
-        </h2>
+        </h1>
         <ol class="breadcrumb">
             <li><a href="{{route("home")}}"><i class="fa fa-home"></i>@lang("categorias.home_page")</a></li>
             <li><a href="{{route("categorias")}}"><i class="fa fa-book"></i>@lang("categorias.categories")</a></li>

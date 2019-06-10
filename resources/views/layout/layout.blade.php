@@ -42,6 +42,10 @@
 
 
 // Seta tipo de requisição e URL com os parâmetros
+        if(search_request == "") {
+            return;
+        }
+
         ajax.open("GET", "/searchHelper/" + search_request, true);
         ajax.setRequestHeader("x-csrf-token", "fetch");
         ajax.setRequestHeader("Accept", "application/json");
@@ -75,6 +79,9 @@
                         search_response.appendChild(resultado);
                     }
                 });
+            } else if (ajax.status = 405) {
+                //Ignore 405 on empty text
+                return;
             }
         }
 
