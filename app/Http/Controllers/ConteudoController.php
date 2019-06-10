@@ -111,6 +111,9 @@ class ConteudoController extends Controller
             $path = 'files' . DIRECTORY_SEPARATOR . $filename;
         } else {
             $path = $file->store('files');
+
+            //Fix separator of store function
+            $path = str_replace("/",DIRECTORY_SEPARATOR,$path);
         }
 
         $conteudo = new Conteudo();
@@ -124,7 +127,7 @@ class ConteudoController extends Controller
         $conteudo->titulo = $validatedData['title'];
         $conteudo->descricao = $validatedData['description'];
         $conteudo->nome = $path;
-        $conteudo->tipo = explode(DIRECTORY_SEPARATOR, $request->file()['file']->getMimeType())[0];
+        $conteudo->tipo = explode('/', $request->file()['file']->getMimeType())[0];
         $conteudo->user()->associate(Auth::user());
         $conteudo->save();
 
@@ -172,18 +175,20 @@ class ConteudoController extends Controller
             Storage::delete($path);
 
             $files_paths = Storage::files($unzipped_path);
+            //Fix separator of store function
+            $files_paths = str_replace("/",DIRECTORY_SEPARATOR, $files_paths);
 
             if (sizeof($files_paths) <= 0) {
                 return redirect()->back()->withErrors(__('controllers.empty_zip'));
             }
 
-            //Checks if meta.xml exists and replaces \ with / in path (Storage::files vs default)
             if (!in_array($unzipped_path . DIRECTORY_SEPARATOR . 'meta.xml', $files_paths)) {
+                dd("ERRO");
                 return redirect()->back()->withErrors(__('controllers.empty_meta'));
             }
 
             $xml = new DOMDocument();
-            $xml->loadXML(Storage::get($unzipped_path . '\meta.xml'), LIBXML_NOBLANKS);
+            $xml->loadXML(Storage::get($unzipped_path . DIRECTORY_SEPARATOR . 'meta.xml'), LIBXML_NOBLANKS);
 
             try {
                 $xml->schemaValidate($storage_path . DIRECTORY_SEPARATOR . 'public' . DIRECTORY_SEPARATOR . 'zip_files.xsd');
@@ -194,7 +199,7 @@ class ConteudoController extends Controller
             $xml_files = $xml->getElementsByTagName('file');
 
             for ($i = 0; $i < $xml_files->count(); $i++) {
-                $file_name = '/' . $xml_files->item($i)->attributes->getNamedItem('name')->nodeValue;
+                $file_name = DIRECTORY_SEPARATOR . $xml_files->item($i)->attributes->getNamedItem('name')->nodeValue;
                 $file_title = $xml_files->item($i)->attributes->getNamedItem('title')->nodeValue;
                 $file_privacy = $xml_files->item($i)->attributes->getNamedItem('privacy')->nodeValue ?? '';
                 $file_description = $xml_files->item($i)->childNodes->item(0)->nodeValue;
@@ -226,13 +231,15 @@ class ConteudoController extends Controller
                 }
 
                 $path_to_store = Storage::putFile('files', $file_object);
+                //Fix separator of store function
+                $path_to_store = str_replace("/",DIRECTORY_SEPARATOR, $path_to_store);
 
                 $conteudo = new Conteudo();
                 $conteudo->titulo = $file_title;
                 $conteudo->descricao = $file_description;
                 $conteudo->privado = $file_privacy === 'true' ? 1 : 0;
                 $conteudo->nome = $path_to_store;
-                $conteudo->tipo = explode(DIRECTORY_SEPARATOR, $file_object->getMimeType())[0];
+                $conteudo->tipo = explode('/', $file_object->getMimeType())[0];
                 $conteudo->user()->associate(Auth::user());
                 $conteudo->save();
 

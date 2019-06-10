@@ -63,13 +63,14 @@ class InstallController extends Controller
             return redirect()->back()->withErrors(__('controllers.error_occured'))->withInput();
         }
 
-        if (!$this->checkDBConnection()) {
+        if (!$this->checkDBConnection($request->db_database)) {
             return redirect()->back()->withErrors(__('controllers.error_occured_db'))->withInput();
         }
 
-        Artisan::call('migrate:fresh --seed');
+        Artisan::call('migrate:fresh', array('--force' => true));
+        Artisan::call('db:seed', array('--force' => true));
         Artisan::call('storage:link');
-        Artisan::call('key:generate');
+        Artisan::call('key:generate', array('--force' => true));
 
         $user = User::create([
             'name' => $validatedData['name'],
@@ -88,12 +89,17 @@ class InstallController extends Controller
         return redirect()->route('home');
     }
 
-    public function checkDBConnection()
+    public function checkDBConnection($db_database)
     {
         try {
             DB::connection()->getPdo();
+            $query = "SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME =  ?";
+            $db = DB::select($query, [$db_database]);
+            if(empty($db))
+                return false;
             return true;
         } catch (\Exception $e) {
+            dd($e);
             return false;
         }
     }
