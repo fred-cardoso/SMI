@@ -50,6 +50,8 @@ return [
     'installation' => 'Instalação',
     'select_first' => 'Selecione algo primeiro',
     'delete_selected' =>'"Tem a certeza que quer eliminar os itens selecionados?"',
+    'conclude' =>'Concluir',
+
 
 
 

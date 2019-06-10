@@ -51,5 +51,6 @@ return [
     'installation' =>'Installation',
     'select_first' =>'Select something first',
     'delete_selected' =>'"Are you sure you want to delete the selected items?"',
+    'conclude' =>'Conclude',
 
 ];
