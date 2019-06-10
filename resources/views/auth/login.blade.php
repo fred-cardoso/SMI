@@ -55,11 +55,11 @@
 <!-- /.login-box -->
 
 <!-- jQuery 3 -->
-<script src="{{URL::to('/')}}/bower_components/jquery/dist/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <!-- Bootstrap 3.3.7 -->
-<script src="{{URL::to('/')}}/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <!-- iCheck -->
-<script src="{{URL::to('/')}}/plugins/iCheck/icheck.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/iCheck/1.0.1/icheck.min.js"></script>
 <script>
     $(function () {
         $('input').iCheck({

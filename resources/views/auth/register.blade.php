@@ -63,17 +63,7 @@
 </div>
 <!-- /.register-box -->
 
-<!-- iCheck -->
-<script src="{{URL::to('/')}}/plugins/iCheck/icheck.min.js"></script>
+<!-- ReCaptcha -->
 <script src='https://www.google.com/recaptcha/api.js'></script>
-<script>
-    $(function () {
-        $('input').iCheck({
-            checkboxClass: 'icheckbox_square-blue',
-            radioClass: 'iradio_square-blue',
-            increaseArea: '20%' /* optional */
-        });
-    });
-</script>
 </body>
 </html>

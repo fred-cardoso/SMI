@@ -76,13 +76,13 @@
                                          alt="{{$conteudo->nome}}">
                                 @elseif($conteudo->tipo == 'video')
                                     <video class="img-responsive" controls>
-                                        <source src="{{route('media', explode('/', $conteudo->nome)[1])}}"
+                                        <source src="{{route('media', explode(DIRECTORY_SEPARATOR, $conteudo->nome)[1])}}"
                                                 type="{{Storage::mimeType($conteudo->nome)}}">
                                         Your browser does not support the video element.
                                     </video>
                                 @else
                                     <audio controls>
-                                        <source src="{{route('media', explode('/', $conteudo->nome)[1])}}"
+                                        <source src="{{route('media', explode(DIRECTORY_SEPARATOR, $conteudo->nome)[1])}}"
                                                 type="{{Storage::mimeType($conteudo->nome)}}">
                                         Your browser does not support the audio element.
                                     </audio>
@@ -100,13 +100,13 @@
                                          alt="{{$conteudo->nome}}">
                                 @elseif($conteudo->tipo == 'video')
                                     <video class="img-responsive" controls>
-                                        <source src="{{route('media', explode('/', $conteudo->nome)[1])}}"
+                                        <source src="{{route('media', explode(DIRECTORY_SEPARATOR, $conteudo->nome)[1])}}"
                                                 type="{{Storage::mimeType($conteudo->nome)}}">
                                         Your browser does not support the video element.
                                     </video>
                                 @else
                                     <audio controls>
-                                        <source src="{{route('media', explode('/', $conteudo->nome)[1])}}"
+                                        <source src="{{route('media', explode(DIRECTORY_SEPARATOR, $conteudo->nome)[1])}}"
                                                 type="{{Storage::mimeType($conteudo->nome)}}">
                                         Your browser does not support the audio element.
                                     </audio>
