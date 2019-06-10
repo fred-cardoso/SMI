@@ -36,6 +36,13 @@ class ConteudoController extends Controller
     public function home()
     {
         $conteudos = Conteudo::orderBy('created_at', 'desc')->paginate(4);
+
+        foreach($conteudos as $key => $conteudo) {
+            if ($conteudo->privado and (!auth()->check() or (!auth()->user()->hasRole('admin') and !$conteudo->isOwner(auth()->user())))) {
+                $conteudos->forget($key);
+            }
+        }
+
         return view('homepage', compact('conteudos'));
     }
 
@@ -47,6 +54,13 @@ class ConteudoController extends Controller
     public function index()
     {
         $conteudos = Conteudo::paginate(8);
+
+        foreach($conteudos as $key => $conteudo) {
+            if ($conteudo->privado and (!auth()->check() or (!auth()->user()->hasRole('admin') and !$conteudo->isOwner(auth()->user())))) {
+                $conteudos->forget($key);
+            }
+        }
+
         return view('conteudos.index', compact('conteudos'));
     }
 
@@ -130,6 +144,10 @@ class ConteudoController extends Controller
 
     public function storeBulk(Request $request)
     {
+        $validatedData = $request->validate([
+            'file' => 'required',
+        ]);
+
         $file = $request->file('file');
 
         $zipMimeTypes = ['application/zip', 'application/octet-stream', 'application/x-zip-compressed', 'multipart/x-zip'];

@@ -99,8 +99,8 @@ class UserController extends Controller
                 if (!Auth::check()) {
                     return;
                 }
-                if (Auth::user()->hasRole('admin') or ($item->user()->first()->id == Auth::user()->id)) {
-                    return $item;
+                if (!Auth::user()->hasRole('admin') or !($item->user()->first()->id == Auth::user()->id)) {
+                    return;
                 }
             }
             return $item;

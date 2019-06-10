@@ -53,9 +53,6 @@
                                         </div>
                                     @endif
                                     @foreach($conteudos as $conteudo)
-                                        @if($conteudo->privado and (!auth()->check() or (!auth()->user()->hasRole('admin') and !$conteudo->isOwner(auth()->user()))))
-                                            @continue
-                                        @endif
                                         <tr>
 
                                             @auth
@@ -158,9 +155,6 @@
     </section>
     <!-- /.content -->
     @foreach($conteudos as $conteudo)
-        @if($conteudo->privado and (!auth()->check() or (!auth()->user()->hasRole('admin') and !$conteudo->isOwner(auth()->user()))))
-            @continue
-        @endif
         <div class="modal modal-danger fade" id="modal-delete-content-{{$conteudo->id}}" wfd-id="130">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -220,7 +214,7 @@
                             request.removeAttribute('style');
                             requestButton.removeAttribute('style');
                             return;
-                        }else{
+                        } else {
                             console.log("entrou");
                             request.style.display = "none";
                             requestButton.style.display = "none";

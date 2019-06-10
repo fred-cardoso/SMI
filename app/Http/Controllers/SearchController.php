@@ -21,22 +21,29 @@ class SearchController extends Controller
         ]);
         $validation = $validatedData['q'];
         $conteudos = Conteudo::where('titulo', 'LIKE', '%' . $validation . '%')->orWhere('descricao', 'LIKE', '%' . $validation . '%')->get();
+
+        foreach($conteudos as $key => $conteudo) {
+            if ($conteudo->privado and (!auth()->check() or (!auth()->user()->hasRole('admin') and !$conteudo->isOwner(auth()->user())))) {
+                $conteudos->forget($key);
+            }
+        }
+
         $categorias = Categoria::where('nome', 'LIKE', '%' . $validation . '%')->get();
 
-        //dd($categorias);
-        //dd($pesquisa);
-
-        //dd($conteudos->first()->titulo);
-        //dd($pesquisa);
         return view('search.index', compact('conteudos'), compact("categorias"));
     }
 
     public function search(Request $request)
     {
+        $search = $request->search;
+        $conteudos = Conteudo::where('titulo', 'LIKE', '%' . $search . '%')->orWhere('descricao', 'LIKE', '%' . $search . '%')->get();
 
+        foreach($conteudos as $key => $conteudo) {
+            if ($conteudo->privado and (!auth()->check() or (!auth()->user()->hasRole('admin') and !$conteudo->isOwner(auth()->user())))) {
+                $conteudos->forget($key);
+            }
+        }
 
-        $validation = $request->search;
-        $conteudos = Conteudo::where('titulo', 'LIKE', '%' . $validation . '%')->orWhere('descricao', 'LIKE', '%' . $validation . '%')->get();
         $resposta = $conteudos;
         $x = array();
         $indice = 0;
@@ -44,7 +51,7 @@ class SearchController extends Controller
             if ($indice > 5) {
                 break;
             } else {
-                $x[$indice] = '<a class="dropdown-content"href="/uploads/' . $conteudo->id . '">' . $conteudo->titulo . "</a>";
+                $x[$indice] = '<a class="dropdown-content"href="' . route('uploads.show', $conteudo->id) . '">' . $conteudo->titulo . "</a>";
                 $indice++;
             }
         }

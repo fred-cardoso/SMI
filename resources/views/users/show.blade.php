@@ -111,9 +111,6 @@
                                 <!-- /.post -->
                             @endif
                             @foreach($conteudos as $conteudo)
-                                @if($conteudo->privado and (!auth()->check() or (!auth()->user()->hasRole('admin') and !$conteudo->isOwner(auth()->user()))))
-                                    @continue
-                                @endif
                             <!-- Post -->
                                 <div class="post">
                                     <div class="user-block">

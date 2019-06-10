@@ -17,7 +17,7 @@ Route::get('install', 'InstallController@install')->name('install');
 Route::post('install', 'InstallController@store');
 
 Route::post('searchHelper', 'SearchController@search');
-Route::get('searchHelper/{search}', 'SearchController@search');
+Route::get('searchHelper/{search}', 'SearchController@search')->where(['search' => '[A-z, 0-9]+']);
 
 Auth::routes(['verify' => true]);
 
