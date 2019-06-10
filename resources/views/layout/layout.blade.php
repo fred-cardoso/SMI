@@ -15,23 +15,23 @@
 </div>
 
 <!-- jQuery 3 -->
-<script src="{{URL::to('/')}}/bower_components/jquery/dist/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <!-- jQuery UI 1.11.4 -->
-<script src="{{URL::to('/')}}/bower_components/jquery-ui/jquery-ui.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 <script>
     $.widget.bridge('uibutton', $.ui.button);
 </script>
 <!-- Bootstrap 3.3.7 -->
-<script src="{{URL::to('/')}}/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <!-- Sparkline -->
-<script src="{{URL::to('/')}}/bower_components/jquery-sparkline/dist/jquery.sparkline.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-sparklines/2.1.2/jquery.sparkline.js"></script>
 <!-- Slimscroll -->
-<script src="{{URL::to('/')}}/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-slimScroll/1.3.8/jquery.slimscroll.min.js"></script>
 <!-- FastClick -->
-<script src="{{URL::to('/')}}/bower_components/fastclick/lib/fastclick.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js"></script>
 <!-- AdminLTE App -->
-<script src="{{URL::to('/')}}/dist/js/adminlte.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/2.4.8/js/adminlte.min.js"></script>
 @yield('scripts')
 <script>
     function ajax_search() {
