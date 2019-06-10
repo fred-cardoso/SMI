@@ -56,7 +56,7 @@ class CategoriaController extends Controller
 
         $resultado = $categoria->save();
 
-        if($resultado) {
+        if ($resultado) {
             return redirect()->route('categorias')->withSuccess(__('controllers.cat_create'));
         } else {
             return redirect()->back()->withErrors(__('controllers.error_occured'));
@@ -72,6 +72,12 @@ class CategoriaController extends Controller
     public function show(Categoria $categoria)
     {
         $conteudos = $categoria->content()->paginate(4);
+
+        foreach ($conteudos as $key => $conteudo) {
+            if ($conteudo->privado and (!auth()->check() or (!auth()->user()->hasRole('admin') and !$conteudo->isOwner(auth()->user())))) {
+                $conteudos->forget($key);
+            }
+        }
         return view('categorias/show', compact(['categoria', 'conteudos']));
     }
 
@@ -81,10 +87,11 @@ class CategoriaController extends Controller
      * @param \App\Categoria $categoria
      * @return \Illuminate\Http\Response
      */
-    public function edit(Categoria $categoria)
+    public
+    function edit(Categoria $categoria)
     {
         if (auth()->user()->hasRole('simpatizante')) {
-            if(!$categoria->secundaria) {
+            if (!$categoria->secundaria) {
                 abort(404);
             }
         }
@@ -98,10 +105,11 @@ class CategoriaController extends Controller
      * @param \App\Categoria $categoria
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Categoria $categoria)
+    public
+    function update(Request $request, Categoria $categoria)
     {
         if (auth()->user()->hasRole('simpatizante')) {
-            if(!$categoria->secundaria) {
+            if (!$categoria->secundaria) {
                 abort(404);
             }
         }
@@ -122,7 +130,7 @@ class CategoriaController extends Controller
             }
         }
 
-        if($categoria->save()) {
+        if ($categoria->save()) {
             return redirect()->back()->withSuccess(__('controllers.cat_update'));
         } else {
             return redirect()->back()->withErrors(__('controllers.error_occured'));
@@ -135,13 +143,14 @@ class CategoriaController extends Controller
      * @param \App\Categoria $categoria
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Categoria $categoria)
+    public
+    function destroy(Categoria $categoria)
     {
-        if(auth()->user()->hasRole('simpatizante') and !$categoria->secundaria == 1) {
+        if (auth()->user()->hasRole('simpatizante') and !$categoria->secundaria == 1) {
             abort(404);
         }
 
-        if($categoria->forceDelete()) {
+        if ($categoria->forceDelete()) {
             return redirect()->back()->withSuccess(__('controllers.cat_delete'));
         } else {
             return redirect()->back()->withErrors(__('controllers.error_occured'));
