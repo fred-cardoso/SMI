@@ -276,7 +276,7 @@ class ConteudoController extends Controller
     public function update(Request $request, Conteudo $conteudo)
     {
         if (auth()->user()->hasRole('simpatizante') and !$conteudo->isOwner(auth()->user())) {
-            abort(404);
+            return redirect()->back()->withErrors('Não tem permissões para alterar os conteúdos seleccionados!');
         }
 
         $validatedData = $request->validate([
@@ -340,11 +340,11 @@ class ConteudoController extends Controller
         ]);
 
         if ($validatedData['action'] == "delete" && !Auth::user()->hasRole('admin')) {
-            abort(404);
+            return redirect()->back()->withErrors('Não tem permissões para eliminar os conteúdos seleccionados!');
         }
 
         if (($validatedData['action'] == "visibility_private" or $validatedData['action'] == "visibility_public") && (!Auth::user()->hasRole('admin') and !Auth::user()->hasRole('simpatizante'))) {
-            abort(404);
+            return redirect()->back()->withErrors('Não tem permissões para alterar os conteúdos seleccionados!');
         }
 
         $conteudos = Conteudo::findMany($validatedData['selected']);
@@ -352,7 +352,7 @@ class ConteudoController extends Controller
         if (auth()->user()->hasRole('simpatizante')) {
             foreach ($conteudos as $conteudo) {
                 if (!$conteudo->isOwner(auth()->user())) {
-                    abort(404);
+                    return redirect()->back()->withErrors('Não tem permissões para alterar os conteúdos seleccionados!');
                 }
             }
         }
@@ -368,10 +368,45 @@ class ConteudoController extends Controller
             $file_name = $storage_path . 'download' . DIRECTORY_SEPARATOR . Carbon::now()->timestamp . '.zip';
 
             if ($zip->open($file_name, ZipArchive::CREATE) === TRUE) {
+                $output_meta = "<files>";
+
                 foreach ($conteudos as $conteudo) {
-                    $zip->addFile($storage_path . $conteudo->nome, preg_replace('/[^a-zA-Z0-9-_\.]/', '', Str::lower($conteudo->titulo)) . $conteudo->id . '.' . explode('.', $conteudo->nome)[1]);
+                    $output_privacy = $conteudo->privado == 1 ? "privacy='true'" : "";
+                    $output_content_name = preg_replace('/[^a-zA-Z0-9-_\.]/', '', Str::lower($conteudo->titulo)) . $conteudo->id . '.' . explode('.', $conteudo->nome)[1];
+                    $output_meta = $output_meta . "<file title='" . $conteudo->titulo . "' " . $output_privacy . "name='" . $output_content_name . "'>";
+
+                    if($request->request_description) {
+                        $output_meta = $output_meta . "<description>" . $conteudo->descricao . "</description>";
+                    }
+
+                    if ($request->request_category === 'on') {
+                        $output_meta = $output_meta . "<categories>";
+
+                        foreach ($conteudo->category()->get() as $category) {
+                            $output_meta = $output_meta . "<category name='" . $category->nome . "'/>";
+                        }
+
+                        $output_meta = $output_meta . "</categories>";
+                    }
+
+                    $output_meta = $output_meta . "</file>";
+
+                    $zip->addFile($storage_path . $conteudo->nome, $output_content_name);
                 }
+
+                $output_meta = $output_meta . "</files>";
+
+
+                Storage::put('download' . DIRECTORY_SEPARATOR . 'tempXML.xml', $output_meta);
+
+                if ($request->request_category === 'on' || $request->request_description === 'description') {
+                    $zip->addFile($storage_path . DIRECTORY_SEPARATOR . 'download' . DIRECTORY_SEPARATOR . 'tempXML.xml', 'meta.xml');
+                }
+
                 $zip->close();
+
+                Storage::delete('download' . DIRECTORY_SEPARATOR . 'tempXML.xml');
+
                 return response()->download($file_name);
             } else {
                 return redirect()->back()->withErrors(__('controllers.error_occured'));

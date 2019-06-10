@@ -124,12 +124,10 @@
                                                 onchange="massAction()">
                                             <option value="">@lang('conteudos.select_option')</option>
                                             <option value="download">@lang('conteudos.download')</option>
-                                            @role('admin')
-                                            <option value="delete">@lang('common.delete')</option>
-                                            @endrole
                                             @role('simpatizante')
                                             <option value="visibility_public">@lang('conteudos.set_public')</option>
                                             <option value="visibility_private">@lang('conteudos.set_private')</option>
+                                            <option value="delete">@lang('common.delete')</option>
                                             @endrole
                                         </select>
                                     @endauth
