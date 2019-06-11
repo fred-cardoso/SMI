@@ -116,19 +116,17 @@
                                 </div>
                                 <div class="box box-footer">
                                     <div class="col-sm-2">
-                                        @auth
+                                        @role('simpatizante')
                                             <label>@lang('conteudos.select_act')</label>
                                             <select class="form-control" id="action_selection" name="action"
                                                     onchange="massAction()">
                                                 <option value="">@lang('conteudos.select_option')</option>
                                                 <option value="download">@lang('conteudos.download')</option>
-                                                @role('simpatizante')
                                                 <option value="visibility_public">@lang('conteudos.set_public')</option>
                                                 <option value="visibility_private">@lang('conteudos.set_private')</option>
                                                 <option value="delete">@lang('common.delete')</option>
-                                                @endrole
                                             </select>
-                                        @endauth
+                                        @endrole
                                     </div>
                                     <div id="prepareDownload" class="col-sm-2" style="display:none">
                                         <label>@lang('conteudos.choose_pref')</label><br>

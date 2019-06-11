@@ -69,11 +69,6 @@ Route::group(['middleware' => ['auth', 'verified', 'role:user']], function () {
 
     Route::post('uploads/{conteudo}/delete', 'ConteudoController@destroy')->where(['conteudo' => '[0-9]+'])->name('uploads.delete');
 
-    /**
-     * Dangerous route! User input needs to be validated in controller to avoid vulneratiblities
-     */
-    Route::post('uploads/batch', 'ConteudoController@massChange')->name('uploads.batch');
-
     Route::get('locale/{loc}', function($loc) {
         if($loc != 'en' and $loc != 'pt') {
             return redirect()->route('home');
@@ -101,6 +96,11 @@ Route::group(['middleware' => ['auth', 'verified', 'role:user']], function () {
         Route::post('uploads/{conteudo}/edit', 'ConteudoController@update')->where(['conteudo' => '[0-9]+']);
 
         Route::post('categorias/{categoria}/delete', 'CategoriaController@destroy')->where(['categoria' => '[0-9]+'])->name('cat.delete');
+
+        /**
+         * Dangerous route! User input needs to be validated in controller to avoid vulneratiblities
+         */
+        Route::post('uploads/batch', 'ConteudoController@massChange')->name('uploads.batch');
         /**
          * Routes for admin
          */
