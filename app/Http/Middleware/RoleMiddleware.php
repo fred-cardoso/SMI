@@ -14,7 +14,7 @@ class RoleMiddleware
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next, $role, $permission = null)
+    public function handle($request, Closure $next, $role)
     {
         /**
          * Se o user não estiver logged in, aborta
