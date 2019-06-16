@@ -25,6 +25,8 @@ return [
     'no_users' => 'Não existem utilizadores.',
     'no_content' =>'Este utilizador não tem conteúdos publicados.',
     'no_banned' => 'Não existem utilizadores banidos',
+    'ban' =>'Banir',
+    'unban' =>'Retirar ban',
 
 
 
