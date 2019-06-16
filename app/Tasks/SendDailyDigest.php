@@ -15,7 +15,6 @@ class SendDailyDigest
         $conteudos = Conteudo::where([['created_at', '>', Carbon::now()->subDays(1)->toDateTimeString()],['privado', '=', '0']])->get();
 
         if(sizeof($conteudos) <= 0) {
-            dd("Sem conteúdos");
             return;
         }
 
